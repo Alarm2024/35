@@ -4,4 +4,14 @@ config/pnl.json
 *.json.key
 .env
 .env.*
+!.env.example
 node_modules/
+
+# Signing keys and secrets — never beside application code
+keypairs/
+secrets/
+*.pem
+*keypair*.json
+**/wallets/*.json
+id.json
+deskSigner.json
