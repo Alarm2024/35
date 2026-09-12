@@ -21,18 +21,17 @@
     .lang { display:flex; flex-wrap:wrap; gap:6px; justify-content:flex-end; max-width:320px; }
     .lang button { background:transparent; color:var(--dim); border:1px solid var(--line); border-radius:999px; padding:5px 9px; font-size:11px; cursor:pointer; }
     .lang button.on { color:#07010f; background:var(--green); border-color:var(--green); }
-    .sr { position:absolute; left:-9999px; }
     .hero { margin-top:28px; }
     .banner { width:100%; border-radius:18px; overflow:hidden; border:1px solid var(--line); background:#07010f; margin-bottom:18px; }
     .banner img { display:block; width:100%; height:auto; }
     .kicker { color:var(--green); font-size:12px; letter-spacing:.18em; text-transform:uppercase; }
     .lede { font-size:20px; color:var(--dim); max-width:34em; }
     .cta { display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
-    .cta a { text-decoration:none; border-radius:999px; padding:12px 16px; font-size:14px; font-weight:600; }
-    .cta .primary { background:var(--green); color:#04110a; }
-    .cta .ghost { border:1px solid var(--line); color:var(--ink); }
+    .cta a, .ask button { text-decoration:none; border-radius:999px; padding:12px 16px; font-size:14px; font-weight:600; border:0; cursor:pointer; }
+    .cta .primary, .ask .go { background:var(--green); color:#04110a; }
+    .cta .ghost, .ask .mail { border:1px solid var(--line); color:var(--ink); background:transparent; }
     .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:36px; }
-    .card { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:18px; }
+    .card, .ask { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:18px; }
     .card h3 { font-size:14px; letter-spacing:.14em; text-transform:uppercase; color:var(--green); margin-bottom:8px; }
     .card p, p { color:var(--dim); font-size:15px; }
     section { margin-top:40px; }
@@ -43,6 +42,9 @@
     dd { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; word-break:break-all; }
     footer { margin-top:48px; color:var(--dim); font-size:13px; }
     a { color:var(--cyan); }
+    .ask textarea { width:100%; min-height:88px; margin:12px 0; padding:12px; border-radius:12px; border:1px solid var(--line); background:#11041f; color:var(--ink); font:inherit; }
+    .ask .out { margin-top:14px; color:var(--ink); white-space:pre-wrap; }
+    .ask .row { display:flex; flex-wrap:wrap; gap:8px; }
     @media (max-width:720px){ .grid,dl{grid-template-columns:1fr;} .lang{max-width:100%;} }
   </style>
 </head>
@@ -53,9 +55,7 @@
       <div class="lang" id="langbar"></div>
     </header>
     <div class="hero">
-      <div class="banner">
-        <img src="IMG_5183.jpeg" alt="35 ElGhaly" width="1500" height="1007" />
-      </div>
+      <div class="banner"><img src="IMG_5183.jpeg" alt="35 ElGhaly" width="1500" height="1007" /></div>
       <div class="kicker" data-i18n="kicker"></div>
       <h1 class="sr">35</h1>
       <p class="lede" data-i18n="lede"></p>
@@ -70,6 +70,18 @@
       <article class="card"><h3 data-i18n="c2t"></h3><p data-i18n="c2p"></p></article>
       <article class="card"><h3 data-i18n="c3t"></h3><p data-i18n="c3p"></p></article>
     </div>
+    <section>
+      <h2 data-i18n="askt"></h2>
+      <div class="ask">
+        <p data-i18n="askp"></p>
+        <textarea id="q" data-i18n-ph="askph" placeholder="Ask 35"></textarea>
+        <div class="row">
+          <button class="go" type="button" id="askBtn" data-i18n="askgo"></button>
+          <button class="mail" type="button" id="mailBtn" data-i18n="askmail"></button>
+        </div>
+        <p class="out" id="a"></p>
+      </div>
+    </section>
     <section><h2 data-i18n="locked"></h2><p class="rule" data-i18n="lockedp"></p></section>
     <section>
       <h2 data-i18n="addr"></h2>
@@ -85,13 +97,13 @@
   </div>
   <script>
     var T = {
-      en: { kicker:"Closed desk · not a public app", lede:"35 is a private earned-credit ledger for this desk. There is no public bot to click, no coin to buy, no deposit to send. Follow the record. Mail if you must. Mint stays unpublished until the desk books realized profit.", record:"Public record", c1t:"Closed", c1p:"The sniper and flash are not a public product.", c2t:"Earned only", c2p:"Credit later comes from signed desk-usage memos. Nobody buys 35.", c3t:"Not a listing", c3p:"No pool today. Do not look for a contract to ape.", locked:"Locked", lockedp:"Path A. Closed desk. No purchase. No redeem. No public app.", addr:"Addresses", mode:"Mode", support:"Support", mint:"Mint", pool:"Pool" },
-      ar: { kicker:"مكتب مغلق · ليس تطبيقًا عامًا", lede:"35 سجل خاص لرصيد مكتسب من المكتب. لا يوجد بوت عام للضغط، ولا عملة للشراء، ولا إيداع. السك يبقى غير منشور حتى يسجل المكتب ربحًا محققًا.", record:"السجل العام", c1t:"مغلق", c1p:"القناص والفلاش ليسا منتجًا عامًا.", c2t:"مكتسب فقط", c2p:"لا أحد يشتري 35.", c3t:"ليس إدراجًا", c3p:"لا مسبح اليوم.", locked:"مثبت", lockedp:"المسار A. مكتب مغلق.", addr:"العناوين", mode:"الوضع", support:"الدعم", mint:"السك", pool:"المسبح" },
-      ru: { kicker:"Закрытый деск", lede:"Нет покупки и нет депозита.", record:"Запись", c1t:"Закрыто", c1p:"Не публичный продукт.", c2t:"Только заработка", c2p:"35 нельзя купить.", c3t:"Не листинг", c3p:"Пула нет.", locked:"Фикс", lockedp:"Путь A.", addr:"Адреса", mode:"Режим", support:"Поддержка", mint:"Минт", pool:"Пул" },
-      zh: { kicker:"闭门台子", lede:"没有可买的币。", record:"记录", c1t:"闭门", c1p:"非公开产品。", c2t:"仅挣取", c2p:"不能买 35。", c3t:"非上市", c3p:"无池。", locked:"已锁", lockedp:"路径 A。", addr:"地址", mode:"模式", support:"支持", mint:"锻造", pool:"池" },
-      de: { kicker:"Geschlossener Desk", lede:"Keine Münze zum Kaufen.", record:"Akte", c1t:"Geschlossen", c1p:"Kein öffentliches Produkt.", c2t:"Nur verdient", c2p:"Niemand kauft 35.", c3t:"Kein Listing", c3p:"Kein Pool.", locked:"Fix", lockedp:"Pfad A.", addr:"Adressen", mode:"Modus", support:"Support", mint:"Mint", pool:"Pool" },
-      es: { kicker:"Mesa cerrada", lede:"No hay moneda para comprar.", record:"Registro", c1t:"Cerrado", c1p:"No es un producto público.", c2t:"Solo ganado", c2p:"Nadie compra 35.", c3t:"Sin listado", c3p:"No hay pool.", locked:"Fijo", lockedp:"Ruta A.", addr:"Direcciones", mode:"Modo", support:"Soporte", mint:"Mint", pool:"Pool" }
+      en: { kicker:"Closed desk · not a public app", lede:"35 is a private earned-credit ledger for this desk. There is no public bot to click, no coin to buy, no deposit to send. Follow the record. Mail if you must. Mint stays unpublished until the desk books realized profit.", record:"Public record", c1t:"Closed", c1p:"The sniper and flash are not a public product.", c2t:"Earned only", c2p:"Credit later comes from signed desk-usage memos. Nobody buys 35.", c3t:"Not a listing", c3p:"No pool today. Do not look for a contract to ape.", locked:"Locked", lockedp:"Path A. Closed desk. No purchase. No redeem. No public app.", addr:"Addresses", mode:"Mode", support:"Support", mint:"Mint", pool:"Pool", askt:"Ask 35", askp:"Instant answers from the public rules. Anything else opens mail to the desk so a human can reply.", askph:"Where do I buy 35?", askgo:"Answer", askmail:"Mail the desk" }
     };
+    T.ar = Object.assign({}, T.en, { kicker:"مكتب مغلق", lede:"لا عملة للشراء ولا إيداع.", record:"السجل", c1t:"مغلق", c1p:"ليس منتجًا عامًا.", c2t:"مكتسب فقط", c2p:"لا أحد يشتري 35.", c3t:"ليس إدراجًا", c3p:"لا مسبح.", locked:"مثبت", lockedp:"المسار A.", addr:"العناوين", mode:"الوضع", support:"الدعم", mint:"السك", pool:"المسبح", askt:"اسأل 35", askp:"إجابات فورية من القواعد. غير ذلك يذهب إلى بريد المكتب.", askph:"كيف أشتري 35؟", askgo:"أجب", askmail:"راسل المكتب" });
+    T.ru = Object.assign({}, T.en, { kicker:"Закрытый деск", lede:"Нет покупки.", askt:"Спросить 35", askgo:"Ответ", askmail:"Письмо" });
+    T.zh = Object.assign({}, T.en, { kicker:"闭门台子", lede:"不能买。", askt:"问 35", askgo:"回答", askmail:"写信" });
+    T.de = Object.assign({}, T.en, { kicker:"Geschlossener Desk", askt:"35 fragen", askgo:"Antwort", askmail:"Mail" });
+    T.es = Object.assign({}, T.en, { kicker:"Mesa cerrada", askt:"Preguntar a 35", askgo:"Responder", askmail:"Correo" });
     var LANGS = ["en","ar","ru","zh","de","es"];
     var LABELS = { en:"EN", ar:"AR", ru:"RU", zh:"中文", de:"DE", es:"ES" };
     function applyLang(lang) {
@@ -102,6 +114,8 @@
       document.querySelectorAll("[data-i18n]").forEach(function (el) {
         var k = el.getAttribute("data-i18n"); if (pack[k]) el.textContent = pack[k];
       });
+      var ta = document.getElementById("q");
+      if (ta && pack.askph) ta.placeholder = pack.askph;
       document.querySelectorAll("#langbar button").forEach(function (b) {
         b.classList.toggle("on", b.getAttribute("data-lang") === lang);
       });
@@ -114,6 +128,25 @@
       b.onclick = function () { applyLang(code); }; bar.appendChild(b);
     });
     try { applyLang(localStorage.getItem("35-lang") || "en"); } catch (e) { applyLang("en"); }
+    function answer(q) {
+      q = (q || "").toLowerCase();
+      if (/buy|purchase|price|chart|ape|presale|ico/.test(q)) return "You do not buy 35. No presale. No chart. Mint is unpublished.";
+      if (/deposit|send (sol|usdc)|wallet|invest/.test(q)) return "Do not send SOL or USDC. There is no deposit address for credits.";
+      if (/mint|contract|ca\b|token address/.test(q)) return "Mint is unpublished. There is no contract to ape.";
+      if (/pool|jupiter|swap|raydium|meteora/.test(q)) return "No 35/USDC pool yet. Pair comes after mint, and mint waits on realized desk profit.";
+      if (/airdrop|free|visit|member|points/.test(q)) return "Visiting this site does not earn 35. No airdrop for a page view.";
+      if (/what is|what\'s 35|35\?/.test(q)) return "35 is a private earned-credit ledger for this desk. Closed. Not a public app.";
+      if (/job|work|access|bot|sniper|flash/.test(q)) return "The desk is closed to the public. Mail 35@elghaly.dev if you must reach a human.";
+      if (/mail|email|contact|support/.test(q)) return "Desk 35@elghaly.dev · support@elghaly.dev";
+      return "The page rules do not cover that. Use Mail the desk — a human reads 35@elghaly.dev.";
+    }
+    document.getElementById("askBtn").onclick = function () {
+      document.getElementById("a").textContent = answer(document.getElementById("q").value);
+    };
+    document.getElementById("mailBtn").onclick = function () {
+      var body = encodeURIComponent(document.getElementById("q").value || "");
+      location.href = "mailto:35@elghaly.dev?subject=ASK%2035&body=" + body;
+    };
     fetch("/protocol.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (p) {
       if (!p) return;
       function set(id, v) { var el = document.getElementById(id); if (el && v) el.textContent = v; }
