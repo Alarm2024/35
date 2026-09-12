@@ -38,7 +38,13 @@
 - There is no redemption desk.
 - There is no deadline that converts a non-mint into a refund, because nothing was deposited.
 
+## Config layout
+
+- Public fields live in `protocol.json` at the repo root (published to Pages): `name`, `symbol`, `decimals`, `issuanceMode`, `jurisdiction`, `mint`, `squadsVault`, `pool`, `usdcMint`.
+- Private operator fields live in `config/protocol.json` (gitignored, never deployed): `deskSigners`, `controlledWallets`, `position`, `positionNftMint`, `metadataUri`, `rpcUrl`, `memoProgram`, `dammV2Program`.
+- Desk PnL reports live in `config/pnl.json` (gitignored, never deployed). Use desk PnL report language only; do not publish per-token NAV figures.
+
 ## Jurisdiction
 
-- Operators name a jurisdiction in `config/protocol.json` before week 1 is published.
+- Operators name a jurisdiction in `protocol.json` before week 1 is published.
 - If that field is empty, no public announcement.

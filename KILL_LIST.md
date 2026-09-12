@@ -2,6 +2,8 @@
 
 Do not do these. If any item happens, stop announcing and run `scripts/self-audit.js`.
 
+Private operator config (`config/protocol.json`, `config/pnl.json`) is gitignored and excluded from the Pages artifact. Public fields only live in root `protocol.json`.
+
 1. Accept SOL/USDC from third parties in exchange for 35-credit.
 2. Hold third-party funds on a single key.
 3. Mint before `gate.js` PASSes.
