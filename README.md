@@ -16,6 +16,8 @@ cp config/pnl.example.json config/pnl.json
 
 Fill those local copies yourself. Leave public `protocol.json` `mint`, `squadsVault`, and `pool` empty until gate is allowed to PASS.
 
+Signing keys never live in this repo. Copy `.env.example` to `.env` and set `KEYPAIR_PATH` to an outside-repo file (e.g. `/home/ubuntu/.config/solana/35/deskSigner.json`). See `SECURITY.md`.
+
 Key roles: `docs/WALLET_MAP.md`. Do not put bot hot keys on mint, freeze, LP, position NFT, or treasury.
 
 ## Locked (human, 2026-09-12)
@@ -44,6 +46,7 @@ Both gate and self-audit fail closed. Empty jurisdiction / mint / squadsVault / 
 
 ## Docs
 
+- `SECURITY.md` — keys outside repo; `KEYPAIR_PATH` from env only
 - `RULES.md` `KILL_LIST.md` `CONVERSION.md`
 - `docs/WALLET_MAP.md` — roles, locked deskSigner and Squads vault
 - `docs/MAIL_35.md` — live catch-all to `wyndhamdesert@gmail.com`, send as `wyndham35@elghaly.dev`
