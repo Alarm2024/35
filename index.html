@@ -3,73 +3,47 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Remove noindex only when jurisdiction is non-empty in protocol.json, per RULES.md. -->
   <meta name="robots" content="noindex, nofollow" />
   <title>35 — earned desk credit</title>
   <meta name="description" content="35 is earned from using the desk. It is not sold. It is not redeemable. It is not equity." />
   <meta name="theme-color" content="#09090b" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <meta property="og:title" content="35" />
-  <meta property="og:description" content="Earned-only desk credit. No purchase. No redeem. No mint until the gate passes." />
+  <meta property="og:description" content="Earned-only desk credit. No purchase. No redeem." />
   <meta property="og:url" content="https://35.elghaly.dev" />
-  <meta property="og:type" content="website" />
   <style>
-    :root {
-      --bg: #09090b;
-      --ink: #eceee8;
-      --stone: #d6d8d1;
-      --silver: #c8ccd4;
-      --sage: #8d9188;
-      --line: #1c1d1c;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { background: var(--bg); color: var(--ink); }
-    body {
-      font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
-      line-height: 1.45;
-      min-height: 100vh;
-    }
-    .wrap { max-width: 720px; margin: 0 auto; padding: 48px 24px 96px; }
-    header { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
-    .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit; }
-    .mark { width: 36px; height: 36px; }
-    .word { font-size: 13px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--stone); }
-    .status {
-      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--sage);
-      border: 1px solid #2a2c2a;
-      padding: 6px 10px;
-    }
-    h1 { font-weight: 500; font-size: 42px; letter-spacing: -0.03em; margin: 36px 0 12px; }
-    .lede { color: var(--stone); font-size: 18px; max-width: 34em; }
-    section { margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--line); }
-    h2 { font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 14px; }
-    p, li { color: var(--stone); font-size: 16px; }
-    p + p { margin-top: 12px; }
-    ul { padding-left: 1.1em; }
-    li + li { margin-top: 8px; }
-    .rule {
-      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-      font-size: 13px;
-      line-height: 1.6;
-      color: var(--ink);
-      background: #0e0f0e;
-      border: 1px solid var(--line);
-      padding: 16px 18px;
-    }
-    dl { display: grid; grid-template-columns: 140px 1fr; gap: 10px 16px; }
-    dt { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sage); padding-top: 4px; }
-    dd { color: var(--ink); font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 12px; word-break: break-all; }
-    .empty { color: var(--sage); }
-    footer { margin-top: 56px; color: var(--sage); font-size: 12px; letter-spacing: 0.08em; }
-    a { color: var(--silver); }
-    @media (max-width: 560px) {
-      h1 { font-size: 32px; }
-      dl { grid-template-columns: 1fr; }
-    }
+    :root { --bg:#09090b; --ink:#eceee8; --stone:#d6d8d1; --silver:#c8ccd4; --sage:#8d9188; --line:#1c1d1c; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html,body { background:var(--bg); color:var(--ink); }
+    body { font-family:"Iowan Old Style","Palatino Linotype",Palatino,"Times New Roman",serif; line-height:1.45; min-height:100vh; }
+    .wrap { max-width:760px; margin:0 auto; padding:40px 20px 96px; }
+    header { display:flex; align-items:center; justify-content:space-between; gap:16px; padding-bottom:24px; border-bottom:1px solid var(--line); }
+    .brand { display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit; }
+    .mark { width:36px; height:36px; }
+    .word { font-size:13px; letter-spacing:0.28em; text-transform:uppercase; color:var(--stone); }
+    .seals { font-size:18px; letter-spacing:0.22em; color:var(--stone); }
+    h1 { font-weight:500; font-size:42px; letter-spacing:-0.03em; margin:28px 0 10px; }
+    .lede { color:var(--stone); font-size:18px; max-width:34em; }
+    .posters { display:grid; grid-template-columns:1.25fr 0.75fr; gap:10px; margin:28px 0 4px; }
+    .poster { border:1px solid var(--line); background:#0e0f0e; min-height:210px; display:flex; }
+    .poster svg { width:100%; height:210px; display:block; }
+    .poster.wide { grid-column:1 / -1; }
+    .poster.wide svg { height:220px; }
+    figcaption { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--sage); margin:8px 0 0; }
+    section { margin-top:36px; padding-top:24px; border-top:1px solid var(--line); }
+    h2 { font-size:13px; letter-spacing:0.22em; text-transform:uppercase; color:var(--sage); font-weight:500; margin-bottom:14px; }
+    p,li { color:var(--stone); font-size:16px; }
+    p+p { margin-top:12px; }
+    ul { padding-left:1.1em; }
+    li+li { margin-top:8px; }
+    .rule { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:13px; line-height:1.6; color:var(--ink); background:#0e0f0e; border:1px solid var(--line); padding:16px 18px; }
+    dl { display:grid; grid-template-columns:140px 1fr; gap:10px 16px; }
+    dt { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--sage); padding-top:4px; }
+    dd { color:var(--ink); font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; word-break:break-all; }
+    .empty { color:var(--sage); }
+    footer { margin-top:56px; color:var(--sage); font-size:12px; letter-spacing:0.08em; }
+    a { color:var(--silver); }
+    @media (max-width:560px){ h1{font-size:32px;} .posters{grid-template-columns:1fr;} dl{grid-template-columns:1fr;} }
   </style>
 </head>
 <body>
@@ -86,10 +60,59 @@
         </svg>
         <span class="word">35</span>
       </a>
-      <div class="status" id="status">pre-mint · earned-only</div>
+      <div class="seals" title="marks">✝️ 🪬 🧿</div>
     </header>
+
     <h1>35</h1>
     <p class="lede">Desk credit. Issued for using the sniper and flash engine. Never sold. Never redeemed. Not a chart to paint.</p>
+
+    <div class="posters">
+      <figure>
+        <div class="poster">
+          <svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Earned only">
+            <rect width="640" height="360" fill="#09090b"/>
+            <text x="320" y="175" text-anchor="middle" fill="#eceee8" font-size="92" font-family="Palatino, serif" letter-spacing="8">35</text>
+            <rect x="255" y="198" width="130" height="2" fill="#8d9188"/>
+            <text x="320" y="240" text-anchor="middle" fill="#d6d8d1" font-size="14" font-family="ui-monospace,monospace" letter-spacing="8">EARNED ONLY</text>
+          </svg>
+        </div>
+        <figcaption>Earned only</figcaption>
+      </figure>
+      <figure>
+        <div class="poster">
+          <svg viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="No purchase no redeem">
+            <rect width="360" height="360" fill="#09090b"/>
+            <g fill="none" stroke="#c8ccd4" stroke-width="1.4">
+              <path d="M180 36 v52 M160 54 h40"/>
+              <circle cx="180" cy="160" r="38"/>
+              <path d="M180 134 v10 M165 175 h30 M168 148 q12 8 24 0 v28 q-12 14 -24 0 z"/>
+              <circle cx="180" cy="268" r="34"/>
+              <circle cx="180" cy="268" r="20"/>
+              <circle cx="180" cy="268" r="6" fill="#8d9188" stroke="none"/>
+            </g>
+          </svg>
+        </div>
+        <figcaption>No purchase · no redeem</figcaption>
+      </figure>
+      <figure class="wide">
+        <div class="poster wide">
+          <svg viewBox="0 0 760 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="35 USDC one book">
+            <rect width="760" height="240" fill="#09090b"/>
+            <g fill="none" stroke="#c8ccd4" stroke-width="1">
+              <rect x="48" y="28" width="250" height="160"/>
+              <rect x="462" y="28" width="250" height="160"/>
+              <path d="M80 52 h186 M80 68 h160 M80 84 h174 M80 100 h140 M80 116 h168 M80 132 h150 M80 148 h178"/>
+              <path d="M494 52 h186 M494 68 h150 M494 84 h174 M494 100 h160 M494 116 h140 M494 132 h178 M494 148 h156"/>
+              <path d="M380 40 v52"/>
+            </g>
+            <rect x="352" y="100" width="56" height="2" fill="#8d9188"/>
+            <text x="380" y="210" text-anchor="middle" fill="#d6d8d1" font-size="12" font-family="ui-monospace,monospace" letter-spacing="6">35 / USDC</text>
+          </svg>
+        </div>
+        <figcaption>One book · 35 / USDC</figcaption>
+      </figure>
+    </div>
+
     <section>
       <h2>Locked decision</h2>
       <p class="rule">No purchase. No redeem. Earned only from signed desk-usage memos. Converts 1:1 to SPL 35 at a single mint event if and only if gate.js prints PASS.</p>
@@ -106,7 +129,7 @@
     <section>
       <h2>How credit is earned</h2>
       <p>The desk trades its own capital. After a real usage event, an allowlisted signer posts an on-chain memo:</p>
-      <p class="rule" style="margin-top:14px">35-credit:&lt;wallet&gt;:&lt;credit&gt;:&lt;week&gt;</p>
+      <p class="rule" style="margin-top:14px">35-credit:<wallet>:<credit>:<week></p>
       <p style="margin-top:14px">That signed on-chain memo is the sole issuance event. No mint exists until realized desk profit covers rent.</p>
     </section>
     <section>
@@ -114,7 +137,7 @@
       <ul>
         <li>One book only: 35/USDC on Meteora DAMM v2.</li>
         <li>Protocol-owned liquidity, permanently locked, position NFT on a Squads vault.</li>
-        <li>No 35/SOL primary book. No self-trade. No wash. Searchers that see a puppet candle harvest the puppeteer.</li>
+        <li>No 35/SOL primary book. No self-trade. No wash.</li>
       </ul>
     </section>
     <section>
@@ -136,25 +159,14 @@
       <h2>Public record</h2>
       <p><a href="https://github.com/Alarm2024/35">github.com/Alarm2024/35</a></p>
     </section>
-    <footer>35.elghaly.dev · earned-only · no canary deposits</footer>
+    <footer>✝️ 🪬 🧿 · 35.elghaly.dev · earned-only · no canary deposits</footer>
   </div>
   <script>
-    fetch("/protocol.json")
-      .then((r) => r.ok ? r.json() : null)
-      .then((p) => {
-        if (!p) return;
-        const set = (id, v) => {
-          const el = document.getElementById(id);
-          if (!el) return;
-          if (v) { el.textContent = v; el.classList.remove("empty"); }
-        };
-        set("mode", p.issuanceMode);
-        set("mint", p.mint);
-        set("vault", p.squadsVault);
-        set("pool", p.pool);
-        if (p.mint) document.getElementById("status").textContent = "mint live · earned-only";
-      })
-      .catch(() => {});
+    fetch("/protocol.json").then(function(r){return r.ok?r.json():null;}).then(function(p){
+      if(!p) return;
+      function set(id,v){ var el=document.getElementById(id); if(!el||!v) return; el.textContent=v; el.classList.remove("empty"); }
+      set("mode", p.issuanceMode); set("mint", p.mint); set("vault", p.squadsVault); set("pool", p.pool);
+    }).catch(function(){});
   </script>
 </body>
 </html>
