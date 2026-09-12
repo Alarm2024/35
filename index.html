@@ -12,18 +12,19 @@
     * { box-sizing:border-box; margin:0; padding:0; }
     html,body { background:var(--bg); color:var(--ink); }
     body { font-family:ui-sans-serif,system-ui,sans-serif; line-height:1.5; min-height:100vh; background: radial-gradient(900px 480px at 10% -10%, rgba(153,69,255,.28), transparent 55%), radial-gradient(700px 400px at 100% 0%, rgba(20,241,149,.12), transparent 50%), var(--bg); }
+    [dir="rtl"] body { font-family:"IBM Plex Sans Arabic","Noto Naskh Arabic",ui-sans-serif,sans-serif; }
     .wrap { max-width:920px; margin:0 auto; padding:28px 20px 80px; }
     header { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
     .brand { display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit; }
     .mark { width:40px; height:40px; border-radius:12px; background:linear-gradient(135deg,var(--purple),var(--green)); display:grid; place-items:center; font-weight:800; }
     .word { font-size:13px; letter-spacing:.32em; text-transform:uppercase; color:var(--dim); }
-    .lang { display:flex; flex-wrap:wrap; gap:6px; justify-content:flex-end; max-width:280px; }
+    .lang { display:flex; flex-wrap:wrap; gap:6px; justify-content:flex-end; max-width:320px; }
     .lang button { background:transparent; color:var(--dim); border:1px solid var(--line); border-radius:999px; padding:5px 9px; font-size:11px; cursor:pointer; }
     .lang button.on { color:#07010f; background:var(--green); border-color:var(--green); }
     .sr { position:absolute; left:-9999px; }
     .hero { margin-top:28px; }
     .banner { width:100%; border-radius:18px; overflow:hidden; border:1px solid var(--line); background:#07010f; margin-bottom:18px; }
-    .banner svg, .banner img { display:block; width:100%; height:auto; }
+    .banner svg { display:block; width:100%; height:auto; }
     .kicker { color:var(--green); font-size:12px; letter-spacing:.18em; text-transform:uppercase; }
     .lede { font-size:20px; color:var(--dim); max-width:34em; }
     .cta { display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
@@ -73,12 +74,8 @@
             <path d="M948 128 h120" stroke-width="10"/>
             <path d="M1008 300 v-28 M1008 272 c-48 8 -58 78 0 86 58-8 48-78 0-86z" stroke-width="6"/>
             <circle cx="1008" cy="318" r="6" fill="#e8eef8" stroke="none"/>
-            <path d="M1008 292 v20 M990 348 h36" stroke-width="4"/>
             <ellipse cx="1008" cy="500" rx="62" ry="36" stroke-width="6"/>
             <circle cx="1008" cy="500" r="16" fill="#7ad7ff" stroke="#c8e8ff" stroke-width="4"/>
-            <g stroke-width="3">
-              <path d="M1008 448 v-16 M952 468 l-14 -10 M1064 468 l14 -10 M930 500 h-16 M1086 500 h16 M952 532 l-14 10 M1064 532 l14 10"/>
-            </g>
           </g>
         </svg>
       </div>
@@ -112,16 +109,18 @@
   <script>
     var T = {
       en: { kicker:"Closed desk · not a public app", lede:"35 is a private earned-credit ledger for this desk. There is no public bot to click, no coin to buy, no deposit to send. Follow the record. Mail if you must. Mint stays unpublished until the desk books realized profit.", record:"Public record", c1t:"Closed", c1p:"The sniper and flash are not a public product.", c2t:"Earned only", c2p:"Credit later comes from signed desk-usage memos. Nobody buys 35.", c3t:"Not a listing", c3p:"No pool today. Do not look for a contract to ape.", locked:"Locked", lockedp:"Path A. Closed desk. No purchase. No redeem. No public app.", addr:"Addresses", mode:"Mode", support:"Support", mint:"Mint", pool:"Pool" },
-      ru: { kicker:"Закрытый деск · не публичное приложение", lede:"35 — приватный леджер деска. Нет публичного бота, нет монеты для покупки, нет депозита. Минт не опубликован, пока нет реализованной прибыли.", record:"Публичная запись", c1t:"Закрыто", c1p:"Sniper и flash — не публичный продукт.", c2t:"Только заработка", c2p:"35 нельзя купить.", c3t:"Не листинг", c3p:"Пула сегодня нет.", locked:"Фикс", lockedp:"Путь A. Закрытый деск. Без покупки.", addr:"Адреса", mode:"Режим", support:"Поддержка", mint:"Минт", pool:"Пул" },
-      zh: { kicker:"闭门台子 · 非公开应用", lede:"35 是私人台子额度台账。没有可点的公开机器人，没有可买的币，也不接受入金。未有实现盈利前不锻造。", record:"公开记录", c1t:"闭门", c1p:"Sniper / flash 不是公开产品。", c2t:"仅挣取", c2p:"不能买 35。", c3t:"非上市", c3p:"今日无池。", locked:"已锁", lockedp:"路径 A。闭门台子。不买不兑。", addr:"地址", mode:"模式", support:"支持", mint:"锻造", pool:"池" },
-      de: { kicker:"Geschlossener Desk · keine Public App", lede:"35 ist ein privates Desk-Ledger. Kein öffentlicher Bot, keine Münze zum Kaufen, keine Einzahlung. Mint bleibt zu, bis realisierter Gewinn da ist.", record:"Akte", c1t:"Geschlossen", c1p:"Sniper und Flash sind kein öffentliches Produkt.", c2t:"Nur verdient", c2p:"Niemand kauft 35.", c3t:"Kein Listing", c3p:"Heute kein Pool.", locked:"Fix", lockedp:"Pfad A. Geschlossener Desk. Kein Kauf.", addr:"Adressen", mode:"Modus", support:"Support", mint:"Mint", pool:"Pool" },
-      es: { kicker:"Mesa cerrada · no es una app pública", lede:"35 es un libro privado del desk. No hay bot público, no hay moneda para comprar, no hay depósito. El mint sigue cerrado hasta haber beneficio realizado.", record:"Registro", c1t:"Cerrado", c1p:"Sniper y flash no son un producto público.", c2t:"Solo ganado", c2p:"Nadie compra 35.", c3t:"Sin listado", c3p:"Hoy no hay pool.", locked:"Fijo", lockedp:"Ruta A. Mesa cerrada. Sin compra.", addr:"Direcciones", mode:"Modo", support:"Soporte", mint:"Mint", pool:"Pool" }
+      ar: { kicker:"مكتب مغلق · ليس تطبيقًا عامًا", lede:"35 سجل خاص لرصيد مكتسب من المكتب. لا يوجد بوت عام للضغط، ولا عملة للشراء، ولا إيداع. تابع السجل. راسل إن لزم. السك يبقى غير منشور حتى يسجل المكتب ربحًا محققًا.", record:"السجل العام", c1t:"مغلق", c1p:"القناص والفلاش ليسا منتجًا عامًا.", c2t:"مكتسب فقط", c2p:"لا أحد يشتري 35.", c3t:"ليس إدراجًا", c3p:"لا مسبح اليوم.", locked:"مثبت", lockedp:"المسار A. مكتب مغلق. بلا شراء ولا استرداد.", addr:"العناوين", mode:"الوضع", support:"الدعم", mint:"السك", pool:"المسبح" },
+      ru: { kicker:"Закрытый деск", lede:"35 — приватный леджер. Нет покупки и нет депозита.", record:"Запись", c1t:"Закрыто", c1p:"Не публичный продукт.", c2t:"Только заработка", c2p:"35 нельзя купить.", c3t:"Не листинг", c3p:"Пула нет.", locked:"Фикс", lockedp:"Путь A.", addr:"Адреса", mode:"Режим", support:"Поддержка", mint:"Минт", pool:"Пул" },
+      zh: { kicker:"闭门台子", lede:"没有可买的币，不接受入金。", record:"记录", c1t:"闭门", c1p:"非公开产品。", c2t:"仅挣取", c2p:"不能买 35。", c3t:"非上市", c3p:"无池。", locked:"已锁", lockedp:"路径 A。", addr:"地址", mode:"模式", support:"支持", mint:"锻造", pool:"池" },
+      de: { kicker:"Geschlossener Desk", lede:"Keine Münze zum Kaufen. Keine Einzahlung.", record:"Akte", c1t:"Geschlossen", c1p:"Kein öffentliches Produkt.", c2t:"Nur verdient", c2p:"Niemand kauft 35.", c3t:"Kein Listing", c3p:"Kein Pool.", locked:"Fix", lockedp:"Pfad A.", addr:"Adressen", mode:"Modus", support:"Support", mint:"Mint", pool:"Pool" },
+      es: { kicker:"Mesa cerrada", lede:"No hay moneda para comprar. No hay depósito.", record:"Registro", c1t:"Cerrado", c1p:"No es un producto público.", c2t:"Solo ganado", c2p:"Nadie compra 35.", c3t:"Sin listado", c3p:"No hay pool.", locked:"Fijo", lockedp:"Ruta A.", addr:"Direcciones", mode:"Modo", support:"Soporte", mint:"Mint", pool:"Pool" }
     };
-    var LANGS = ["en","ru","zh","de","es"];
-    var LABELS = { en:"EN", ru:"RU", zh:"中文", de:"DE", es:"ES" };
+    var LANGS = ["en","ar","ru","zh","de","es"];
+    var LABELS = { en:"EN", ar:"AR", ru:"RU", zh:"中文", de:"DE", es:"ES" };
     function applyLang(lang) {
       if (!T[lang]) lang = "en";
       document.documentElement.lang = lang;
+      document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
       var pack = T[lang];
       document.querySelectorAll("[data-i18n]").forEach(function (el) {
         var k = el.getAttribute("data-i18n"); if (pack[k]) el.textContent = pack[k];
