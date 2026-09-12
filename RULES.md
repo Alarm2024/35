@@ -10,7 +10,7 @@
 
 - `credit` is a decimal string with at most 6 fractional digits.
 - The same `sourceSig` cannot appear in two weeks.
-- Supply cap at mint: `TODO_HUMAN`. Do not invent a number.
+- Supply cap at mint: **not set** (mint not open). Do not invent a number.
 - Signer role is `35 deskSigner` in `docs/WALLET_MAP.md`. That key is not KEEP, not 350, not `cheap_*`.
 
 ## What 35 is not
@@ -54,5 +54,7 @@ No bot hot key (KEEP, 350, cheap_*) ever holds mint, freeze, LP, position NFT, o
 
 ## Jurisdiction
 
-- Operators name a jurisdiction in `protocol.json` before week 1 is published.
+- Locked: California — 548 Market St, San Francisco, CA 94104.
+- Public `protocol.json` field `jurisdiction` is `California`.
+- Mint, pool, and supply cap remain closed regardless of jurisdiction naming.
 - If that field is empty, no public announcement and `scripts/gate.js` stays BLOCK.

@@ -1,18 +1,23 @@
 # Mail lock — elghaly.dev
 
+**Status: live** (2026-09-12)
+
 Inbound and outbound are separate. One MX family only.
 
 Do not invent passwords. Do not touch the `35` CNAME that points at `alarm2024.github.io`. Do not add a second competing MX set.
 
 ## Lock
 
-- Inbound: Cloudflare Email Routing, catch-all `*@elghaly.dev` → `wyndhamdesert@gmail.com`
-- Outbound (free): Gmail **Send mail as** `wyndham35@elghaly.dev` from that same Gmail inbox
+- **Inbound (live):** Cloudflare Email Routing, catch-all `*@elghaly.dev` (including `35@`) → `wyndhamdesert@gmail.com`
+- **Outbound primary (live):** Gmail **Send mail as** `wyndham35@elghaly.dev` from that same Gmail inbox
+- Adding `35@`, `support@`, `info@`, or `admin@` as send-as aliases is ops (Gmail settings), not code.
 - Site DNS stays:
 
 ```text
 CNAME   35    alarm2024.github.io
 ```
+
+Public site: https://35.elghaly.dev
 
 ## Inbound — Cloudflare Email Routing
 
