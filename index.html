@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>35 — closed desk</title>
-  <meta name="description" content="Closed desk. Not a public app. Mail 35@elghaly.dev" />
+  <meta name="description" content="Closed desk. Mail 35@elghaly.dev" />
   <meta name="theme-color" content="#0b0418" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <style>
@@ -17,12 +17,13 @@
     .brand { display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit; }
     .mark { width:40px; height:40px; border-radius:12px; background:linear-gradient(135deg,var(--purple),var(--green)); display:grid; place-items:center; font-weight:800; }
     .word { font-size:13px; letter-spacing:.32em; text-transform:uppercase; color:var(--dim); }
-    .lang button { background:transparent; color:var(--dim); border:1px solid var(--line); border-radius:999px; padding:5px 9px; font-size:11px; cursor:pointer; margin-left:4px; }
+    .lang { display:flex; flex-wrap:wrap; gap:6px; justify-content:flex-end; max-width:280px; }
+    .lang button { background:transparent; color:var(--dim); border:1px solid var(--line); border-radius:999px; padding:5px 9px; font-size:11px; cursor:pointer; }
     .lang button.on { color:#07010f; background:var(--green); border-color:var(--green); }
     .sr { position:absolute; left:-9999px; }
     .hero { margin-top:28px; }
     .banner { width:100%; border-radius:18px; overflow:hidden; border:1px solid var(--line); background:#07010f; margin-bottom:18px; }
-    .banner svg { display:block; width:100%; height:auto; }
+    .banner svg, .banner img { display:block; width:100%; height:auto; }
     .kicker { color:var(--green); font-size:12px; letter-spacing:.18em; text-transform:uppercase; }
     .lede { font-size:20px; color:var(--dim); max-width:34em; }
     .cta { display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
@@ -35,13 +36,13 @@
     .card p, p, li { color:var(--dim); font-size:15px; }
     section { margin-top:40px; }
     h2 { font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:var(--purple); margin-bottom:12px; }
-    .rule { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:13px; color:var(--ink); background:#11041f; border:1px solid var(--line); border-radius:14px; padding:16px 18px; overflow-wrap:anywhere; }
+    .rule { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:13px; color:var(--ink); background:#11041f; border:1px solid var(--line); border-radius:14px; padding:16px 18px; }
     dl { display:grid; grid-template-columns:150px 1fr; gap:10px 16px; }
     dt { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--purple); }
     dd { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; word-break:break-all; }
     footer { margin-top:48px; color:var(--dim); font-size:13px; }
     a { color:var(--cyan); }
-    @media (max-width:720px){ .grid,dl{grid-template-columns:1fr;} }
+    @media (max-width:720px){ .grid,dl{grid-template-columns:1fr;} .lang{max-width:100%;} }
   </style>
 </head>
 <body>
@@ -54,17 +55,31 @@
       <div class="banner" aria-label="35 ElGhaly">
         <svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="g35" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#f7fffb"/><stop offset="0.45" stop-color="#14F195"/><stop offset="1" stop-color="#9945FF"/>
+            <linearGradient id="g35" x1="0" y1="0" x2="0.2" y2="1">
+              <stop offset="0" stop-color="#ffffff"/>
+              <stop offset="0.45" stop-color="#14F195"/>
+              <stop offset="1" stop-color="#9945FF"/>
             </linearGradient>
-            <radialGradient id="glowL" cx="0.12" cy="0.1" r="0.45"><stop offset="0" stop-color="#9945FF" stop-opacity="0.55"/><stop offset="1" stop-color="#07010f" stop-opacity="0"/></radialGradient>
-            <radialGradient id="glowR" cx="0.9" cy="0.85" r="0.4"><stop offset="0" stop-color="#14F195" stop-opacity="0.22"/><stop offset="1" stop-color="#07010f" stop-opacity="0"/></radialGradient>
+            <radialGradient id="glowL" cx="0.08" cy="0.08" r="0.42"><stop offset="0" stop-color="#9945FF" stop-opacity="0.6"/><stop offset="1" stop-color="#07010f" stop-opacity="0"/></radialGradient>
+            <radialGradient id="glowR" cx="0.92" cy="0.88" r="0.38"><stop offset="0" stop-color="#14F195" stop-opacity="0.28"/><stop offset="1" stop-color="#07010f" stop-opacity="0"/></radialGradient>
           </defs>
           <rect width="1200" height="630" fill="#07010f"/>
           <rect width="1200" height="630" fill="url(#glowL)"/>
           <rect width="1200" height="630" fill="url(#glowR)"/>
-          <text x="70" y="390" fill="url(#g35)" font-family="ui-sans-serif,system-ui,sans-serif" font-size="340" font-weight="800" letter-spacing="-18">35</text>
-          <text x="90" y="500" fill="#eceee8" font-family="ui-sans-serif,system-ui,sans-serif" font-size="28" font-weight="600" letter-spacing="14">— ELGHALY —</text>
+          <text x="64" y="400" fill="url(#g35)" font-family="ui-sans-serif,system-ui,sans-serif" font-size="360" font-weight="800" letter-spacing="-20">35</text>
+          <text x="80" y="520" fill="#eceee8" font-family="ui-sans-serif,system-ui,sans-serif" font-size="26" font-weight="600" letter-spacing="16">— ELGHALY —</text>
+          <g fill="none" stroke="#e8eef8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1008 70 v150" stroke-width="10"/>
+            <path d="M948 128 h120" stroke-width="10"/>
+            <path d="M1008 300 v-28 M1008 272 c-48 8 -58 78 0 86 58-8 48-78 0-86z" stroke-width="6"/>
+            <circle cx="1008" cy="318" r="6" fill="#e8eef8" stroke="none"/>
+            <path d="M1008 292 v20 M990 348 h36" stroke-width="4"/>
+            <ellipse cx="1008" cy="500" rx="62" ry="36" stroke-width="6"/>
+            <circle cx="1008" cy="500" r="16" fill="#7ad7ff" stroke="#c8e8ff" stroke-width="4"/>
+            <g stroke-width="3">
+              <path d="M1008 448 v-16 M952 468 l-14 -10 M1064 468 l14 -10 M930 500 h-16 M1086 500 h16 M952 532 l-14 10 M1064 532 l14 10"/>
+            </g>
+          </g>
         </svg>
       </div>
       <div class="kicker" data-i18n="kicker"></div>
@@ -85,34 +100,44 @@
     <section>
       <h2 data-i18n="addr"></h2>
       <dl>
-        <dt>Mode</dt><dd id="mode">earned</dd>
+        <dt data-i18n="mode"></dt><dd id="mode">earned</dd>
         <dt>Mail</dt><dd><a href="mailto:35@elghaly.dev">35@elghaly.dev</a></dd>
-        <dt>Support</dt><dd><a href="mailto:support@elghaly.dev">support@elghaly.dev</a></dd>
-        <dt>Mint</dt><dd id="mint">unpublished</dd>
-        <dt>Pool</dt><dd id="pool">unpublished</dd>
+        <dt data-i18n="support"></dt><dd><a href="mailto:support@elghaly.dev">support@elghaly.dev</a></dd>
+        <dt data-i18n="mint"></dt><dd id="mint">unpublished</dd>
+        <dt data-i18n="pool"></dt><dd id="pool">unpublished</dd>
       </dl>
     </section>
     <footer>✝️ 🪬 🧿 · closed desk · <a href="mailto:35@elghaly.dev">35@elghaly.dev</a></footer>
   </div>
   <script>
     var T = {
-      en: {
-        kicker:"Closed desk · not a public app",
-        lede:"35 is a private earned-credit ledger for this desk. There is no public bot to click, no coin to buy, no deposit to send. Follow the record. Mail if you must. Mint stays unpublished until the desk books realized profit.",
-        record:"Public record", c1t:"Closed", c1p:"The sniper and flash are not a public product. Strangers do not get a dashboard.",
-        c2t:"Earned only", c2p:"If credit exists later, it comes from signed desk-usage memos. Nobody buys 35.",
-        c3t:"Not a listing", c3p:"No pool today. No Jupiter market. Do not look for a contract to ape.",
-        locked:"Locked", lockedp:"Path A. Closed desk. No purchase. No redeem. No public app."
-      }
+      en: { kicker:"Closed desk · not a public app", lede:"35 is a private earned-credit ledger for this desk. There is no public bot to click, no coin to buy, no deposit to send. Follow the record. Mail if you must. Mint stays unpublished until the desk books realized profit.", record:"Public record", c1t:"Closed", c1p:"The sniper and flash are not a public product.", c2t:"Earned only", c2p:"Credit later comes from signed desk-usage memos. Nobody buys 35.", c3t:"Not a listing", c3p:"No pool today. Do not look for a contract to ape.", locked:"Locked", lockedp:"Path A. Closed desk. No purchase. No redeem. No public app.", addr:"Addresses", mode:"Mode", support:"Support", mint:"Mint", pool:"Pool" },
+      ru: { kicker:"Закрытый деск · не публичное приложение", lede:"35 — приватный леджер деска. Нет публичного бота, нет монеты для покупки, нет депозита. Минт не опубликован, пока нет реализованной прибыли.", record:"Публичная запись", c1t:"Закрыто", c1p:"Sniper и flash — не публичный продукт.", c2t:"Только заработка", c2p:"35 нельзя купить.", c3t:"Не листинг", c3p:"Пула сегодня нет.", locked:"Фикс", lockedp:"Путь A. Закрытый деск. Без покупки.", addr:"Адреса", mode:"Режим", support:"Поддержка", mint:"Минт", pool:"Пул" },
+      zh: { kicker:"闭门台子 · 非公开应用", lede:"35 是私人台子额度台账。没有可点的公开机器人，没有可买的币，也不接受入金。未有实现盈利前不锻造。", record:"公开记录", c1t:"闭门", c1p:"Sniper / flash 不是公开产品。", c2t:"仅挣取", c2p:"不能买 35。", c3t:"非上市", c3p:"今日无池。", locked:"已锁", lockedp:"路径 A。闭门台子。不买不兑。", addr:"地址", mode:"模式", support:"支持", mint:"锻造", pool:"池" },
+      de: { kicker:"Geschlossener Desk · keine Public App", lede:"35 ist ein privates Desk-Ledger. Kein öffentlicher Bot, keine Münze zum Kaufen, keine Einzahlung. Mint bleibt zu, bis realisierter Gewinn da ist.", record:"Akte", c1t:"Geschlossen", c1p:"Sniper und Flash sind kein öffentliches Produkt.", c2t:"Nur verdient", c2p:"Niemand kauft 35.", c3t:"Kein Listing", c3p:"Heute kein Pool.", locked:"Fix", lockedp:"Pfad A. Geschlossener Desk. Kein Kauf.", addr:"Adressen", mode:"Modus", support:"Support", mint:"Mint", pool:"Pool" },
+      es: { kicker:"Mesa cerrada · no es una app pública", lede:"35 es un libro privado del desk. No hay bot público, no hay moneda para comprar, no hay depósito. El mint sigue cerrado hasta haber beneficio realizado.", record:"Registro", c1t:"Cerrado", c1p:"Sniper y flash no son un producto público.", c2t:"Solo ganado", c2p:"Nadie compra 35.", c3t:"Sin listado", c3p:"Hoy no hay pool.", locked:"Fijo", lockedp:"Ruta A. Mesa cerrada. Sin compra.", addr:"Direcciones", mode:"Modo", support:"Soporte", mint:"Mint", pool:"Pool" }
     };
-    var LANGS = ["en"];
-    function applyLang() {
-      var pack = T.en;
+    var LANGS = ["en","ru","zh","de","es"];
+    var LABELS = { en:"EN", ru:"RU", zh:"中文", de:"DE", es:"ES" };
+    function applyLang(lang) {
+      if (!T[lang]) lang = "en";
+      document.documentElement.lang = lang;
+      var pack = T[lang];
       document.querySelectorAll("[data-i18n]").forEach(function (el) {
         var k = el.getAttribute("data-i18n"); if (pack[k]) el.textContent = pack[k];
       });
+      document.querySelectorAll("#langbar button").forEach(function (b) {
+        b.classList.toggle("on", b.getAttribute("data-lang") === lang);
+      });
+      try { localStorage.setItem("35-lang", lang); } catch (e) {}
     }
-    applyLang();
+    var bar = document.getElementById("langbar");
+    LANGS.forEach(function (code) {
+      var b = document.createElement("button");
+      b.type = "button"; b.setAttribute("data-lang", code); b.textContent = LABELS[code];
+      b.onclick = function () { applyLang(code); }; bar.appendChild(b);
+    });
+    try { applyLang(localStorage.getItem("35-lang") || "en"); } catch (e) { applyLang("en"); }
     fetch("/protocol.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (p) {
       if (!p) return;
       function set(id, v) { var el = document.getElementById(id); if (el && v) el.textContent = v; }
