@@ -36,7 +36,10 @@
       border-radius:999px; padding:5px 9px; font-size:11px; cursor:pointer;
     }
     .lang button.on { color:#07010f; background:var(--green); border-color:var(--green); }
-    .hero { margin-top:36px; }
+    .sr { position:absolute; left:-9999px; }
+    .hero { margin-top:28px; }
+    .banner { width:100%; border-radius:18px; overflow:hidden; border:1px solid var(--line); background:#07010f; margin-bottom:18px; }
+    .banner svg { display:block; width:100%; height:auto; }
     .kicker { color:var(--green); font-size:12px; letter-spacing:.18em; text-transform:uppercase; }
     h1 {
       font-size:clamp(48px,12vw,92px); letter-spacing:-.07em; line-height:.9; margin:10px 0 16px;
@@ -67,8 +70,7 @@
     .empty { color:var(--dim); }
     footer { margin-top:48px; color:var(--dim); font-size:13px; }
     a { color:var(--cyan); }
-    [dir="rtl"] body { font-family:"IBM Plex Sans Arabic","Noto Naskh Arabic",sans-serif; }
-    @media (max-width:720px){ .grid,.dl,dl{grid-template-columns:1fr;} .lang{max-width:100%;} }
+    @media (max-width:720px){ .grid,dl{grid-template-columns:1fr;} .lang{max-width:100%;} }
   </style>
 </head>
 <body>
@@ -78,8 +80,42 @@
       <div class="lang" id="langbar"></div>
     </header>
     <div class="hero">
+      <div class="banner" aria-label="35 ElGhaly">
+        <svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" role="img">
+          <defs>
+            <linearGradient id="g35" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#f7fffb"/>
+              <stop offset="0.45" stop-color="#14F195"/>
+              <stop offset="1" stop-color="#9945FF"/>
+            </linearGradient>
+            <radialGradient id="glowL" cx="0.12" cy="0.1" r="0.45">
+              <stop offset="0" stop-color="#9945FF" stop-opacity="0.55"/>
+              <stop offset="1" stop-color="#07010f" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="glowR" cx="0.9" cy="0.85" r="0.4">
+              <stop offset="0" stop-color="#14F195" stop-opacity="0.22"/>
+              <stop offset="1" stop-color="#07010f" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <rect width="1200" height="630" fill="#07010f"/>
+          <rect width="1200" height="630" fill="url(#glowL)"/>
+          <rect width="1200" height="630" fill="url(#glowR)"/>
+          <text x="70" y="390" fill="url(#g35)" font-family="ui-sans-serif,system-ui,sans-serif" font-size="340" font-weight="800" letter-spacing="-18">35</text>
+          <text x="90" y="500" fill="#eceee8" font-family="ui-sans-serif,system-ui,sans-serif" font-size="28" font-weight="600" letter-spacing="14">— ELGHALY —</text>
+          <g fill="none" stroke="#e8eef8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M980 90 v150 M930 145 h100"/>
+            <path d="M980 310 q-55 8 -62 70 h124 q-8 -62 -62 -70z"/>
+            <path d="M980 300 v-38 M955 278 h50 M960 338 h40"/>
+            <ellipse cx="980" cy="500" rx="70" ry="42"/>
+            <circle cx="980" cy="500" r="18" fill="#7ad7ff" stroke="#c8ccd4"/>
+            <g stroke-width="3">
+              <path d="M980 448 v-18 M940 455 l-16 -12 M1020 455 l16 -12 M910 500 h-18 M1050 500 h18 M940 545 l-16 12 M1020 545 l16 12"/>
+            </g>
+          </g>
+        </svg>
+      </div>
       <div class="kicker" data-i18n="kicker"></div>
-      <h1>35</h1>
+      <h1 class="sr">35</h1>
       <p class="lede" data-i18n="lede"></p>
       <div class="cta">
         <a class="primary" href="mailto:support@elghaly.dev">support@elghaly.dev</a>
@@ -136,68 +172,57 @@
         addr:"Addresses", mode:"Mode", jur:"Jurisdiction", mint:"Mint", pool:"Pool", support:"Support",
         not:"What 35 is not", n1:"Not equity in any corporation.", n2:"Not a SAFE, note, or claim on any company.", n3:"Not a deposit receipt. Do not send USDC or SOL for credits.", n4:"Not a promise of profit, buyback, or listing."
       },
-      ar: {
-        kicker:"مكتب سولانا · مكتسب فقط · يبدأ",
-        lede:"رصيد المكتب مقابل استخدام حقيقي للسنايبر والفلاش. لا يُباع. لا يُسترد. العلامة حية. السك ليس كذلك.",
-        record:"السجل العام", c1t:"مكتسب فقط", c1p:"الرصيد يُنشأ بعد استخدام حقيقي ومذكرة موقّعة. لا أحد يشتري 35.",
-        c2t:"دفتر واحد", c2p:"الزوج لاحقًا 35/USDC على Meteora DAMM v2. سيولة مقفلة على Squads.",
-        c3t:"ليس حصة", c3p:"ليس SAFE وليس مطالبة على شركة. لا ترسل أموالًا مقابل رصيد.",
-        locked:"القرار المقفل", lockedp:"لا شراء. لا استرداد. يتحول 1:1 إذا طبع gate.js كلمة PASS.",
-        how:"كيف يُكتسب الرصيد", howp:"المكتب يتاجر برأس ماله. بعد استخدام حقيقي يُرسل deskSigner مذكرة.",
-        addr:"العناوين", mode:"الوضع", jur:"الولاية", mint:"السك", pool:"المجمع", support:"الدعم",
-        not:"ما ليس 35", n1:"ليس حصة في أي شركة.", n2:"ليس SAFE ولا مطالبة على شركة.", n3:"ليس إيصال إيداع. لا ترسل USDC أو SOL.", n4:"ليس وعدًا بربح أو إدراج."
-      },
       ru: {
         kicker:"Solana-деск · только заработка · старт",
-        lede:"Кредит деска за реальный sniper и flash. Не продаётся. Не выкупается. Бренд жив. Минт — нет.",
+        lede:"Кредит деска за реальный sniper и flash. Не продаётся. Бренд жив. Минт — нет.",
         record:"Публичная запись", c1t:"Только заработка", c1p:"Кредит появляется после реального использования и memo. 35 нельзя купить.",
-        c2t:"Один стакан", c2p:"Позже только 35/USDC на Meteora DAMM v2. LP на Squads. Нет 35/SOL.",
-        c3t:"Не доля", c3p:"Не SAFE и не требование к компании. Сторонние не шлют деньги за кредит.",
-        locked:"Фиксированное решение", lockedp:"Нет покупки. Нет выкупа. 1:1 в SPL 35 только если gate.js печатает PASS.",
-        how:"Как зарабатывается", howp:"Деск торгует своим капиталом. После сделки deskSigner пишет memo в сеть.",
+        c2t:"Один стакан", c2p:"Позже только 35/USDC на Meteora DAMM v2. LP на Squads.",
+        c3t:"Не доля", c3p:"Не SAFE. Сторонние не шлют деньги за кредит.",
+        locked:"Фиксированное решение", lockedp:"Нет покупки. 1:1 в SPL 35 только если gate.js печатает PASS.",
+        how:"Как зарабатывается", howp:"Деск торгует своим капиталом.",
         addr:"Адреса", mode:"Режим", jur:"Юрисдикция", mint:"Минт", pool:"Пул", support:"Поддержка",
-        not:"Чем 35 не является", n1:"Не доля в корпорации.", n2:"Не SAFE и не требование к компании.", n3:"Не квитанция. Не шлите USDC или SOL за кредит.", n4:"Нет обещания прибыли или листинга."
+        not:"Чем 35 не является", n1:"Не доля в корпорации.", n2:"Не SAFE.", n3:"Не квитанция.", n4:"Нет обещания листинга."
       },
       zh: {
         kicker:"Solana 交易台 · 仅挣取 · 启动",
-        lede:"真实 sniper / flash 使用产生额度。不卖。不兑。品牌已上线。尚未锻造。",
-        record:"公开记录", c1t:"仅挣取", c1p:"真实使用并上链 memo 后才产生额度。无人购买 35。",
-        c2t:"单一盘口", c2p:"后续仅 35/USDC（Meteora DAMM v2）。LP 锁在 Squads。无 35/SOL 主盘口。",
-        c3t:"非股权", c3p:"不是 SAFE，不是公司债权。外部不得为额度汇款。",
-        locked:"已锁定", lockedp:"不买不兑。仅当 gate.js 输出 PASS 时按 1:1 锻造 SPL 35。",
-        how:"如何挣取", howp:"台子用自有资金交易。真实交易后 deskSigner 发布链上 memo。",
+        lede:"真实 sniper / flash 使用产生额度。不卖。品牌已上线。尚未锻造。",
+        record:"公开记录", c1t:"仅挣取", c1p:"真实使用并上链 memo 后才产生额度。",
+        c2t:"单一盘口", c2p:"后续仅 35/USDC。LP 锁在 Squads。",
+        c3t:"非股权", c3p:"不是 SAFE。外部不得为额度汇款。",
+        locked:"已锁定", lockedp:"不买不兑。仅当 gate.js 输出 PASS 时 1:1 锻造。",
+        how:"如何挣取", howp:"台子用自有资金交易。",
         addr:"地址", mode:"模式", jur:"法域", mint:"锻造", pool:"池", support:"支持",
-        not:"35 不是什么", n1:"不是任何公司股权。", n2:"不是 SAFE 或公司债权。", n3:"不是存单。不要为额度汇入 USDC 或 SOL。", n4:"不承诺盈利、回购或上市。"
+        not:"35 不是什么", n1:"不是公司股权。", n2:"不是 SAFE。", n3:"不是存单。", n4:"不承诺上市。"
       },
       de: {
         kicker:"Solana-Desk · nur verdient · Start",
-        lede:"Desk-Guthaben für echte Sniper- und Flash-Nutzung. Nicht verkauft. Nicht einlösbar. Marke live. Mint nicht.",
-        record:"Öffentliche Akte", c1t:"Nur verdient", c1p:"Guthaben entsteht nach echter Desk-Nutzung und Memo. Niemand kauft 35.",
-        c2t:"Ein Buch", c2p:"Später nur 35/USDC auf Meteora DAMM v2. LP auf Squads gesperrt. Kein 35/SOL.",
-        c3t:"Kein Equity", c3p:"Kein SAFE. Kein Anspruch auf eine Firma. Außenstehende senden kein Geld für Credits.",
-        locked:"Festgelegt", lockedp:"Kein Kauf. Keine Rücknahme. 1:1 zu SPL 35 nur wenn gate.js PASS druckt.",
-        how:"So entsteht Guthaben", howp:"Der Desk handelt mit eigenem Kapital. Danach setzt deskSigner ein On-Chain-Memo.",
+        lede:"Desk-Guthaben für echte Nutzung. Nicht verkauft. Marke live. Mint nicht.",
+        record:"Öffentliche Akte", c1t:"Nur verdient", c1p:"Guthaben nach echter Nutzung und Memo. Niemand kauft 35.",
+        c2t:"Ein Buch", c2p:"Später nur 35/USDC. LP auf Squads.",
+        c3t:"Kein Equity", c3p:"Kein SAFE. Kein Geld für Credits senden.",
+        locked:"Festgelegt", lockedp:"Kein Kauf. 1:1 nur wenn gate.js PASS druckt.",
+        how:"So entsteht Guthaben", howp:"Der Desk handelt mit eigenem Kapital.",
         addr:"Adressen", mode:"Modus", jur:"Rechtsraum", mint:"Mint", pool:"Pool", support:"Support",
-        not:"Was 35 nicht ist", n1:"Kein Anteil an einer Gesellschaft.", n2:"Kein SAFE und keine Forderung gegen eine Firma.", n3:"Keine Einzahlungsquittung. Kein USDC/SOL für Credits senden.", n4:"Kein Versprechen auf Gewinn, Buyback oder Listing."
+        not:"Was 35 nicht ist", n1:"Kein Gesellschaftsanteil.", n2:"Kein SAFE.", n3:"Keine Einzahlung.", n4:"Kein Listing-Versprechen."
       },
       es: {
         kicker:"Mesa Solana · solo ganado · arranque",
-        lede:"Crédito de mesa por uso real de sniper y flash. No se vende. No se canjea. Marca en vivo. Mint no.",
-        record:"Registro público", c1t:"Solo ganado", c1p:"El crédito nace tras uso real y un memo firmado. Nadie compra 35.",
-        c2t:"Un libro", c2p:"Luego solo 35/USDC en Meteora DAMM v2. LP bloqueada en Squads. No 35/SOL.",
-        c3t:"No es equity", c3p:"No es un SAFE ni un derecho sobre una empresa. Nadie envía fondos a cambio de crédito.",
-        locked:"Decisión fija", lockedp:"Sin compra. Sin canje. 1:1 a SPL 35 solo si gate.js imprime PASS.",
-        how:"Cómo se gana", howp:"La mesa opera su propio capital. Tras un uso real, deskSigner publica un memo on-chain.",
+        lede:"Crédito de mesa por uso real. No se vende. Marca en vivo. Mint no.",
+        record:"Registro público", c1t:"Solo ganado", c1p:"El crédito nace tras uso real y un memo. Nadie compra 35.",
+        c2t:"Un libro", c2p:"Luego solo 35/USDC. LP en Squads.",
+        c3t:"No es equity", c3p:"No es un SAFE. Nadie envía fondos a cambio de crédito.",
+        locked:"Decisión fija", lockedp:"Sin compra. 1:1 solo si gate.js imprime PASS.",
+        how:"Cómo se gana", howp:"La mesa opera su propio capital.",
         addr:"Direcciones", mode:"Modo", jur:"Jurisdicción", mint:"Mint", pool:"Pool", support:"Soporte",
-        not:"Lo que 35 no es", n1:"No es capital de ninguna sociedad.", n2:"No es un SAFE ni un crédito contra una empresa.", n3:"No es un recibo de depósito. No envíes USDC o SOL por créditos.", n4:"No promete beneficio, recompra ni listado."
+        not:"Lo que 35 no es", n1:"No es capital social.", n2:"No es un SAFE.", n3:"No es un depósito.", n4:"No promete listado."
       }
     };
-    var LANGS = ["en","ar","ru","zh","de","es"];
-    var LABELS = { en:"EN", ar:"AR", ru:"RU", zh:"中文", de:"DE", es:"ES" };
+    var LANGS = ["en","ru","zh","de","es"];
+    var LABELS = { en:"EN", ru:"RU", zh:"中文", de:"DE", es:"ES" };
     function applyLang(lang) {
       if (!T[lang]) lang = "en";
       document.documentElement.lang = lang;
-      document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+      document.documentElement.dir = "ltr";
       var pack = T[lang];
       document.querySelectorAll("[data-i18n]").forEach(function (el) {
         var k = el.getAttribute("data-i18n");
