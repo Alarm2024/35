@@ -1,0 +1,6 @@
+config/
+!config/*.example.json
+*.key
+.env
+.env.*
+node_modules/

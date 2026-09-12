@@ -4,16 +4,8 @@
   "decimals": 6,
   "issuanceMode": "earned",
   "jurisdiction": "",
-  "rpcUrl": "https://api.mainnet-beta.solana.com",
-  "usdcMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-  "memoProgram": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
-  "dammV2Program": "cpamdpZCGKUy5JxQXB4dcpGPiikHawvSWAd6mEn1sGG",
-  "deskSigners": [],
-  "controlledWallets": [],
-  "squadsVault": "",
   "mint": "",
+  "squadsVault": "",
   "pool": "",
-  "position": "",
-  "positionNftMint": "",
-  "metadataUri": ""
+  "usdcMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"
 }
