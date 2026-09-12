@@ -26,8 +26,8 @@
     .banner img { display:block; width:100%; height:auto; }
     .kicker { color:var(--green); font-size:12px; letter-spacing:.18em; text-transform:uppercase; }
     .lede { font-size:20px; color:var(--dim); max-width:34em; }
-    .cta { display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
-    .cta a, .ask button { text-decoration:none; border-radius:999px; padding:12px 16px; font-size:14px; font-weight:600; border:0; cursor:pointer; }
+    .cta { margin-top:22px; }
+    .cta a, .ask button { text-decoration:none; border-radius:999px; padding:12px 16px; font-size:14px; font-weight:600; border:0; cursor:pointer; display:inline-block; }
     .cta .primary, .ask .go { background:var(--green); color:#04110a; }
     .ask .mail { border:1px solid var(--line); color:var(--ink); background:transparent; }
     .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:36px; }
@@ -45,6 +45,7 @@
     .ask textarea { width:100%; min-height:88px; margin:12px 0; padding:12px; border-radius:12px; border:1px solid var(--line); background:#11041f; color:var(--ink); font:inherit; }
     .ask .out { margin-top:14px; color:var(--ink); white-space:pre-wrap; }
     .ask .row { display:flex; flex-wrap:wrap; gap:8px; }
+    .ask .note { font-size:12px; margin-top:8px; }
     @media (max-width:720px){ .grid,dl{grid-template-columns:1fr;} .lang{max-width:100%;} }
   </style>
 </head>
@@ -59,9 +60,7 @@
       <div class="kicker" data-i18n="kicker"></div>
       <h1 class="sr">35</h1>
       <p class="lede" data-i18n="lede"></p>
-      <div class="cta">
-        <a class="primary" href="mailto:35@elghaly.dev">35@elghaly.dev</a>
-      </div>
+      <div class="cta"><a class="primary" href="mailto:35@elghaly.dev">35@elghaly.dev</a></div>
     </div>
     <div class="grid">
       <article class="card"><h3 data-i18n="c1t"></h3><p data-i18n="c1p"></p></article>
@@ -74,9 +73,10 @@
         <p data-i18n="askp"></p>
         <textarea id="q" placeholder="Ask 35"></textarea>
         <div class="row">
-          <button class="go" type="button" id="askBtn" data-i18n="askgo"></button>
-          <button class="mail" type="button" id="mailBtn" data-i18n="askmail"></button>
+          <button class="go" type="button" id="askBtn">Answer</button>
+          <button class="mail" type="button" id="mailBtn">Mail the desk</button>
         </div>
+        <p class="note" id="sent"></p>
         <p class="out" id="a"></p>
       </div>
     </section>
@@ -96,13 +96,13 @@
   </div>
   <script>
     var T = {
-      en: { kicker:"Closed desk · not a public app", lede:"35 is a private earned-credit ledger for this desk. There is no public bot to click, no coin to buy, no deposit to send. Follow the record. Mail if you must. Mint stays unpublished until the desk books realized profit.", record:"Public record", c1t:"Closed", c1p:"The sniper and flash are not a public product.", c2t:"Earned only", c2p:"Credit later comes from signed desk-usage memos. Nobody buys 35.", c3t:"Not a listing", c3p:"No pool today. Do not look for a contract to ape.", locked:"Locked", lockedp:"Path A. Closed desk. No purchase. No redeem. No public app.", addr:"Addresses", mode:"Mode", support:"Support", mint:"Mint", pool:"Pool", askt:"Ask 35", askp:"Instant answers from the public rules. Anything else opens mail to the desk so a human can reply.", askgo:"Answer", askmail:"Mail the desk" }
+      en: { kicker:"Closed desk · not a public app", lede:"35 is a private earned-credit ledger for this desk. There is no public bot to click, no coin to buy, no deposit to send. Follow the record. Mail if you must. Mint stays unpublished until the desk books realized profit.", record:"Public record", c1t:"Closed", c1p:"The sniper and flash are not a public product.", c2t:"Earned only", c2p:"Credit later comes from signed desk-usage memos. Nobody buys 35.", c3t:"Not a listing", c3p:"No pool today. Do not look for a contract to ape.", locked:"Locked", lockedp:"Path A. Closed desk. No purchase. No redeem. No public app.", addr:"Addresses", mode:"Mode", support:"Support", mint:"Mint", pool:"Pool", askt:"Ask 35", askp:"You get an instant answer here. The same question is also sent to 35@elghaly.dev so the desk can reply." }
     };
-    T.ar = Object.assign({}, T.en, { kicker:"مكتب مغلق", askt:"اسأل 35", askgo:"أجب", askmail:"راسل المكتب", support:"الدعم", record:"السجل" });
-    T.ru = Object.assign({}, T.en, { kicker:"Закрытый деск", askt:"Спросить 35", askgo:"Ответ", askmail:"Письмо" });
-    T.zh = Object.assign({}, T.en, { kicker:"闭门台子", askt:"问 35", askgo:"回答", askmail:"写信" });
-    T.de = Object.assign({}, T.en, { kicker:"Geschlossener Desk", askt:"35 fragen", askgo:"Antwort", askmail:"Mail" });
-    T.es = Object.assign({}, T.en, { kicker:"Mesa cerrada", askt:"Preguntar a 35", askgo:"Responder", askmail:"Correo" });
+    T.ar = Object.assign({}, T.en, { kicker:"مكتب مغلق", askt:"اسأل 35", support:"الدعم", record:"السجل", askp:"إجابة فورية هنا، ونفس السؤال يصل إلى 35@elghaly.dev." });
+    T.ru = Object.assign({}, T.en, { kicker:"Закрытый деск", askt:"Спросить 35" });
+    T.zh = Object.assign({}, T.en, { kicker:"闭门台子", askt:"问 35" });
+    T.de = Object.assign({}, T.en, { kicker:"Geschlossener Desk", askt:"35 fragen" });
+    T.es = Object.assign({}, T.en, { kicker:"Mesa cerrada", askt:"Preguntar a 35" });
     var LANGS = ["en","ar","ru","zh","de","es"];
     var LABELS = { en:"EN", ar:"AR", ru:"RU", zh:"中文", de:"DE", es:"ES" };
     function applyLang(lang) {
@@ -127,18 +127,33 @@
     try { applyLang(localStorage.getItem("35-lang") || "en"); } catch (e) { applyLang("en"); }
     function answer(q) {
       q = (q || "").toLowerCase();
+      if (!q.trim()) return "Type a question first.";
       if (/buy|purchase|price|chart|ape|presale|ico/.test(q)) return "You do not buy 35. No presale. No chart. Mint is unpublished.";
       if (/deposit|send (sol|usdc)|invest/.test(q)) return "Do not send SOL or USDC. There is no deposit address for credits.";
-      if (/mint|contract|ca\b|token address/.test(q)) return "Mint is unpublished. There is no contract to ape.";
-      if (/pool|jupiter|swap|raydium|meteora/.test(q)) return "No 35/USDC pool yet.";
+      if (/mint|contract|\bca\b|token address/.test(q)) return "Mint is unpublished. There is no contract to ape.";
+      if (/pool|jupiter|swap|raydium|meteora/.test(q)) return "No 35/USDC pool yet. Pair comes after mint.";
       if (/airdrop|member|points/.test(q)) return "Visiting this site does not earn 35.";
-      if (/what is|what's 35/.test(q)) return "35 is a private earned-credit ledger for this desk. Closed.";
-      if (/support/.test(q)) return "support@elghaly.dev is at the bottom of this page. Desk mail is 35@elghaly.dev.";
-      if (/mail|email|contact/.test(q)) return "Desk 35@elghaly.dev · support@elghaly.dev (below).";
-      return "Use Mail the desk — a human reads 35@elghaly.dev.";
+      if (/what is|what's 35/.test(q)) return "35 is a private earned-credit ledger for this desk. Closed. Not a public app.";
+      if (/support/.test(q)) return "support@elghaly.dev is at the bottom. Desk mail is 35@elghaly.dev.";
+      if (/mail|email|contact/.test(q)) return "Desk 35@elghaly.dev. Support is lower on this page.";
+      return "Logged to the desk. A human reads 35@elghaly.dev. Instant rule: no buy, no deposit, mint unpublished.";
+    }
+    function notifyDesk(q) {
+      return fetch("https://formsubmit.co/ajax/35@elghaly.dev", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ _subject: "ASK 35 — 35.elghaly.dev", message: q, source: "https://35.elghaly.dev" })
+      }).then(function (r) { return r.json().catch(function () { return {}; }); });
     }
     document.getElementById("askBtn").onclick = function () {
-      document.getElementById("a").textContent = answer(document.getElementById("q").value);
+      var q = document.getElementById("q").value || "";
+      document.getElementById("a").textContent = answer(q);
+      document.getElementById("sent").textContent = "Sending a copy to 35@elghaly.dev…";
+      notifyDesk(q).then(function () {
+        document.getElementById("sent").textContent = "Copy sent toward 35@elghaly.dev.";
+      }).catch(function () {
+        document.getElementById("sent").textContent = "Instant answer is up. Mail copy failed — use Mail the desk.";
+      });
     };
     document.getElementById("mailBtn").onclick = function () {
       location.href = "mailto:35@elghaly.dev?subject=ASK%2035&body=" + encodeURIComponent(document.getElementById("q").value || "");
