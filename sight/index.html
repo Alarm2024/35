@@ -1,15 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SIGHT — 35 ElGhaly</title>
-  <meta name="description" content="Classify a Solana signature. No connect. No seed. No screen share." />
-  <meta name="theme-color" content="#0b0418" />
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>SIGHT — 35 ElGhaly</title>
+<meta name="description" content="Classify a Solana signature. No connect. No seed."/>
+<meta name="theme-color" content="#0b0418"/>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+<style>
+:root{--bg:#07010f;--ink:#f5f7ff;--dim:#b9b6d3;--purple:#9945ff;--green:#14f195;--cyan:#19fbff;--line:rgba(153,69,255,.28);--card:rgba(20,6,39,.72);--a:#14f195;--b:#f5d76e;--c:#ff6b8a}
+*{box-sizing:border-box;margin:0;padding:0}html,body{background:var(--bg);color:var(--ink)}
+body{font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.5;min-height:100vh;background:radial-gradient(900px 480px at 10% -10%,rgba(153,69,255,.28),transparent 55%),radial-gradient(700px 400px at 100% 0%,rgba(20,241,149,.12),transparent 50%),var(--bg)}
+.wrap{max-width:920px;margin:0 auto;padding:28px 20px 80px}header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
+.mark{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--purple),var(--green));display:grid;place-items:center;font-weight:800}
+.word{font-size:13px;letter-spacing:.32em;text-transform:uppercase;color:var(--dim)}
+.lang{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;max-width:280px}
+.lang button{background:transparent;color:var(--dim);border:1px solid var(--line);border-radius:999px;padding:5px 9px;font-size:11px;cursor:pointer}
+.lang button.on{color:#07010f;background:var(--green);border-color:var(--green)}
+.kicker{color:var(--green);font-size:12px;letter-spacing:.18em;text-transform:uppercase;margin-top:28px}
+h1{font-size:42px;letter-spacing:-.04em;margin:8px 0 10px}.lede{font-size:18px;color:var(--dim);max-width:34em}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.cta a,button.go,button.ghost{text-decoration:none;border-radius:999px;padding:12px 16px;font-size:14px;font-weight:600;border:0;cursor:pointer;font-family:inherit}
+button.go{background:var(--green);color:#04110a}.ghost,button.ghost{border:1px solid var(--line);color:var(--ink);background:transparent}
+.box{margin-top:28px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px}
+label{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:8px}
+textarea{width:100%;min-height:92px;resize:vertical;background:#11041f;color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:12px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px}.card h3{font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.card p,p{color:var(--dim);font-size:15px}section{margin-top:36px}h2{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--purple);margin-bottom:12px}
+.rule{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:var(--ink);background:#11041f;border:1px solid var(--line);border-radius:14px;padding:16px 18px;white-space:pre-wrap}
+.out{margin-top:14px;display:none}.out.on{display:block}
+.badge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:700;letter-spacing:.12em}
+.A{background:rgba(20,241,149,.16);color:var(--a)}.B{background:rgba(245,215,110,.16);color:var(--b)}.C{background:rgba(255,107,138,.16);color:var(--c)}.X{background:rgba(185,182,211,.12);color:var(--dim)}
+footer{margin-top:48px;color:var(--dim);font-size:13px}a{color:var(--cyan)}
+@media(max-width:720px){.grid{grid-template-columns:1fr}.lang{max-width:100%}h1{font-size:32px}}
+</style>
 </head>
 <body>
-  <script>location.replace("/sight/");</script>
-  <p><a href="./index.html">SIGHT</a></p>
+<div class="wrap">
+<header><a class="brand" href="/"><div class="mark">35</div><span class="word">elghaly</span></a><div class="lang" id="langbar"></div></header>
+<p class="kicker" data-i18n="kicker"></p>
+<h1>SIGHT</h1>
+<p class="lede" data-i18n="lede"></p>
+<div class="cta">
+<a class="ghost" href="mailto:support@elghaly.dev?subject=HUMAN%20SIGHT" data-i18n="human"></a>
+<a class="ghost" href="mailto:support@elghaly.dev?subject=SIGHT%20PAY" data-i18n="pay"></a>
+<a class="ghost" href="https://github.com/Alarm2024/35-sight">GitHub</a>
+</div>
+<div class="box">
+<label for="q" data-i18n="paste"></label>
+<textarea id="q" spellcheck="false" autocomplete="off"></textarea>
+<div class="row"><button class="go" id="run" type="button" data-i18n="run"></button><button class="ghost" id="clr" type="button" data-i18n="clr"></button></div>
+<div class="out" id="out"><p><span class="badge X" id="badge">-</span></p><p class="rule" id="report"></p></div>
+</div>
+<div class="grid">
+<article class="card"><h3>A</h3><p data-i18n="c1p"></p></article>
+<article class="card"><h3>B</h3><p data-i18n="c2p"></p></article>
+<article class="card"><h3>C</h3><p data-i18n="c3p"></p></article>
+</div>
+<section><h2 data-i18n="never"></h2><p class="rule" data-i18n="neverp"></p></section>
+<section><h2 data-i18n="lanes"></h2><p data-i18n="lanesp"></p></section>
+<footer>✝️ 🪬 🧿 · SIGHT · <a href="mailto:support@elghaly.dev">support@elghaly.dev</a> · <a href="/">35 desk</a></footer>
+</div>
+<script src="/sight/app.js"></script>
 </body>
 </html>
