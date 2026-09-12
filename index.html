@@ -62,10 +62,8 @@
       </a>
       <div class="seals" title="marks">✝️ 🪬 🧿</div>
     </header>
-
     <h1>35</h1>
     <p class="lede">Desk credit. Issued for using the sniper and flash engine. Never sold. Never redeemed. Not a chart to paint.</p>
-
     <div class="posters">
       <figure>
         <div class="poster">
@@ -112,7 +110,6 @@
         <figcaption>One book · 35 / USDC</figcaption>
       </figure>
     </div>
-
     <section>
       <h2>Locked decision</h2>
       <p class="rule">No purchase. No redeem. Earned only from signed desk-usage memos. Converts 1:1 to SPL 35 at a single mint event if and only if gate.js prints PASS.</p>
@@ -145,6 +142,8 @@
       <dl>
         <dt>Mode</dt>
         <dd id="mode">earned</dd>
+        <dt>Jurisdiction</dt>
+        <dd id="jurisdiction" class="empty">unpublished</dd>
         <dt>Mint</dt>
         <dd id="mint" class="empty">unpublished</dd>
         <dt>Squads</dt>
@@ -165,7 +164,11 @@
     fetch("/protocol.json").then(function(r){return r.ok?r.json():null;}).then(function(p){
       if(!p) return;
       function set(id,v){ var el=document.getElementById(id); if(!el||!v) return; el.textContent=v; el.classList.remove("empty"); }
-      set("mode", p.issuanceMode); set("mint", p.mint); set("vault", p.squadsVault); set("pool", p.pool);
+      set("mode", p.issuanceMode);
+      set("jurisdiction", p.jurisdiction);
+      set("mint", p.mint);
+      set("vault", p.squadsVault);
+      set("pool", p.pool);
     }).catch(function(){});
   </script>
 </body>
