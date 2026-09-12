@@ -1,0 +1,10 @@
+{
+  "rpcUrl": "https://api.mainnet-beta.solana.com",
+  "memoProgram": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+  "dammV2Program": "cpamdpZCGKUy5JxQXB4dcpGPiikHawvSWAd6mEn1sGG",
+  "deskSigners": [],
+  "controlledWallets": [],
+  "position": "",
+  "positionNftMint": "",
+  "metadataUri": ""
+}

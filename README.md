@@ -1,19 +1,35 @@
 # 35
 
-Public desk page for `https://35.elghaly.dev`.
+Public desk page: https://35.elghaly.dev
+Public record: https://github.com/Alarm2024/35
 
-Earned-only. No purchase. No redeem. No outsider deposits.
+Earned-only. No purchase. No redeem. No outsider deposits. English only.
 
-## DNS (you must add this)
+## Operator files (copy, then rename)
 
-At the registrar / Cloudflare for `elghaly.dev`:
+Real `config/protocol.json` and `config/pnl.json` are gitignored. Do not commit them.
 
+```bash
+cp config/protocol.example.json config/protocol.json
+cp config/pnl.example.json config/pnl.json
 ```
-35.elghaly.dev    CNAME    Alarm2024.github.io
+
+Fill those local copies yourself. Leave public `protocol.json` address fields empty until operators are ready.
+
+## Scripts
+
+```bash
+node scripts/gate.js
+node scripts/self-audit.js
+node --test scripts/test/*.test.js
 ```
 
-Then in this repo: Settings → Pages → GitHub Actions, custom domain `35.elghaly.dev`.
+Both gate and self-audit fail closed. Empty config means BLOCK / FAIL.
 
-## Status
+## Docs
 
-Pre-mint. Addresses stay unpublished until Squads vault and mint exist.
+- `RULES.md` `KILL_LIST.md` `CONVERSION.md`
+- `docs/MAIL_35.md` — `35@elghaly.dev`
+- `docs/GITHUB_DOMAIN.md` — apex domain verify taps
+
+Supply cap is `TODO_HUMAN`. Do not invent a number.

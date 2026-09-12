@@ -1,5 +1,7 @@
-config/
+config/protocol.json
+config/pnl.json
 *.key
 *.json.key
 .env
+.env.*
 node_modules/
