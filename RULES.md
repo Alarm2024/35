@@ -11,6 +11,7 @@
 - `credit` is a decimal string with at most 6 fractional digits.
 - The same `sourceSig` cannot appear in two weeks.
 - Supply cap at mint: `TODO_HUMAN`. Do not invent a number.
+- Signer role is `35 deskSigner` in `docs/WALLET_MAP.md`. That key is not KEEP, not 350, not `cheap_*`.
 
 ## What 35 is not
 
@@ -22,6 +23,7 @@
 ## Mint
 
 - Mint does not exist until `node scripts/gate.js` exits 0.
+- Empty jurisdiction, mint, squadsVault, or pool in public `protocol.json` means BLOCK.
 - Rent is paid from realized desk PnL recorded in `config/pnl.json`, not from outside capital labeled raise.
 - Name `35`, symbol `35`, 6 decimals, standard SPL Token program.
 - Mint authority and freeze authority are set to null in the same revocation transaction, then verified on-chain before any announcement.
@@ -30,8 +32,13 @@
 
 - Single pair after mint: `35/USDC` on Meteora DAMM v2.
 - Liquidity is protocol-owned and permanently locked.
-- Position NFT must sit on the Squads vault, not a personal key.
+- Position NFT must sit on the Squads vault, not a personal key and not a bot hot key.
 - No self-trading, wash loops, or painted candles.
+
+## Keys
+
+See `docs/WALLET_MAP.md`.
+No bot hot key (KEEP, 350, cheap_*) ever holds mint, freeze, LP, position NFT, or treasury.
 
 ## Failure path
 
@@ -48,4 +55,4 @@
 ## Jurisdiction
 
 - Operators name a jurisdiction in `protocol.json` before week 1 is published.
-- If that field is empty, no public announcement.
+- If that field is empty, no public announcement and `scripts/gate.js` stays BLOCK.

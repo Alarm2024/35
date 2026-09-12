@@ -16,6 +16,8 @@ cp config/pnl.example.json config/pnl.json
 
 Fill those local copies yourself. Leave public `protocol.json` address fields empty until operators are ready.
 
+Key roles: `docs/WALLET_MAP.md`. Do not put bot hot keys on mint, freeze, LP, position NFT, or treasury.
+
 ## Scripts
 
 ```bash
@@ -24,12 +26,13 @@ node scripts/self-audit.js
 node --test scripts/test/*.test.js
 ```
 
-Both gate and self-audit fail closed. Empty config means BLOCK / FAIL.
+Both gate and self-audit fail closed. Empty jurisdiction / mint / squadsVault / pool means BLOCK.
 
 ## Docs
 
 - `RULES.md` `KILL_LIST.md` `CONVERSION.md`
-- `docs/MAIL_35.md` — `35@elghaly.dev`
+- `docs/WALLET_MAP.md` — roles, empty addresses
+- `docs/MAIL_35.md` — catch-all to `wyndhamdesert@gmail.com`, send as `wyndham35@elghaly.dev`
 - `docs/GITHUB_DOMAIN.md` — apex domain verify taps
 
 Supply cap is `TODO_HUMAN`. Do not invent a number.
