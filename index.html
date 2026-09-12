@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>35 — earned desk credit</title>
+  <meta name="description" content="35 is earned from using the desk. It is not sold. It is not redeemable. It is not equity." />
+  <meta name="theme-color" content="#09090b" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <meta property="og:title" content="35" />
+  <meta property="og:description" content="Earned-only desk credit. No purchase. No redeem. No mint until the gate passes." />
+  <meta property="og:url" content="https://35.elghaly.dev" />
+  <meta property="og:type" content="website" />
+  <style>
+    :root {
+      --bg: #09090b;
+      --ink: #eceee8;
+      --stone: #d6d8d1;
+      --silver: #c8ccd4;
+      --sage: #8d9188;
+      --line: #1c1d1c;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: var(--bg); color: var(--ink); }
+    body {
+      font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Times New Roman", serif;
+      line-height: 1.45;
+      min-height: 100vh;
+    }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 48px 24px 96px; }
+    header { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+    .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit; }
+    .mark { width: 36px; height: 36px; }
+    .word { font-size: 13px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--stone); }
+    .status {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--sage);
+      border: 1px solid #2a2c2a;
+      padding: 6px 10px;
+    }
+    h1 { font-weight: 500; font-size: 42px; letter-spacing: -0.03em; margin: 36px 0 12px; }
+    .lede { color: var(--stone); font-size: 18px; max-width: 34em; }
+    .ar { direction: rtl; font-family: "SF Arabic", "Noto Naskh Arabic", serif; color: var(--sage); margin-top: 10px; font-size: 16px; }
+    section { margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--line); }
+    h2 { font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 14px; }
+    p, li { color: var(--stone); font-size: 16px; }
+    p + p { margin-top: 12px; }
+    ul { padding-left: 1.1em; }
+    li + li { margin-top: 8px; }
+    .rule {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--ink);
+      background: #0e0f0e;
+      border: 1px solid var(--line);
+      padding: 16px 18px;
+    }
+    dl { display: grid; grid-template-columns: 140px 1fr; gap: 10px 16px; }
+    dt { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sage); padding-top: 4px; }
+    dd { color: var(--ink); font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 12px; word-break: break-all; }
+    .empty { color: var(--sage); }
+    footer { margin-top: 56px; color: var(--sage); font-size: 12px; letter-spacing: 0.08em; }
+    a { color: var(--silver); }
+    @media (max-width: 560px) {
+      h1 { font-size: 32px; }
+      dl { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="/">
+        <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" fill="#09090b"/>
+          <g fill="none" stroke="#eceee8" stroke-width="1.25" stroke-linecap="square">
+            <path d="M7 8h7M7 16h7M7 24h7M7 8v16"/>
+            <path d="M19 8h6v6h-6M25 14v10H19"/>
+          </g>
+          <rect x="11" y="27.25" width="10" height="1" fill="#8d9188"/>
+        </svg>
+        <span class="word">ElGhaly</span>
+      </a>
+      <div class="status" id="status">pre-mint · earned-only</div>
+    </header>
+    <h1>35</h1>
+    <p class="lede">Desk credit. Issued for using the sniper and flash engine. Never sold. Never redeemed. Not a chart to paint.</p>
+    <p class="ar">ائتمان مكتسب من استخدام المكتب فقط. لا شراء. لا استرداد. ليس سهماً.</p>
+    <section>
+      <h2>Locked decision</h2>
+      <p class="rule">No purchase. No redeem. Earned only from signed desk-usage memos. Converts 1:1 to SPL 35 at a single mint event if and only if gate.js prints PASS.</p>
+    </section>
+    <section>
+      <h2>What 35 is not</h2>
+      <ul>
+        <li>Not equity in ElGhaly or any corporation.</li>
+        <li>Not a SAFE, note, or claim on the May 2026 instrument.</li>
+        <li>Not a deposit receipt. Outsiders do not send USDC or SOL for credits.</li>
+        <li>Not a promise of profit, buyback, or listing.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>How credit is earned</h2>
+      <p>The desk trades its own capital. After a real usage event, an allowlisted signer posts an on-chain memo:</p>
+      <p class="rule" style="margin-top:14px">35-credit:<wallet>:<amount>:<week></p>
+      <p style="margin-top:14px">That signature is the only issuance. Weeks are signed, merkle-rooted, and verified against chain. No mint exists until realized desk profit covers rent.</p>
+    </section>
+    <section>
+      <h2>Pair, later</h2>
+      <ul>
+        <li>One book only: 35/USDC on Meteora DAMM v2.</li>
+        <li>Protocol-owned liquidity, permanently locked, position NFT on a Squads vault.</li>
+        <li>No 35/SOL primary book. No self-trade. No wash. Searchers that see a puppet candle harvest the puppeteer.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Addresses</h2>
+      <dl>
+        <dt>Mode</dt>
+        <dd id="mode">earned</dd>
+        <dt>Mint</dt>
+        <dd id="mint" class="empty">unpublished</dd>
+        <dt>Squads</dt>
+        <dd id="vault" class="empty">unpublished</dd>
+        <dt>Pool</dt>
+        <dd id="pool" class="empty">unpublished</dd>
+        <dt>USDC</dt>
+        <dd>EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v</dd>
+      </dl>
+    </section>
+    <section>
+      <h2>Public record</h2>
+      <p><a href="https://github.com/Alarm2024/35">github.com/Alarm2024/35</a></p>
+    </section>
+    <footer>35.elghaly.dev · earned-only · no canary deposits</footer>
+  </div>
+  <script>
+    fetch("/protocol.json")
+      .then((r) => r.ok ? r.json() : null)
+      .then((p) => {
+        if (!p) return;
+        const set = (id, v) => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          if (v) { el.textContent = v; el.classList.remove("empty"); }
+        };
+        set("mode", p.issuanceMode);
+        set("mint", p.mint);
+        set("vault", p.squadsVault);
+        set("pool", p.pool);
+        if (p.mint) document.getElementById("status").textContent = "mint live · earned-only";
+      })
+      .catch(() => {});
+  </script>
+</body>
+</html>
