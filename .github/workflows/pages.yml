@@ -23,6 +23,8 @@ jobs:
           mkdir -p _site/sight
           cp index.html protocol.json favicon.svg .nojekyll _site/
           if [ -f CNAME ]; then cp CNAME _site/; fi
+          if [ -f IMG_5183.jpeg ]; then cp IMG_5183.jpeg _site/; fi
+          if [ -f 35-banner.jpg ]; then cp 35-banner.jpg _site/; fi
           if [ -f sight/index.html ]; then cp sight/index.html _site/sight/; fi
           if [ -f sight/app.js ]; then cp sight/app.js _site/sight/; fi
       - uses: actions/configure-pages@v5
