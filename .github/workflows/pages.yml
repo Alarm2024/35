@@ -24,6 +24,7 @@ jobs:
           cp index.html protocol.json favicon.svg .nojekyll _site/
           if [ -f CNAME ]; then cp CNAME _site/; fi
           if [ -f sight/index.html ]; then cp sight/index.html _site/sight/; fi
+          if [ -f sight/app.js ]; then cp sight/app.js _site/sight/; fi
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
