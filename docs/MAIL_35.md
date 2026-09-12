@@ -1,30 +1,30 @@
-# Mail: 35@elghaly.dev
+# Mail lock — elghaly.dev
 
-Preferred path is a **forward**, not a new Workspace seat.
+Inbound and outbound are separate. One MX family only.
 
 Do not invent passwords. Do not touch the `35` CNAME that points at `alarm2024.github.io`. Do not add a second competing MX set.
 
-## Preferred — Cloudflare Email Routing
+## Lock
 
-Forward `35@elghaly.dev` to an inbox that already works.
+- Inbound: Cloudflare Email Routing, catch-all `*@elghaly.dev` → `wyndhamdesert@gmail.com`
+- Outbound (free): Gmail **Send mail as** `wyndham35@elghaly.dev` from that same Gmail inbox
+- Site DNS stays:
 
-Use `wyndham35@elghaly.dev` as the destination **only if that address already receives mail**. If it does not exist, use a personal inbox you already control.
+```text
+CNAME   35    alarm2024.github.io
+```
 
-### Taps
+## Inbound — Cloudflare Email Routing
 
 1. Open [dash.cloudflare.com](https://dash.cloudflare.com) → zone `elghaly.dev`.
-2. Email → Email Routing (or Compute → Email Service → Email Routing).
-3. Enable / Onboard Domain. Let Cloudflare add MX + SPF. Do not type a password.
-4. Destination addresses → Add → existing inbox → confirm the message Cloudflare sends.
-5. Routing rules → Custom address:
-   - Custom: `35`
-   - Action: Send to an email
-   - Destination: the confirmed inbox
-6. Save. Send a test to `35@elghaly.dev` from a third account.
+2. Email → Email Routing. Enable / Onboard Domain. Let Cloudflare add MX + SPF.
+3. Destination addresses → Add `wyndhamdesert@gmail.com` → confirm the mail Cloudflare sends to Gmail.
+4. Routing rules:
+   - Catch-all / all addresses `*@elghaly.dev` → Send to `wyndhamdesert@gmail.com`
+   - Custom `35` may point at the same destination. Redundant with catch-all; either is fine.
+5. Send a test to `35@elghaly.dev` from a third account. It must land in Gmail.
 
-### Records Cloudflare should add (confirm, do not invent extras)
-
-Typical set (dashboard wins if names differ):
+Typical MX/TXT Cloudflare adds (dashboard wins if hostnames differ):
 
 ```text
 MX   @    amir.mx.cloudflare.net     13
@@ -33,24 +33,26 @@ MX   @    linda.mx.cloudflare.net    86
 TXT  @    v=spf1 include:_spf.mx.cloudflare.net ~all
 ```
 
-Newer onboard flows may use `route1.mx.cloudflare.net` / `route2` / `route3`. Use the Email Routing settings page.
+DNS only. No orange cloud on MX/TXT.
 
-If Google Workspace SPF already exists, merge. Do not replace:
+## Outbound — Gmail Send mail as
+
+Free path. No Workspace seat required.
+
+1. Gmail (`wyndhamdesert@gmail.com`) → Settings → See all settings → Accounts and Import → Send mail as → Add another email address.
+2. Name: `35`. Address: `wyndham35@elghaly.dev`.
+3. Treat as an alias. Gmail will send a confirmation to `wyndham35@elghaly.dev`.
+4. That confirmation arrives in the same Gmail inbox because of the catch-all. Open it and confirm.
+5. SPF already includes Cloudflare if you only forward. If Gmail SMTP is used to send as the domain, add Gmail to SPF **by merging**, not replacing:
 
 ```text
 v=spf1 include:_spf.mx.cloudflare.net include:_spf.google.com ~all
 ```
 
-DNS only on MX/TXT. Leave the existing record alone:
+Do not switch the zone to Google Workspace MX while Routing is the inbound path.
 
-```text
-CNAME   35    alarm2024.github.io
-```
+## Do not
 
-## Workspace path — only if you want a real mailbox
-
-1. Google Admin for `elghaly.dev`.
-2. Directory → Users → Add user `35`. Google emails the password setup to you. Do not invent one.
-3. Use **Google’s** MX/TXT as receiver. Do not keep Cloudflare Routing MX at the same time.
-
-Pick one receiver. Never two MX families.
+- Add Google Workspace MX while Cloudflare Routing MX exists.
+- Edit or delete `CNAME 35 → alarm2024.github.io`.
+- Invent an App Password here. Gmail will prompt if it needs one.
