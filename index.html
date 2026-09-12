@@ -7,200 +7,219 @@
   <meta name="description" content="35 is earned from the desk. Not sold. Not redeemable. Support: support@elghaly.dev" />
   <meta name="theme-color" content="#0b0418" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <meta property="og:title" content="35" />
-  <meta property="og:description" content="Earned-only desk credit on Solana. No purchase. No redeem." />
-  <meta property="og:url" content="https://35.elghaly.dev" />
   <style>
     :root {
-      --bg: #07010f;
-      --bg2: #140627;
-      --ink: #f5f7ff;
-      --dim: #b9b6d3;
-      --purple: #9945ff;
-      --green: #14f195;
-      --cyan: #19fbff;
-      --line: rgba(153,69,255,.28);
-      --card: rgba(20,6,39,.72);
+      --bg:#07010f; --ink:#f5f7ff; --dim:#b9b6d3; --purple:#9945ff;
+      --green:#14f195; --cyan:#19fbff; --line:rgba(153,69,255,.28); --card:rgba(20,6,39,.72);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { background: var(--bg); color: var(--ink); }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html,body { background:var(--bg); color:var(--ink); }
     body {
-      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-      line-height: 1.5;
-      min-height: 100vh;
+      font-family: ui-sans-serif, system-ui, sans-serif; line-height:1.5; min-height:100vh;
       background:
         radial-gradient(900px 480px at 10% -10%, rgba(153,69,255,.28), transparent 55%),
         radial-gradient(700px 400px at 100% 0%, rgba(20,241,149,.12), transparent 50%),
         var(--bg);
     }
-    .wrap { max-width: 920px; margin: 0 auto; padding: 28px 20px 80px; }
-    header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+    .wrap { max-width:920px; margin:0 auto; padding:28px 20px 80px; }
+    header { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+    .brand { display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit; }
     .mark {
-      width: 40px; height: 40px; border-radius: 12px;
-      background: linear-gradient(135deg, var(--purple), var(--green));
-      display: grid; place-items: center; font-weight: 800; letter-spacing: -.06em;
+      width:40px; height:40px; border-radius:12px;
+      background:linear-gradient(135deg,var(--purple),var(--green));
+      display:grid; place-items:center; font-weight:800;
     }
-    .word { font-size: 13px; letter-spacing: .32em; text-transform: uppercase; color: var(--dim); }
-    .tools { display: flex; align-items: center; gap: 8px; }
+    .word { font-size:13px; letter-spacing:.32em; text-transform:uppercase; color:var(--dim); }
+    .lang { display:flex; flex-wrap:wrap; gap:6px; justify-content:flex-end; max-width:280px; }
     .lang button {
-      background: transparent; color: var(--dim); border: 1px solid var(--line);
-      border-radius: 999px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+      background:transparent; color:var(--dim); border:1px solid var(--line);
+      border-radius:999px; padding:5px 9px; font-size:11px; cursor:pointer;
     }
-    .lang button.on { color: #07010f; background: var(--green); border-color: var(--green); }
-    .hero { margin-top: 36px; }
-    .kicker {
-      color: var(--green); font-size: 12px; letter-spacing: .22em; text-transform: uppercase;
-    }
+    .lang button.on { color:#07010f; background:var(--green); border-color:var(--green); }
+    .hero { margin-top:36px; }
+    .kicker { color:var(--green); font-size:12px; letter-spacing:.18em; text-transform:uppercase; }
     h1 {
-      font-size: clamp(48px, 12vw, 92px); letter-spacing: -.07em; line-height: .9;
-      margin: 10px 0 16px;
-      background: linear-gradient(90deg, #fff, var(--green) 55%, var(--purple));
-      -webkit-background-clip: text; background-clip: text; color: transparent;
+      font-size:clamp(48px,12vw,92px); letter-spacing:-.07em; line-height:.9; margin:10px 0 16px;
+      background:linear-gradient(90deg,#fff,var(--green) 55%,var(--purple));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
     }
-    .lede { font-size: 20px; color: var(--dim); max-width: 34em; }
-    .cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
-    .cta a {
-      text-decoration: none; border-radius: 999px; padding: 12px 16px; font-size: 14px; font-weight: 600;
-    }
-    .cta .primary { background: var(--green); color: #04110a; }
-    .cta .ghost { border: 1px solid var(--line); color: var(--ink); }
-    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 36px; }
-    .card {
-      background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 18px;
-      min-height: 150px;
-    }
-    .card h3 { font-size: 14px; letter-spacing: .14em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
-    .card p { color: var(--dim); font-size: 15px; }
-    section { margin-top: 40px; }
-    h2 { font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--purple); margin-bottom: 12px; }
-    p, li { color: var(--dim); font-size: 16px; }
-    p + p, li + li { margin-top: 8px; }
-    ul { padding-left: 1.15em; }
+    .lede { font-size:20px; color:var(--dim); max-width:34em; }
+    .cta { display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
+    .cta a { text-decoration:none; border-radius:999px; padding:12px 16px; font-size:14px; font-weight:600; }
+    .cta .primary { background:var(--green); color:#04110a; }
+    .cta .ghost { border:1px solid var(--line); color:var(--ink); }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:36px; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:18px; }
+    .card h3 { font-size:14px; letter-spacing:.14em; text-transform:uppercase; color:var(--green); margin-bottom:8px; }
+    .card p, p, li { color:var(--dim); font-size:15px; }
+    section { margin-top:40px; }
+    h2 { font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:var(--purple); margin-bottom:12px; }
+    p+p, li+li { margin-top:8px; }
+    ul { padding-left:1.15em; }
     .rule {
-      font-family: ui-monospace, Menlo, Consolas, monospace;
-      font-size: 13px; color: var(--ink);
-      background: #11041f; border: 1px solid var(--line);
-      border-radius: 14px; padding: 16px 18px; overflow-wrap: anywhere;
+      font-family:ui-monospace,Menlo,Consolas,monospace; font-size:13px; color:var(--ink);
+      background:#11041f; border:1px solid var(--line); border-radius:14px; padding:16px 18px;
+      overflow-wrap:anywhere;
     }
-    dl { display: grid; grid-template-columns: 150px 1fr; gap: 10px 16px; }
-    dt { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--purple); padding-top: 3px; }
-    dd { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; word-break: break-all; }
-    .empty { color: var(--dim); }
-    footer { margin-top: 48px; color: var(--dim); font-size: 13px; }
-    a { color: var(--cyan); }
-    [dir="rtl"] .grid, [dir="rtl"] dl { direction: rtl; }
-    [lang="ar"] body { font-family: "IBM Plex Sans Arabic", "Noto Naskh Arabic", sans-serif; }
-    .hide { display: none; }
-    @media (max-width: 720px) {
-      .grid { grid-template-columns: 1fr; }
-      dl { grid-template-columns: 1fr; }
-    }
+    dl { display:grid; grid-template-columns:150px 1fr; gap:10px 16px; }
+    dt { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--purple); padding-top:3px; }
+    dd { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; word-break:break-all; }
+    .empty { color:var(--dim); }
+    footer { margin-top:48px; color:var(--dim); font-size:13px; }
+    a { color:var(--cyan); }
+    [dir="rtl"] body { font-family:"IBM Plex Sans Arabic","Noto Naskh Arabic",sans-serif; }
+    @media (max-width:720px){ .grid,.dl,dl{grid-template-columns:1fr;} .lang{max-width:100%;} }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <a class="brand" href="/">
-        <div class="mark">35</div>
-        <span class="word">elghaly</span>
-      </a>
-      <div class="tools">
-        <div class="lang">
-          <button type="button" id="btn-en" class="on">EN</button>
-          <button type="button" id="btn-ar">AR</button>
-        </div>
-      </div>
+      <a class="brand" href="/"><div class="mark">35</div><span class="word">elghaly</span></a>
+      <div class="lang" id="langbar"></div>
     </header>
-
     <div class="hero">
-      <div class="kicker" data-en="Solana desk · earned only · starting" data-ar="مكتب سولانا · مكتسب فقط · يبدأ">Solana desk · earned only · starting</div>
+      <div class="kicker" data-i18n="kicker"></div>
       <h1>35</h1>
-      <p class="lede" data-en="Desk credit for real sniper and flash usage. Not sold. Not redeemed. Not a painted candle. Brand is live. Mint is not." data-ar="رصيد المكتب مقابل استخدام حقيقي للسنايبر والفلاش. لا يُباع. لا يُسترد. ليس شمعة. العلامة حية. السك ليس كذلك.">Desk credit for real sniper and flash usage. Not sold. Not redeemed. Not a painted candle. Brand is live. Mint is not.</p>
+      <p class="lede" data-i18n="lede"></p>
       <div class="cta">
         <a class="primary" href="mailto:support@elghaly.dev">support@elghaly.dev</a>
-        <a class="ghost" href="https://github.com/Alarm2024/35">Public record</a>
+        <a class="ghost" href="https://github.com/Alarm2024/35" data-i18n="record"></a>
       </div>
     </div>
-
     <div class="grid">
-      <article class="card">
-        <h3 data-en="Earned only" data-ar="مكتسب فقط">Earned only</h3>
-        <p data-en="Credit is created when an allowlisted signer lands a memo after real desk usage. Nobody buys 35." data-ar="الرصيد يُنشأ عندما يُسجّل الموقّع مذكرة بعد استخدام حقيقي. لا أحد يشتري 35.">Credit is created when an allowlisted signer lands a memo after real desk usage. Nobody buys 35.</p>
-      </article>
-      <article class="card">
-        <h3 data-en="One book" data-ar="دفتر واحد">One book</h3>
-        <p data-en="Later pair is 35/USDC on Meteora DAMM v2 only. Locked LP on Squads. No 35/SOL primary book." data-ar="الزوج لاحقًا: 35/يواس دي سي على Meteora DAMM v2. سيولة مقفلة على Squads. لا سوق 35/سول.">Later pair is 35/USDC on Meteora DAMM v2 only. Locked LP on Squads. No 35/SOL primary book.</p>
-      </article>
-      <article class="card">
-        <h3 data-en="Not equity" data-ar="ليس حصة">Not equity</h3>
-        <p data-en="Not a SAFE. Not a claim on any company. Not a deposit receipt. Outsiders do not send funds for credits." data-ar="ليس SAFE. ليس مطالبة على شركة. ليس إيصال إيداع. لا يُرسل الخارج أموالًا مقابل رصيد.">Not a SAFE. Not a claim on any company. Not a deposit receipt. Outsiders do not send funds for credits.</p>
-      </article>
+      <article class="card"><h3 data-i18n="c1t"></h3><p data-i18n="c1p"></p></article>
+      <article class="card"><h3 data-i18n="c2t"></h3><p data-i18n="c2p"></p></article>
+      <article class="card"><h3 data-i18n="c3t"></h3><p data-i18n="c3p"></p></article>
     </div>
-
     <section>
-      <h2 data-en="Locked decision" data-ar="القرار المقفل">Locked decision</h2>
-      <p class="rule" data-en="No purchase. No redeem. Earned only from signed desk-usage memos. Converts 1:1 to SPL 35 at one mint event if and only if gate.js prints PASS." data-ar="لا شراء. لا استرداد. مكتسب فقط من مذكرات المكتب. يتحول 1:1 إلى SPL 35 في سك واحد إذا طبع gate.js كلمة PASS.">No purchase. No redeem. Earned only from signed desk-usage memos. Converts 1:1 to SPL 35 at one mint event if and only if gate.js prints PASS.</p>
+      <h2 data-i18n="locked"></h2>
+      <p class="rule" data-i18n="lockedp"></p>
     </section>
-
     <section>
-      <h2 data-en="How credit is earned" data-ar="كيف يُكتسب الرصيد">How credit is earned</h2>
-      <p data-en="The desk trades its own capital. After a real usage event, deskSigner posts an on-chain memo. Empty fields are placeholders — never send a memo with blank wallet or credit." data-ar="المكتب يتاجر برأس ماله. بعد استخدام حقيقي يُرسل deskSigner مذكرة على السلسلة.">The desk trades its own capital. After a real usage event, deskSigner posts an on-chain memo. Empty fields are placeholders — never send a memo with blank wallet or credit.</p>
+      <h2 data-i18n="how"></h2>
+      <p data-i18n="howp"></p>
       <p class="rule" style="margin-top:14px">35-credit:<wallet>:<credit>:<week></p>
     </section>
-
     <section>
-      <h2 data-en="Addresses" data-ar="العناوين">Addresses</h2>
+      <h2 data-i18n="addr"></h2>
       <dl>
-        <dt data-en="Mode" data-ar="الوضع">Mode</dt>
-        <dd id="mode">earned</dd>
-        <dt data-en="Jurisdiction" data-ar="الولاية">Jurisdiction</dt>
-        <dd id="jurisdiction" class="empty">unpublished</dd>
-        <dt data-en="Mint" data-ar="السك">Mint</dt>
-        <dd id="mint" class="empty">unpublished</dd>
-        <dt>Squads</dt>
-        <dd id="vault" class="empty">unpublished</dd>
-        <dt data-en="Pool" data-ar="البركة">Pool</dt>
-        <dd id="pool" class="empty">unpublished</dd>
-        <dt>USDC</dt>
-        <dd>EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v</dd>
-        <dt data-en="Support" data-ar="الدعم">Support</dt>
-        <dd><a href="mailto:support@elghaly.dev">support@elghaly.dev</a></dd>
+        <dt data-i18n="mode"></dt><dd id="mode">earned</dd>
+        <dt data-i18n="jur"></dt><dd id="jurisdiction" class="empty">unpublished</dd>
+        <dt data-i18n="mint"></dt><dd id="mint" class="empty">unpublished</dd>
+        <dt>Squads</dt><dd id="vault" class="empty">unpublished</dd>
+        <dt data-i18n="pool"></dt><dd id="pool" class="empty">unpublished</dd>
+        <dt>USDC</dt><dd>EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v</dd>
+        <dt data-i18n="support"></dt><dd><a href="mailto:support@elghaly.dev">support@elghaly.dev</a></dd>
       </dl>
     </section>
-
     <section>
-      <h2 data-en="What 35 is not" data-ar="ما ليس 35">What 35 is not</h2>
+      <h2 data-i18n="not"></h2>
       <ul>
-        <li data-en="Not equity in any corporation." data-ar="ليس حصة في أي شركة.">Not equity in any corporation.</li>
-        <li data-en="Not a SAFE, note, or claim on any company." data-ar="ليس SAFE ولا سندًا ولا مطالبة على شركة.">Not a SAFE, note, or claim on any company.</li>
-        <li data-en="Not a deposit receipt. Do not send USDC or SOL for credits." data-ar="ليس إيصال إيداع. لا ترسل USDC أو SOL مقابل رصيد.">Not a deposit receipt. Do not send USDC or SOL for credits.</li>
-        <li data-en="Not a promise of profit, buyback, or listing." data-ar="ليس وعدًا بربح أو إعادة شراء أو إدراج.">Not a promise of profit, buyback, or listing.</li>
+        <li data-i18n="n1"></li>
+        <li data-i18n="n2"></li>
+        <li data-i18n="n3"></li>
+        <li data-i18n="n4"></li>
       </ul>
     </section>
-
-    <footer>
-      ✝️ 🪬 🧿 · 35.elghaly.dev · <a href="mailto:support@elghaly.dev">support@elghaly.dev</a>
-    </footer>
+    <footer>✝️ 🪬 🧿 · 35.elghaly.dev · <a href="mailto:support@elghaly.dev">support@elghaly.dev</a></footer>
   </div>
   <script>
+    var T = {
+      en: {
+        kicker:"Solana desk · earned only · starting",
+        lede:"Desk credit for real sniper and flash usage. Not sold. Not redeemed. Not a painted candle. Brand is live. Mint is not.",
+        record:"Public record", c1t:"Earned only", c1p:"Credit is created when an allowlisted signer lands a memo after real desk usage. Nobody buys 35.",
+        c2t:"One book", c2p:"Later pair is 35/USDC on Meteora DAMM v2 only. Locked LP on Squads. No 35/SOL primary book.",
+        c3t:"Not equity", c3p:"Not a SAFE. Not a claim on any company. Not a deposit receipt. Outsiders do not send funds for credits.",
+        locked:"Locked decision", lockedp:"No purchase. No redeem. Earned only from signed desk-usage memos. Converts 1:1 to SPL 35 at one mint event if and only if gate.js prints PASS.",
+        how:"How credit is earned", howp:"The desk trades its own capital. After a real usage event, deskSigner posts an on-chain memo.",
+        addr:"Addresses", mode:"Mode", jur:"Jurisdiction", mint:"Mint", pool:"Pool", support:"Support",
+        not:"What 35 is not", n1:"Not equity in any corporation.", n2:"Not a SAFE, note, or claim on any company.", n3:"Not a deposit receipt. Do not send USDC or SOL for credits.", n4:"Not a promise of profit, buyback, or listing."
+      },
+      ar: {
+        kicker:"مكتب سولانا · مكتسب فقط · يبدأ",
+        lede:"رصيد المكتب مقابل استخدام حقيقي للسنايبر والفلاش. لا يُباع. لا يُسترد. العلامة حية. السك ليس كذلك.",
+        record:"السجل العام", c1t:"مكتسب فقط", c1p:"الرصيد يُنشأ بعد استخدام حقيقي ومذكرة موقّعة. لا أحد يشتري 35.",
+        c2t:"دفتر واحد", c2p:"الزوج لاحقًا 35/USDC على Meteora DAMM v2. سيولة مقفلة على Squads.",
+        c3t:"ليس حصة", c3p:"ليس SAFE وليس مطالبة على شركة. لا ترسل أموالًا مقابل رصيد.",
+        locked:"القرار المقفل", lockedp:"لا شراء. لا استرداد. يتحول 1:1 إذا طبع gate.js كلمة PASS.",
+        how:"كيف يُكتسب الرصيد", howp:"المكتب يتاجر برأس ماله. بعد استخدام حقيقي يُرسل deskSigner مذكرة.",
+        addr:"العناوين", mode:"الوضع", jur:"الولاية", mint:"السك", pool:"المجمع", support:"الدعم",
+        not:"ما ليس 35", n1:"ليس حصة في أي شركة.", n2:"ليس SAFE ولا مطالبة على شركة.", n3:"ليس إيصال إيداع. لا ترسل USDC أو SOL.", n4:"ليس وعدًا بربح أو إدراج."
+      },
+      ru: {
+        kicker:"Solana-деск · только заработка · старт",
+        lede:"Кредит деска за реальный sniper и flash. Не продаётся. Не выкупается. Бренд жив. Минт — нет.",
+        record:"Публичная запись", c1t:"Только заработка", c1p:"Кредит появляется после реального использования и memo. 35 нельзя купить.",
+        c2t:"Один стакан", c2p:"Позже только 35/USDC на Meteora DAMM v2. LP на Squads. Нет 35/SOL.",
+        c3t:"Не доля", c3p:"Не SAFE и не требование к компании. Сторонние не шлют деньги за кредит.",
+        locked:"Фиксированное решение", lockedp:"Нет покупки. Нет выкупа. 1:1 в SPL 35 только если gate.js печатает PASS.",
+        how:"Как зарабатывается", howp:"Деск торгует своим капиталом. После сделки deskSigner пишет memo в сеть.",
+        addr:"Адреса", mode:"Режим", jur:"Юрисдикция", mint:"Минт", pool:"Пул", support:"Поддержка",
+        not:"Чем 35 не является", n1:"Не доля в корпорации.", n2:"Не SAFE и не требование к компании.", n3:"Не квитанция. Не шлите USDC или SOL за кредит.", n4:"Нет обещания прибыли или листинга."
+      },
+      zh: {
+        kicker:"Solana 交易台 · 仅挣取 · 启动",
+        lede:"真实 sniper / flash 使用产生额度。不卖。不兑。品牌已上线。尚未锻造。",
+        record:"公开记录", c1t:"仅挣取", c1p:"真实使用并上链 memo 后才产生额度。无人购买 35。",
+        c2t:"单一盘口", c2p:"后续仅 35/USDC（Meteora DAMM v2）。LP 锁在 Squads。无 35/SOL 主盘口。",
+        c3t:"非股权", c3p:"不是 SAFE，不是公司债权。外部不得为额度汇款。",
+        locked:"已锁定", lockedp:"不买不兑。仅当 gate.js 输出 PASS 时按 1:1 锻造 SPL 35。",
+        how:"如何挣取", howp:"台子用自有资金交易。真实交易后 deskSigner 发布链上 memo。",
+        addr:"地址", mode:"模式", jur:"法域", mint:"锻造", pool:"池", support:"支持",
+        not:"35 不是什么", n1:"不是任何公司股权。", n2:"不是 SAFE 或公司债权。", n3:"不是存单。不要为额度汇入 USDC 或 SOL。", n4:"不承诺盈利、回购或上市。"
+      },
+      de: {
+        kicker:"Solana-Desk · nur verdient · Start",
+        lede:"Desk-Guthaben für echte Sniper- und Flash-Nutzung. Nicht verkauft. Nicht einlösbar. Marke live. Mint nicht.",
+        record:"Öffentliche Akte", c1t:"Nur verdient", c1p:"Guthaben entsteht nach echter Desk-Nutzung und Memo. Niemand kauft 35.",
+        c2t:"Ein Buch", c2p:"Später nur 35/USDC auf Meteora DAMM v2. LP auf Squads gesperrt. Kein 35/SOL.",
+        c3t:"Kein Equity", c3p:"Kein SAFE. Kein Anspruch auf eine Firma. Außenstehende senden kein Geld für Credits.",
+        locked:"Festgelegt", lockedp:"Kein Kauf. Keine Rücknahme. 1:1 zu SPL 35 nur wenn gate.js PASS druckt.",
+        how:"So entsteht Guthaben", howp:"Der Desk handelt mit eigenem Kapital. Danach setzt deskSigner ein On-Chain-Memo.",
+        addr:"Adressen", mode:"Modus", jur:"Rechtsraum", mint:"Mint", pool:"Pool", support:"Support",
+        not:"Was 35 nicht ist", n1:"Kein Anteil an einer Gesellschaft.", n2:"Kein SAFE und keine Forderung gegen eine Firma.", n3:"Keine Einzahlungsquittung. Kein USDC/SOL für Credits senden.", n4:"Kein Versprechen auf Gewinn, Buyback oder Listing."
+      },
+      es: {
+        kicker:"Mesa Solana · solo ganado · arranque",
+        lede:"Crédito de mesa por uso real de sniper y flash. No se vende. No se canjea. Marca en vivo. Mint no.",
+        record:"Registro público", c1t:"Solo ganado", c1p:"El crédito nace tras uso real y un memo firmado. Nadie compra 35.",
+        c2t:"Un libro", c2p:"Luego solo 35/USDC en Meteora DAMM v2. LP bloqueada en Squads. No 35/SOL.",
+        c3t:"No es equity", c3p:"No es un SAFE ni un derecho sobre una empresa. Nadie envía fondos a cambio de crédito.",
+        locked:"Decisión fija", lockedp:"Sin compra. Sin canje. 1:1 a SPL 35 solo si gate.js imprime PASS.",
+        how:"Cómo se gana", howp:"La mesa opera su propio capital. Tras un uso real, deskSigner publica un memo on-chain.",
+        addr:"Direcciones", mode:"Modo", jur:"Jurisdicción", mint:"Mint", pool:"Pool", support:"Soporte",
+        not:"Lo que 35 no es", n1:"No es capital de ninguna sociedad.", n2:"No es un SAFE ni un crédito contra una empresa.", n3:"No es un recibo de depósito. No envíes USDC o SOL por créditos.", n4:"No promete beneficio, recompra ni listado."
+      }
+    };
+    var LANGS = ["en","ar","ru","zh","de","es"];
+    var LABELS = { en:"EN", ar:"AR", ru:"RU", zh:"中文", de:"DE", es:"ES" };
     function applyLang(lang) {
-      var ar = lang === "ar";
-      document.documentElement.lang = ar ? "ar" : "en";
-      document.documentElement.dir = ar ? "rtl" : "ltr";
-      document.getElementById("btn-en").classList.toggle("on", !ar);
-      document.getElementById("btn-ar").classList.toggle("on", ar);
-      document.querySelectorAll("[data-en]").forEach(function (el) {
-        el.textContent = ar ? el.getAttribute("data-ar") : el.getAttribute("data-en");
+      if (!T[lang]) lang = "en";
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+      var pack = T[lang];
+      document.querySelectorAll("[data-i18n]").forEach(function (el) {
+        var k = el.getAttribute("data-i18n");
+        if (pack[k]) el.textContent = pack[k];
+      });
+      document.querySelectorAll("#langbar button").forEach(function (b) {
+        b.classList.toggle("on", b.getAttribute("data-lang") === lang);
       });
       try { localStorage.setItem("35-lang", lang); } catch (e) {}
     }
-    document.getElementById("btn-en").onclick = function () { applyLang("en"); };
-    document.getElementById("btn-ar").onclick = function () { applyLang("ar"); };
-    try {
-      var saved = localStorage.getItem("35-lang");
-      if (saved === "ar") applyLang("ar");
-    } catch (e) {}
+    var bar = document.getElementById("langbar");
+    LANGS.forEach(function (code) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.setAttribute("data-lang", code);
+      b.textContent = LABELS[code];
+      b.onclick = function () { applyLang(code); };
+      bar.appendChild(b);
+    });
+    var start = "en";
+    try { start = localStorage.getItem("35-lang") || "en"; } catch (e) {}
+    applyLang(start);
     fetch("/protocol.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (p) {
       if (!p) return;
       function set(id, v) {
