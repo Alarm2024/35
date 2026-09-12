@@ -3,77 +3,69 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>35 IRIS</title>
-<meta name="description" content="35 IRIS. No download. No connect. No seed. Private session if you need a human."/>
+<title>35 IRIS — iPhone</title>
 <meta name="theme-color" content="#0b0418"/>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
 <style>
 :root{--bg:#07010f;--ink:#f5f7ff;--dim:#b9b6d3;--p:#9945ff;--g:#14f195;--c:#19fbff;--l:rgba(153,69,255,.28);--card:rgba(20,6,39,.72)}
 *{box-sizing:border-box;margin:0;padding:0}html,body{background:var(--bg);color:var(--ink)}
-body{font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.55;min-height:100vh;background:radial-gradient(900px 480px at 8% -12%,rgba(153,69,255,.3),transparent 55%),radial-gradient(700px 420px at 100% 0%,rgba(20,241,149,.12),transparent 52%),var(--bg)}
-.wrap{max-width:960px;margin:0 auto;padding:28px 20px 88px}
-header{display:flex;justify-content:space-between;gap:12px}.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
-.mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--p),var(--g));display:grid;place-items:center;font-weight:800}
-.word{font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--dim)}
-.lang button{background:transparent;color:var(--dim);border:1px solid var(--l);border-radius:999px;padding:5px 9px;font-size:11px;cursor:pointer;margin-left:6px}
-.lang button.on{color:#07010f;background:var(--g);border-color:var(--g)}
-.signs{margin-top:18px;color:var(--dim);letter-spacing:.16em}
-.kicker{color:var(--g);font-size:12px;letter-spacing:.2em;text-transform:uppercase;margin-top:22px}
-h1{font-size:46px;letter-spacing:-.05em;margin:6px 0 10px}.lede{font-size:18px;color:var(--dim);max-width:36em}
-.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
-.cta a,button.go,button.ghost{text-decoration:none;border-radius:999px;padding:12px 16px;font-size:14px;font-weight:600;border:0;cursor:pointer;font-family:inherit}
-.primary,button.go{background:var(--g);color:#04110a}.ghost,button.ghost{border:1px solid var(--l);color:var(--ink);background:transparent}
-.box,.card,.rule{background:var(--card);border:1px solid var(--l)}.box{margin-top:28px;border-radius:18px;padding:18px}
-label{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--p);margin-bottom:8px}
-textarea{width:100%;min-height:96px;background:#11041f;color:var(--ink);border:1px solid var(--l);border-radius:12px;padding:12px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px}
-.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:28px}
-.card{border-radius:18px;padding:18px}.card h3{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--g);margin-bottom:8px}
-p,li,td{color:var(--dim);font-size:15px}section{margin-top:40px}h2{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--p);margin-bottom:12px}
-.rule{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:var(--ink);border-radius:14px;padding:16px 18px;white-space:pre-wrap}
-.out{margin-top:14px;display:none}.out.on{display:block}.badge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:700}
+body{font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.55;min-height:100vh;background:radial-gradient(900px 480px at 8% -12%,rgba(153,69,255,.28),transparent 55%),var(--bg)}
+.wrap{max-width:720px;margin:0 auto;padding:24px 18px 80px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
+.mark{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--p),var(--g));display:grid;place-items:center;font-weight:800}
+.word{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--dim)}
+.signs{margin:14px 0 8px;color:var(--dim);letter-spacing:.14em}
+h1{font-size:36px;letter-spacing:-.04em;margin:4px 0 8px}
+.lede{color:var(--dim);font-size:16px}
+.tabs{display:flex;gap:8px;margin:18px 0}
+.tabs button{flex:1;border:1px solid var(--l);background:transparent;color:var(--ink);border-radius:999px;padding:10px;font:600 13px inherit;cursor:pointer}
+.tabs button.on{background:var(--g);color:#04110a;border-color:var(--g)}
+.panel{display:none}.panel.on{display:block}
+.card{background:var(--card);border:1px solid var(--l);border-radius:16px;padding:16px;margin-top:12px}
+.q{font-size:16px;margin-bottom:10px}
+.ans{display:flex;flex-wrap:wrap;gap:8px}
+.ans button{border:1px solid var(--l);background:#11041f;color:var(--ink);border-radius:999px;padding:8px 12px;font:600 13px inherit;cursor:pointer}
+.ans button.on-no{border-color:var(--g);color:var(--g)}
+.ans button.on-yes{border-color:#ff6b8a;color:#ff6b8a}
+.ans button.on-idk{border-color:#f5d76e;color:#f5d76e}
+.badge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:700;letter-spacing:.1em;margin-bottom:8px}
 .A{color:#14f195}.B{color:#f5d76e}.C{color:#ff6b8a}
-table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--l)}th{color:var(--p);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
-footer{margin-top:52px;color:var(--dim);font-size:13px}a{color:var(--c)}
-@media(max-width:720px){.grid{grid-template-columns:1fr}h1{font-size:32px}}
+.rule{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;white-space:pre-wrap;color:var(--ink)}
+label{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--p);margin-bottom:8px}
+textarea{width:100%;min-height:88px;background:#11041f;color:var(--ink);border:1px solid var(--l);border-radius:12px;padding:12px;font:13px ui-monospace,Menlo,Consolas,monospace}
+.row{display:flex;gap:8px;margin-top:10px}
+.go{background:var(--g);color:#04110a;border:0;border-radius:999px;padding:10px 14px;font:600 13px inherit;cursor:pointer}
+.ghost{background:transparent;border:1px solid var(--l);color:var(--ink);border-radius:999px;padding:10px 14px;font:600 13px inherit;cursor:pointer;text-decoration:none;display:inline-block}
+.out{display:none;margin-top:12px}.out.on{display:block}
+footer{margin-top:36px;color:var(--dim);font-size:13px}
+a{color:var(--c)}
+.path{color:var(--g);font-size:12px;letter-spacing:.04em;margin-bottom:6px}
 </style>
 </head>
 <body>
 <div class="wrap">
-<header><a class="brand" href="/"><div class="mark">35</div><span class="word">iris</span></a><div class="lang" id="langbar"></div></header>
-<p class="signs">✝️ 🧿 🪬 · 💡 🦅</p>
-<p class="kicker" data-i18n="kicker"></p>
-<h1>35 IRIS</h1>
-<p class="lede" data-i18n="lede"></p>
-<div class="cta">
-<a class="primary" href="#read" data-i18n="ctaRead"></a>
-<a class="ghost" href="mailto:support@elghaly.dev?subject=IRIS%20PRIVATE" data-i18n="ctaPriv"></a>
-<a class="ghost" href="mailto:support@elghaly.dev?subject=HUMAN%20IRIS" data-i18n="ctaHuman"></a>
-</div>
-<section><h2 data-i18n="list"></h2>
-<table>
-<tr><th data-i18n="thS"></th><th data-i18n="thW"></th><th data-i18n="thH"></th></tr>
-<tr><td data-i18n="s1"></td><td data-i18n="w1"></td><td data-i18n="h1"></td></tr>
-<tr><td data-i18n="s2"></td><td data-i18n="w2"></td><td data-i18n="h2"></td></tr>
-<tr><td data-i18n="s3"></td><td data-i18n="w3"></td><td data-i18n="h3"></td></tr>
-<tr><td data-i18n="s4"></td><td data-i18n="w4"></td><td data-i18n="h4"></td></tr>
-</table></section>
-<section><h2 data-i18n="dl"></h2><p data-i18n="dlp"></p></section>
-<section><h2 data-i18n="flow"></h2><ol><li data-i18n="f1"></li><li data-i18n="f2"></li><li data-i18n="f3"></li><li data-i18n="f4"></li><li data-i18n="f5"></li></ol></section>
-<div class="box" id="read">
-<label for="q" data-i18n="paste"></label>
-<textarea id="q" spellcheck="false" autocomplete="off"></textarea>
-<div class="row"><button class="go" id="run" type="button" data-i18n="run"></button><button class="ghost" id="clr" type="button" data-i18n="clr"></button></div>
-<div class="out" id="out"><p><span class="badge X" id="badge">-</span></p><p class="rule" id="report"></p></div>
-</div>
-<div class="grid">
-<article class="card"><h3>A</h3><p data-i18n="c1p"></p></article>
-<article class="card"><h3>B</h3><p data-i18n="c2p"></p></article>
-<article class="card"><h3>C</h3><p data-i18n="c3p"></p></article>
-<article class="card"><h3 data-i18n="privt"></h3><p data-i18n="privp"></p></article>
-</div>
-<section><h2 data-i18n="pay"></h2><p class="rule" data-i18n="payp"></p></section>
-<section><h2 data-i18n="never"></h2><p class="rule" data-i18n="neverp"></p></section>
-<footer>✝️ 🧿 🪬 · 💡 🦅 · 35 IRIS · <a href="mailto:support@elghaly.dev">support@elghaly.dev</a></footer>
+  <a class="brand" href="/"><div class="mark">35</div><span class="word">iris</span></a>
+  <p class="signs">✝️ 🧿 🪬 · 💡 🦅</p>
+  <h1>35 IRIS</h1>
+  <p class="lede">The page answers. You tap. Nothing is downloaded. IRIS never sits on the phone — that claim is the attack.</p>
+  <div class="tabs">
+    <button type="button" id="tab-iphone" class="on">iPhone</button>
+    <button type="button" id="tab-sig">Signature</button>
+  </div>
+  <div id="iphone" class="panel on"></div>
+  <div id="sig" class="panel">
+    <div class="card">
+      <label for="q">Public signature only</label>
+      <textarea id="q" spellcheck="false" autocomplete="off" placeholder="base58 signature"></textarea>
+      <div class="row">
+        <button class="go" id="run" type="button">Classify</button>
+        <button class="ghost" id="clr" type="button">Clear</button>
+      </div>
+      <div class="out" id="out"><p><span class="badge A" id="badge">—</span></p><p class="rule" id="report"></p></div>
+    </div>
+  </div>
+  <p style="margin-top:22px;color:var(--dim);font-size:14px">Need a human later: <a href="mailto:support@elghaly.dev?subject=IRIS%20PRIVATE">IRIS PRIVATE</a> · cannot pay: <a href="mailto:support@elghaly.dev?subject=HUMAN%20IRIS">HUMAN</a></p>
+  <footer>✝️ 🧿 🪬 · 💡 🦅 · 35 IRIS · extra only after the work · <a href="mailto:support@elghaly.dev">support@elghaly.dev</a></footer>
 </div>
 <script src="app.js"></script>
 </body>
