@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Remove noindex only when jurisdiction is non-empty in protocol.json, per RULES.md. -->
+  <meta name="robots" content="noindex, nofollow" />
   <title>35 — earned desk credit</title>
   <meta name="description" content="35 is earned from using the desk. It is not sold. It is not redeemable. It is not equity." />
   <meta name="theme-color" content="#09090b" />
@@ -43,7 +45,6 @@
     }
     h1 { font-weight: 500; font-size: 42px; letter-spacing: -0.03em; margin: 36px 0 12px; }
     .lede { color: var(--stone); font-size: 18px; max-width: 34em; }
-    .ar { direction: rtl; font-family: "SF Arabic", "Noto Naskh Arabic", serif; color: var(--sage); margin-top: 10px; font-size: 16px; }
     section { margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--line); }
     h2 { font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 14px; }
     p, li { color: var(--stone); font-size: 16px; }
@@ -83,13 +84,12 @@
           </g>
           <rect x="11" y="27.25" width="10" height="1" fill="#8d9188"/>
         </svg>
-        <span class="word">ElGhaly</span>
+        <span class="word">35</span>
       </a>
       <div class="status" id="status">pre-mint · earned-only</div>
     </header>
     <h1>35</h1>
     <p class="lede">Desk credit. Issued for using the sniper and flash engine. Never sold. Never redeemed. Not a chart to paint.</p>
-    <p class="ar">ائتمان مكتسب من استخدام المكتب فقط. لا شراء. لا استرداد. ليس سهماً.</p>
     <section>
       <h2>Locked decision</h2>
       <p class="rule">No purchase. No redeem. Earned only from signed desk-usage memos. Converts 1:1 to SPL 35 at a single mint event if and only if gate.js prints PASS.</p>
@@ -98,7 +98,7 @@
       <h2>What 35 is not</h2>
       <ul>
         <li>Not equity in ElGhaly or any corporation.</li>
-        <li>Not a SAFE, note, or claim on the May 2026 instrument.</li>
+        <li>Not a SAFE, note, or claim on any company.</li>
         <li>Not a deposit receipt. Outsiders do not send USDC or SOL for credits.</li>
         <li>Not a promise of profit, buyback, or listing.</li>
       </ul>
@@ -106,8 +106,8 @@
     <section>
       <h2>How credit is earned</h2>
       <p>The desk trades its own capital. After a real usage event, an allowlisted signer posts an on-chain memo:</p>
-      <p class="rule" style="margin-top:14px">35-credit:<wallet>:<amount>:<week></p>
-      <p style="margin-top:14px">That signature is the only issuance. Weeks are signed, merkle-rooted, and verified against chain. No mint exists until realized desk profit covers rent.</p>
+      <p class="rule" style="margin-top:14px">35-credit:&lt;wallet&gt;:&lt;credit&gt;:&lt;week&gt;</p>
+      <p style="margin-top:14px">That signed on-chain memo is the sole issuance event. No mint exists until realized desk profit covers rent.</p>
     </section>
     <section>
       <h2>Pair, later</h2>
