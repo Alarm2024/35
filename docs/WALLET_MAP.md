@@ -1,6 +1,6 @@
 # Wallet map
 
-Roles only. Address fields stay empty until operators fill a **local** copy. Do not commit live keys.
+Roles only. Do not commit private keys or seed phrases.
 
 Hard rule: **no bot hot key ever holds mint, freeze, LP, position NFT, or treasury.**
 
@@ -11,7 +11,7 @@ Hard rule: **no bot hot key ever holds mint, freeze, LP, position NFT, or treasu
 | KEEP hot | KEEP borrow / desk engine. Never mint, freeze, LP, NFT, treasury. | |
 | 350 hot | 350 engine. Never mint, freeze, LP, NFT, treasury. | |
 | cheap_* | Cheap-route / scout keys. Never mint, freeze, LP, NFT, treasury. | |
-| 35 deskSigner | Memo issuance only: `35-credit:<wallet>:<credit>:<week>`. Not a treasury. | |
+| 35 deskSigner | Memo issuance only: `35-credit:<wallet>:<credit>:<week>`. Not a treasury. | `3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo` |
 | Squads vault | Treasury later. Position NFT later. Multisig only. | |
 
-Fill order (human): Squads vault first, then 35 deskSigner pubkey into local `config/protocol.json` `deskSigners`. Public `protocol.json` `squadsVault` stays empty until gate is allowed to see it.
+Public `protocol.json` still has empty `mint`, `squadsVault`, and `pool`. Gate stays BLOCK until the vault exists and operators fill local config.
