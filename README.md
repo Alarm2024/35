@@ -1,19 +1,30 @@
 # 35
 
-Public desk page for `https://35.elghaly.dev`.
+Public desk page: `https://35.elghaly.dev`
+Public record: `https://github.com/Alarm2024/35`
 
 Earned-only. No purchase. No redeem. No outsider deposits.
 
-## DNS (you must add this)
+## Layout
 
-At the registrar / Cloudflare for `elghaly.dev`:
+| Path | Role |
+|---|---|
+| `index.html` | Public page |
+| `protocol.json` | Public fields only |
+| `config/protocol.example.json` | Shape for gitignored `config/protocol.json` |
+| `config/pnl.example.json` | Shape for gitignored `config/pnl.json` (desk PnL report) |
+| `scripts/gate.js` | Pre-mint gate, fail closed |
+| `scripts/self-audit.js` | Post-mint audit, fail closed |
+| `RULES.md` / `KILL_LIST.md` / `CONVERSION.md` | Policy |
+
+## Gate
 
 ```
-35.elghaly.dev    CNAME    Alarm2024.github.io
+node scripts/gate.js
 ```
 
-Then in this repo: Settings → Pages → GitHub Actions, custom domain `35.elghaly.dev`.
+Exits 1 unless every check passes. Do not mint on BLOCK.
 
 ## Status
 
-Pre-mint. Addresses stay unpublished until Squads vault and mint exist.
+Pre-mint. Public addresses stay empty until operators fill them after the config split is merged.

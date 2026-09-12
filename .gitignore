@@ -1,5 +1,5 @@
-config/
-!config/*.example.json
+config/protocol.json
+config/pnl.json
 *.key
 .env
 .env.*
