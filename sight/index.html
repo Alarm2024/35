@@ -3,20 +3,18 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>35 IRIS — iPhone</title>
+<title>35 IRIS</title>
 <meta name="theme-color" content="#0b0418"/>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
 <style>
 :root{--bg:#07010f;--ink:#f5f7ff;--dim:#b9b6d3;--p:#9945ff;--g:#14f195;--c:#19fbff;--l:rgba(153,69,255,.28);--card:rgba(20,6,39,.72)}
-*{box-sizing:border-box;margin:0;padding:0}html,body{background:var(--bg);color:var(--ink)}
-body{font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.55;min-height:100vh;background:radial-gradient(900px 480px at 8% -12%,rgba(153,69,255,.28),transparent 55%),var(--bg)}
-.wrap{max-width:720px;margin:0 auto;padding:24px 18px 80px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
-.mark{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--p),var(--g));display:grid;place-items:center;font-weight:800}
-.word{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--dim)}
-.signs{margin:14px 0 8px;color:var(--dim);letter-spacing:.14em}
-h1{font-size:36px;letter-spacing:-.04em;margin:4px 0 8px}
-.lede{color:var(--dim);font-size:16px}
+*{box-sizing:border-box;margin:0;padding:0}html,body{background:#05010c;color:var(--ink)}
+body{font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.55;min-height:100vh;background:#05010c}
+.wrap{max-width:760px;margin:0 auto;padding:16px 16px 80px}
+.hero{position:relative;margin:0 0 18px;border-radius:22px;overflow:hidden;border:1px solid var(--l);background:#05010c}
+.hero img{width:100%;display:block;aspect-ratio:16/10;object-fit:cover}
+.hero .stamp{position:absolute;left:7%;bottom:9%;letter-spacing:.42em;font-size:clamp(14px,4vw,22px);font-weight:600;color:#f5f7ff;text-transform:uppercase;text-shadow:0 2px 16px #000}
+.lede{color:var(--dim);font-size:16px;margin:4px 2px 0}
 .tabs{display:flex;gap:8px;margin:18px 0}
 .tabs button{flex:1;border:1px solid var(--l);background:transparent;color:var(--ink);border-radius:999px;padding:10px;font:600 13px inherit;cursor:pointer}
 .tabs button.on{background:var(--g);color:#04110a;border-color:var(--g)}
@@ -44,9 +42,10 @@ a{color:var(--c)}
 </head>
 <body>
 <div class="wrap">
-  <a class="brand" href="/"><div class="mark">35</div><span class="word">iris</span></a>
-  <p class="signs">✝️ 🧿 🪬 · 💡 🦅</p>
-  <h1>35 IRIS</h1>
+  <div class="hero">
+    <img src="/IMG_5183.jpeg" alt="35 ELGHALY IRIS"/>
+    <span class="stamp">IRIS</span>
+  </div>
   <p class="lede">The page answers. You tap. Nothing is downloaded. IRIS never sits on the phone — that claim is the attack.</p>
   <div class="tabs">
     <button type="button" id="tab-iphone" class="on">iPhone</button>
@@ -65,7 +64,7 @@ a{color:var(--c)}
     </div>
   </div>
   <p style="margin-top:22px;color:var(--dim);font-size:14px">Need a human later: <a href="mailto:support@elghaly.dev?subject=IRIS%20PRIVATE">IRIS PRIVATE</a> · cannot pay: <a href="mailto:support@elghaly.dev?subject=HUMAN%20IRIS">HUMAN</a></p>
-  <footer>✝️ 🧿 🪬 · 💡 🦅 · 35 IRIS · extra only after the work · <a href="mailto:support@elghaly.dev">support@elghaly.dev</a></footer>
+  <footer>35 IRIS · extra only after the work · <a href="mailto:support@elghaly.dev">support@elghaly.dev</a></footer>
 </div>
 <script src="app.js"></script>
 </body>
