@@ -1,0 +1,5 @@
+{
+  "week": "00",
+  "profitSol": 0,
+  "notes": "Realized desk PnL only. Copy to config/pnl.json. That file is gitignored. Never invent profit."
+}
