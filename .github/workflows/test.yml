@@ -10,4 +10,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: node --test scripts/test/*.test.js
+      - name: Unit tests
+        run: node --test scripts/test/*.test.js
+      - name: No signing material in the repo
+        run: node scripts/scan-secrets.js
+      # Operator config is gitignored, so CI can only check the public record.
+      # This catches a mint or pool address committed to protocol.json that was
+      # never audited — see KILL_LIST 10.
+      - name: Public record gate
+        run: node scripts/gate.js --public-only --preflight

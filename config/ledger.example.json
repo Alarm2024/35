@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "decimals": 6,
+  "notes": "Copy to config/ledger.json. That file is gitignored. Append with scripts/issue-credit.js — do not hand-edit. The supply cap at mint is the sum of these entries, which is why it is never invented.",
+  "entries": []
+}

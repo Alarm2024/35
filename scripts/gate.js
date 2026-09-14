@@ -1,126 +1,74 @@
 #!/usr/bin/env node
 "use strict";
 
-const fs = require("fs");
-const path = require("path");
+// Usage:
+//   node scripts/gate.js --preflight     may we mint? (run this BEFORE minting)
+//   node scripts/gate.js --postflight    did we mint safely? (default, strictest)
+//   node scripts/gate.js --public-only   public protocol.json fields only (CI)
+//   node scripts/gate.js --offline       skip RPC calls in postflight
+//
+// Fail closed in every mode. Default stays postflight so a bare `gate.js` on an
+// unconfigured desk still refuses.
 
-const ROOT = path.resolve(__dirname, "..");
-const failures = [];
+const { run } = require("./lib/checks");
 
-function fail(reason) {
-  failures.push(reason);
-  console.error(`FAIL: ${reason}`);
+const USAGE = `usage: gate.js [--preflight|--postflight|--public-only] [--offline]`;
+
+function parseArgs(argv) {
+  const flags = new Set(argv);
+  const unknown = argv.filter(
+    (arg) => !["--preflight", "--postflight", "--public-only", "--offline", "--help", "-h"].includes(arg)
+  );
+
+  if (unknown.length > 0) {
+    return { error: `unknown argument: ${unknown[0]}` };
+  }
+
+  if (flags.has("--help") || flags.has("-h")) {
+    return { help: true };
+  }
+
+  if (flags.has("--preflight") && flags.has("--postflight")) {
+    return { error: "--preflight and --postflight are mutually exclusive" };
+  }
+
+  return {
+    mode: flags.has("--preflight") ? "preflight" : "postflight",
+    publicOnly: flags.has("--public-only"),
+    offline: flags.has("--offline"),
+  };
 }
 
-function readJson(relativePath) {
-  const absolutePath = path.join(ROOT, relativePath);
-  if (!fs.existsSync(absolutePath)) {
-    fail(`missing ${relativePath}`);
-    return null;
+async function main() {
+  const args = parseArgs(process.argv.slice(2));
+
+  if (args.help) {
+    console.log(USAGE);
+    process.exit(0);
   }
 
-  try {
-    return JSON.parse(fs.readFileSync(absolutePath, "utf8"));
-  } catch (error) {
-    fail(`invalid JSON in ${relativePath}: ${error.message}`);
-    return null;
+  if (args.error) {
+    console.error(`FAIL: ${args.error}`);
+    console.error(USAGE);
+    process.exit(1);
   }
+
+  const result = await run(args);
+
+  if (!result.ok) {
+    process.exit(1);
+  }
+
+  // public-only mode never reads the ledger, so there is no total to report.
+  if (args.mode === "preflight" && result.total) {
+    console.log(`supply cap at mint would be ${result.total.credit} (ledger total, not invented)`);
+  }
+
+  console.log("PASS");
+  process.exit(0);
 }
 
-function requireNonEmptyString(object, field, label) {
-  if (!object || typeof object !== "object") {
-    return;
-  }
-
-  const value = object[field];
-  if (typeof value !== "string" || value.trim() === "") {
-    fail(`${label}.${field} is empty or unset`);
-  }
-}
-
-const protocol = readJson("protocol.json");
-const configProtocol = readJson("config/protocol.json");
-const pnl = readJson("config/pnl.json");
-
-const publicFields = [
-  "name",
-  "symbol",
-  "decimals",
-  "issuanceMode",
-  "jurisdiction",
-  "mint",
-  "squadsVault",
-  "pool",
-  "usdcMint",
-];
-
-if (protocol) {
-  for (const field of publicFields) {
-    if (!(field in protocol)) {
-      fail(`protocol.json missing field: ${field}`);
-    }
-  }
-
-  if (protocol.issuanceMode !== "earned") {
-    fail("protocol.json issuanceMode must be earned");
-  }
-
-  requireNonEmptyString(protocol, "name", "protocol.json");
-  requireNonEmptyString(protocol, "symbol", "protocol.json");
-  requireNonEmptyString(protocol, "jurisdiction", "protocol.json");
-  requireNonEmptyString(protocol, "mint", "protocol.json");
-  requireNonEmptyString(protocol, "squadsVault", "protocol.json");
-  requireNonEmptyString(protocol, "pool", "protocol.json");
-  requireNonEmptyString(protocol, "usdcMint", "protocol.json");
-
-  if (typeof protocol.decimals !== "number" || !Number.isInteger(protocol.decimals)) {
-    fail("protocol.json decimals must be an integer");
-  }
-}
-
-if (configProtocol) {
-  const configFields = [
-    "deskSigners",
-    "controlledWallets",
-    "position",
-    "positionNftMint",
-    "metadataUri",
-    "rpcUrl",
-    "memoProgram",
-    "dammV2Program",
-  ];
-
-  for (const field of configFields) {
-    if (!(field in configProtocol)) {
-      fail(`config/protocol.json missing field: ${field}`);
-    }
-  }
-
-  requireNonEmptyString(configProtocol, "rpcUrl", "config/protocol.json");
-  requireNonEmptyString(configProtocol, "memoProgram", "config/protocol.json");
-  requireNonEmptyString(configProtocol, "dammV2Program", "config/protocol.json");
-  requireNonEmptyString(configProtocol, "position", "config/protocol.json");
-  requireNonEmptyString(configProtocol, "positionNftMint", "config/protocol.json");
-  requireNonEmptyString(configProtocol, "metadataUri", "config/protocol.json");
-
-  if (!Array.isArray(configProtocol.deskSigners) || configProtocol.deskSigners.length === 0) {
-    fail("config/protocol.json deskSigners must be a non-empty array");
-  }
-
-  if (!Array.isArray(configProtocol.controlledWallets)) {
-    fail("config/protocol.json controlledWallets must be an array");
-  }
-}
-
-if (!pnl) {
-  fail("config/pnl.json missing");
-} else if (typeof pnl !== "object" || pnl === null) {
-  fail("config/pnl.json must be an object");
-}
-
-if (failures.length > 0) {
+main().catch((error) => {
+  console.error(`FAIL: gate crashed: ${error.message}`);
   process.exit(1);
-}
-
-console.log("PASS");
-process.exit(0);
+});
