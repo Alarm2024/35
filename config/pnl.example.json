@@ -1,5 +1,6 @@
 {
   "week": "00",
-  "profitSol": 0,
-  "notes": "Realized desk PnL only. Copy to config/pnl.json. That file is gitignored. Never invent profit."
+  "realizedDeskPnl": 0,
+  "rentThresholdSol": 0,
+  "notes": "Realized desk PnL only. Copy to config/pnl.json. That file is gitignored. Never invent profit. rentThresholdSol is the rent number mint is gated on — set it once, in advance, so the gate can check it instead of you remembering it."
 }

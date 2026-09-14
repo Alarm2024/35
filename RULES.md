@@ -10,7 +10,11 @@
 
 - `credit` is a decimal string with at most 6 fractional digits.
 - The same `sourceSig` cannot appear in two weeks.
-- Supply cap at mint: **not set** (mint not open). Do not invent a number.
+- Supply cap at mint: **derived, never invented.** It is the sum of issued credits in
+  `config/ledger.json` at the snapshot block, which is 1:1 with units at 6 decimals
+  (`CONVERSION.md`). This is why the ledger must exist long before mint day.
+- What earns a credit, and at what rate, is published in `EARN.md` and enforced from
+  `config/earn.json`. A reason that is not in the schedule cannot be issued.
 - Signer role is `35 deskSigner` in `docs/WALLET_MAP.md`. That key is not KEEP, not 350, not `cheap_*`.
 
 ## What 35 is not
@@ -22,8 +26,21 @@
 
 ## Mint
 
-- Mint does not exist until `node scripts/gate.js` exits 0.
-- Empty jurisdiction, mint, squadsVault, or pool in public `protocol.json` means BLOCK.
+Two gates, because one gate could not work. The old single gate required
+`protocol.json.mint` to be non-empty *and* forbade minting until it passed, so it
+could never pass before a mint. An unsatisfiable rule gets bypassed by hand.
+
+- **Before minting:** `node scripts/gate.js --preflight` must exit 0. Empty mint and
+  pool are expected here. It checks jurisdiction, desk signers, key separation, the
+  published earn schedule, the credit ledger, and realized PnL against the rent
+  threshold.
+- **After minting, before any announcement:** `node scripts/self-audit.js` must print
+  `CLEAN: yes`. It runs `gate.js --postflight`, which verifies on chain that mint and
+  freeze authority are null, that supply equals the ledger total, that the position NFT
+  sits on the Squads vault, and that the pool is a DAMM v2 account.
+- Empty jurisdiction or squadsVault in public `protocol.json` means BLOCK at both gates.
+- Mint requires preflight PASS **and** the owner explicitly saying mint. The gate is a
+  necessary condition, never a sufficient one.
 - Rent is paid from realized desk PnL recorded in `config/pnl.json`, not from outside capital labeled raise.
 - Name `35`, symbol `35`, 6 decimals, standard SPL Token program.
 - Mint authority and freeze authority are set to null in the same revocation transaction, then verified on-chain before any announcement.
@@ -48,6 +65,11 @@ No bot hot key (KEEP, 350, cheap_*) ever holds mint, freeze, LP, position NFT, o
 
 ## Config layout
 
+- Operator files are gitignored. Start each from its `.example.json`:
+  `config/protocol.json`, `config/pnl.json`, `config/earn.json`, `config/ledger.json`.
+- `config/ledger.json` is append-only via `scripts/issue-credit.js`. Do not hand-edit it.
+- `config/pnl.json` must set `rentThresholdSol`. A rent gate you hold in your head is
+  not a gate the machine can check.
 - Public fields live in `protocol.json` at the repo root: `name`, `symbol`, `decimals`, `issuanceMode`, `jurisdiction`, `mint`, `squadsVault`, `pool`, `usdcMint`.
 - Private operator fields live in `config/protocol.json` (gitignored). Start from `config/protocol.example.json`.
 - Desk PnL reports live in `config/pnl.json` (gitignored). Start from `config/pnl.example.json`. Desk PnL report language only. No per-token value.
@@ -55,6 +77,7 @@ No bot hot key (KEEP, 350, cheap_*) ever holds mint, freeze, LP, position NFT, o
 ## Jurisdiction
 
 - Locked: California — 548 Market St, San Francisco, CA 94104.
-- Public `protocol.json` field `jurisdiction` is `California`.
+- Public `protocol.json` field `jurisdiction` currently reads
+  `California, 548 Market, San Francisco 94104`. It must be non-empty at both gates.
 - Mint, pool, and supply cap remain closed regardless of jurisdiction naming.
 - If that field is empty, no public announcement and `scripts/gate.js` stays BLOCK.

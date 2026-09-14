@@ -1,0 +1,14 @@
+{
+  "publishedAt": "",
+  "notes": "Copy to config/earn.json and publish the same table in EARN.md. Credits are decimal strings, max 6 fractional digits. A reason that is not in this file cannot be issued.",
+  "rules": {
+    "desk.session": {
+      "credit": "0.000000",
+      "describes": "FILL ME IN: one completed desk session. Set the credit the owner actually intends to pay."
+    },
+    "desk.report": {
+      "credit": "0.000000",
+      "describes": "FILL ME IN: one published desk report."
+    }
+  }
+}

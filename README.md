@@ -12,7 +12,12 @@ Real `config/protocol.json` and `config/pnl.json` are gitignored. Do not commit 
 ```bash
 cp config/protocol.example.json config/protocol.json
 cp config/pnl.example.json config/pnl.json
+cp config/earn.example.json  config/earn.json
+cp config/ledger.example.json config/ledger.json
 ```
+
+Then fill in `config/earn.json` rates and publish the same table in `EARN.md`, and set
+`rentThresholdSol` in `config/pnl.json`. Both gates fail while either is a stub.
 
 Fill those local copies yourself. Leave public `protocol.json` `mint`, `squadsVault`, and `pool` empty until gate is allowed to PASS.
 
@@ -32,24 +37,44 @@ Key roles: `docs/WALLET_MAP.md`. Do not put bot hot keys on mint, freeze, LP, po
 | Mail inbound | `*@elghaly.dev` → `wyndhamdesert@gmail.com` (live) |
 | Mail outbound | Gmail send-as `wyndham35@elghaly.dev` (live) |
 
-Still closed: no mint, no pool, no supply cap, no outsider deposits into Squads treasury. Next work is desk, not token; mint only when realized PnL covers rent and the owner says mint.
+Still closed: no mint, no pool, no outsider deposits into Squads treasury. Next work is
+desk, not token; mint only when `gate.js --preflight` passes, realized PnL covers the
+rent threshold in `config/pnl.json`, and the owner says mint.
+
+Opening the desk needs none of that. It needs the earn schedule published (`EARN.md`),
+the ledger and issuer in place, and earned-only terms on the public page.
 
 ## Scripts
 
 ```bash
-node scripts/gate.js
-node scripts/self-audit.js
+node scripts/gate.js --preflight        # may we mint? run BEFORE minting
+node scripts/gate.js --postflight       # did we mint safely? (default; hits RPC)
+node scripts/gate.js --public-only      # public protocol.json only, for CI
+node scripts/self-audit.js              # announcement gate: prints CLEAN: yes/no
+node scripts/reconcile.js               # ledger vs memos actually on chain
+node scripts/scan-secrets.js            # no signing material in the repo
 node --test scripts/test/*.test.js
+
+# record one earned credit at the published rate, then land the memo
+node scripts/issue-credit.js --wallet <addr> --reason desk.session   --week 2026-W37 --source-sig <signature>
 ```
 
-Both gate and self-audit fail closed. Empty jurisdiction / mint / squadsVault / pool means BLOCK.
+Everything fails closed. `--preflight` is the gate that decides whether mint may happen;
+`--postflight` and `self-audit` decide whether it may be announced. `self-audit` refuses to
+print CLEAN if it never reached the chain.
+
+The credit amount is not an argument to `issue-credit.js`. It comes from `config/earn.json`,
+because a rate you can pass on the command line is a discretionary rate.
 
 ## Docs
 
+- `EARN.md` — what earns a credit and at what rate (publish before opening the desk)
 - `SECURITY.md` — keys outside repo; `KEYPAIR_PATH` from env only
 - `RULES.md` `KILL_LIST.md` `CONVERSION.md`
 - `docs/WALLET_MAP.md` — roles, locked deskSigner and Squads vault
 - `docs/MAIL_35.md` — live catch-all to `wyndhamdesert@gmail.com`, send as `wyndham35@elghaly.dev`
 - `docs/GITHUB_DOMAIN.md` — apex domain verify taps
 
-Supply cap is not set (mint not open). Do not invent a number.
+Supply cap is derived, never invented: it is the credit ledger total at the snapshot
+block, 1:1 with units at 6 decimals. See `CONVERSION.md`. It reads as unset today only
+because no credits have been issued yet.
