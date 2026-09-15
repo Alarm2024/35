@@ -10,6 +10,10 @@
 
 - `credit` is a decimal string with at most 6 fractional digits.
 - The same `sourceSig` cannot appear in two weeks.
+- `sourceSig` is the signature of the transaction that carried the memo, so the
+  memo is landed first and recorded second. `scripts/issue-credit.js --preview`
+  prints the memo without writing; the ledger entry is made afterwards with the
+  resulting signature. A ledger written before landing cannot reconcile.
 - Supply cap at mint: **derived, never invented.** It is the sum of issued credits in
   `config/ledger.json` at the snapshot block, which is 1:1 with units at 6 decimals
   (`CONVERSION.md`). This is why the ledger must exist long before mint day.

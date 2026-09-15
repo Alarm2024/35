@@ -1,10 +1,18 @@
 #!/usr/bin/env node
 "use strict";
 
-// Record one earned credit in the ledger and print the memo to land on chain.
+// Record one earned credit in the ledger.
 //
-//   node scripts/issue-credit.js --wallet <addr> --reason desk.session \
-//     --week 2026-W37 --source-sig <signature>
+// ORDER MATTERS. sourceSig is the signature of the transaction that carried the
+// memo, and reconcile.js matches the ledger against chain by exactly that. A
+// signature does not exist until the transaction is sent, so the memo is landed
+// FIRST and recorded SECOND:
+//
+//   1. node scripts/issue-credit.js --wallet <addr> --reason desk.session \
+//        --week 2026-W37 --preview          prints the memo, writes nothing
+//   2. land that memo with the desk signer   returns a signature
+//   3. node scripts/issue-credit.js --wallet <addr> --reason desk.session \
+//        --week 2026-W37 --source-sig <that signature>
 //
 // The credit amount is NOT an argument. It comes from config/earn.json, because
 // a rate you can pass on the command line is a discretionary rate.
@@ -22,7 +30,12 @@ const { ROOT } = require("./lib/checks");
 const LEDGER_PATH = path.join(ROOT, "config/ledger.json");
 const EARN_PATH = path.join(ROOT, "config/earn.json");
 
-const USAGE = `usage: issue-credit.js --wallet <addr> --reason <reason> --week <week> --source-sig <sig> [--dry-run]`;
+const USAGE = `usage:
+  issue-credit.js --wallet <addr> --reason <reason> --week <week> --preview
+  issue-credit.js --wallet <addr> --reason <reason> --week <week> --source-sig <sig> [--dry-run]
+
+--preview prints the memo to land and writes nothing. Land it, then re-run with
+the resulting transaction signature as --source-sig.`;
 
 function parseArgs(argv) {
   const args = {};
@@ -30,6 +43,10 @@ function parseArgs(argv) {
     const key = argv[i];
     if (key === "--dry-run") {
       args.dryRun = true;
+      continue;
+    }
+    if (key === "--preview") {
+      args.preview = true;
       continue;
     }
     if (!key.startsWith("--")) {
@@ -53,8 +70,12 @@ function die(message) {
 const args = parseArgs(process.argv.slice(2));
 if (args.error) die(`${args.error}\n${USAGE}`);
 
-for (const required of ["wallet", "reason", "week", "sourceSig"]) {
-  if (!args[required]) die(`missing --${required.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)}\n${USAGE}`);
+const required = args.preview
+  ? ["wallet", "reason", "week"]
+  : ["wallet", "reason", "week", "sourceSig"];
+
+for (const field of required) {
+  if (!args[field]) die(`missing --${field.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)}\n\n${USAGE}`);
 }
 
 if (!isAddress(args.wallet)) die(`--wallet is not a base58 Solana address: ${args.wallet}`);
@@ -81,10 +102,29 @@ const entry = {
   reason: args.reason,
 };
 
+const memo = ledgerLib.memoFor(entry);
+
+// Preview runs before any ledger mutation: its whole purpose is to hand over the
+// memo string so it can be landed and a real signature obtained.
+if (args.preview) {
+  console.log("");
+  console.log("PREVIEW — nothing written.");
+  console.log("");
+  console.log(`  memo to land:  ${memo}`);
+  console.log(`  credit:        ${rule.credit} (${args.reason}, from the earn schedule)`);
+  console.log("");
+  console.log("Land that exact string as an SPL Memo instruction in a transaction");
+  console.log("signed by an allowlisted desk signer. That transaction's signature is");
+  console.log("the sourceSig. Record it with:");
+  console.log("");
+  console.log(`  node scripts/issue-credit.js --wallet ${args.wallet} --reason ${args.reason} \\`);
+  console.log(`    --week ${args.week} --source-sig <signature of that transaction>`);
+  console.log("");
+  process.exit(0);
+}
+
 const appended = ledgerLib.append(ledger, entry);
 if (!appended.ok) die(`ledger would become invalid:\n  ${appended.errors.join("\n  ")}`);
-
-const memo = ledgerLib.memoFor(entry);
 
 if (args.dryRun) {
   console.log(`DRY RUN — nothing written`);
@@ -99,5 +139,8 @@ console.log(`recorded ${entry.credit} to ${entry.wallet} for ${entry.reason} (we
 console.log(`memo:   ${memo}`);
 console.log(`total:  ${appended.total.credit}`);
 console.log(``);
-console.log(`Land it with the desk signer, then run: node scripts/reconcile.js`);
-console.log(`  solana transfer --from "$KEYPAIR_PATH" <self> 0 --with-memo '${memo}'`);
+console.log(`Verify it against chain now: node scripts/reconcile.js`);
+console.log(``);
+console.log(`If that reports this sourceSig is not on chain, the memo was never`);
+console.log(`landed or the signature is wrong. Fix it rather than leaving the two`);
+console.log(`out of step: a ledger that does not reconcile cannot be a supply cap.`);
