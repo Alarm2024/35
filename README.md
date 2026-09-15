@@ -52,6 +52,7 @@ node scripts/gate.js --postflight       # did we mint safely? (default; hits RPC
 node scripts/gate.js --public-only      # public protocol.json only, for CI
 node scripts/self-audit.js              # announcement gate: prints CLEAN: yes/no
 node scripts/reconcile.js               # ledger vs memos actually on chain
+node scripts/mint-plan.js               # the mint ceremony with real values, or why it is blocked
 node scripts/scan-secrets.js            # no signing material in the repo
 node --test scripts/test/*.test.js
 
@@ -69,6 +70,7 @@ because a rate you can pass on the command line is a discretionary rate.
 ## Docs
 
 - `EARN.md` — what earns a credit and at what rate (publish before opening the desk)
+- `MINT.md` — the mint-day ceremony, in order
 - `SECURITY.md` — keys outside repo; `KEYPAIR_PATH` from env only
 - `RULES.md` `KILL_LIST.md` `CONVERSION.md`
 - `docs/WALLET_MAP.md` — roles, locked deskSigner and Squads vault
