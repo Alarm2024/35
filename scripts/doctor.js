@@ -20,6 +20,7 @@ const { ROOT: REPO_ROOT } = require("./lib/checks");
 const ROOT = process.env.DESK_ROOT || REPO_ROOT;
 const ledgerLib = require("./lib/ledger");
 const earnLib = require("./lib/earn");
+const receiptLib = require("./lib/receipt");
 
 const DONE = "✓";
 const TODO = "·";
@@ -146,12 +147,18 @@ if (creditsIssued) {
   console.log("");
   const plural = ledgerCheck.entryCount === 1 ? "entry" : "entries";
   console.log(`  ledger: ${ledgerCheck.entryCount} ${plural}, supply would be ${ledgerCheck.total.credit}`);
+  const receipt = receiptLib.readIfCurrent(ROOT, ledger);
   console.log("");
-  console.log(`  ${WARN} RECORDED, NOT VERIFIED. Nothing above proves those memos are on`);
-    console.log("    chain. A ledger entry whose sourceSig is not a real transaction");
+  if (receipt) {
+    console.log(`  ${DONE} verified against chain at ${receipt.at}`);
+    console.log("    (this exact ledger; any change to it invalidates the check)");
+  } else {
+    console.log(`  ${WARN} RECORDED, NOT VERIFIED. Nothing here proves those memos are`);
+    console.log("    on chain. A ledger entry whose sourceSig is not a real transaction");
     console.log("    signature is a supply cap built on nothing. Check it now:");
-  console.log("");
-  console.log("      node scripts/reconcile.js");
+    console.log("");
+    console.log("      node scripts/reconcile.js");
+  }
 }
 
 console.log("");
