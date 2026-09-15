@@ -48,7 +48,6 @@
     .ask .note { font-size:12px; margin-top:8px; }
     .terms { list-style:none; display:grid; gap:10px; }
     .terms li { color:var(--dim); font-size:15px; border-left:2px solid var(--line); padding-left:14px; }
-    .terms li b { color:var(--ink); font-weight:600; }
     .terms + .note { color:var(--dim); font-size:12px; margin-top:14px; }
     @media (max-width:720px){ .grid,dl{grid-template-columns:1fr;} .lang{max-width:100%;} }
   </style>
@@ -103,10 +102,13 @@
         <dt data-i18n="mode"></dt><dd id="mode">earned</dd>
         <dt>Mail</dt><dd><a href="mailto:35@elghaly.dev">35@elghaly.dev</a></dd>
         <dt data-i18n="support"></dt><dd><a href="mailto:support@elghaly.dev">support@elghaly.dev</a></dd>
+        <dt>deskSigner</dt><dd id="deskSigner"><a href="https://solscan.io/account/3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo">3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo</a></dd>
+        <dt>Squads</dt><dd id="squadsVault"><a href="https://solscan.io/account/GMyuRJbwPTF5pEHvMCNJqujoLk8tZCdFY6i9feMoczcQ">GMyuRJbwPTF5pEHvMCNJqujoLk8tZCdFY6i9feMoczcQ</a></dd>
         <dt data-i18n="record"></dt><dd><a href="https://github.com/Alarm2024/35">github.com/Alarm2024/35</a></dd>
         <dt data-i18n="mint"></dt><dd id="mint">unpublished</dd>
         <dt data-i18n="pool"></dt><dd id="pool">unpublished</dd>
       </dl>
+      <p class="note">Memo only / treasury. Do not send deposits. KEEP · 350 · cheap_* stay off this page.</p>
     </section>
     <footer>✝️ 🪬 🧿 · <a href="mailto:support@elghaly.dev">support@elghaly.dev</a></footer>
   </div>
@@ -146,13 +148,11 @@
       if (!q.trim()) return "Type a question first.";
       if (/buy|purchase|price|chart|ape|presale|ico/.test(q)) return "You do not buy 35. No presale. No chart. Mint is unpublished.";
       if (/deposit|send (sol|usdc)|invest/.test(q)) return "Do not send SOL or USDC. There is no deposit address for credits.";
+      if (/wallet|deskSigner|squads/.test(q)) return "Public: deskSigner 3BZGNtr7…npbLo (memo only). Squads GMyuRJ…czcQ (treasury later). Do not send deposits. Mint unpublished.";
       if (/mint|contract|\bca\b|token address/.test(q)) return "Mint is unpublished. There is no contract to ape.";
-      if (/pool|jupiter|swap|raydium|meteora/.test(q)) return "No 35/USDC pool yet. Pair comes after mint.";
+      if (/pool|jupiter|swap|raydium|meteora/.test(q)) return "No 35/USDC pool yet.";
       if (/airdrop|member|points/.test(q)) return "Visiting this site does not earn 35.";
-      if (/what is|what's 35/.test(q)) return "35 is a private earned-credit ledger for this desk. Closed. Not a public app.";
-      if (/support/.test(q)) return "support@elghaly.dev is at the bottom. Desk mail is 35@elghaly.dev.";
-      if (/mail|email|contact/.test(q)) return "Desk 35@elghaly.dev. Support is lower on this page.";
-      return "Logged to the desk. A human reads 35@elghaly.dev. Instant rule: no buy, no deposit, mint unpublished.";
+      return "Logged to the desk. A human reads 35@elghaly.dev.";
     }
     function notifyDesk(q) {
       return fetch("https://formsubmit.co/ajax/35@elghaly.dev", {
@@ -177,7 +177,9 @@
     fetch("/protocol.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (p) {
       if (!p) return;
       function set(id, v) { var el = document.getElementById(id); if (el && v) el.textContent = v; }
-      set("mode", p.issuanceMode); set("mint", p.mint); set("pool", p.pool);
+      set("mode", p.issuanceMode);
+      if (p.mint) set("mint", p.mint);
+      if (p.pool) set("pool", p.pool);
     }).catch(function () {});
   </script>
 </body>
