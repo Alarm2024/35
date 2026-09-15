@@ -20,19 +20,11 @@ jobs:
       - uses: actions/checkout@v5
       - name: Build public site artifact
         run: |
-          mkdir -p _site/sight _site/iris
+          mkdir -p _site
           cp index.html protocol.json metadata.json favicon.svg .nojekyll _site/
           if [ -f CNAME ]; then cp CNAME _site/; fi
           if [ -f IMG_5183.jpeg ]; then cp IMG_5183.jpeg _site/; fi
           if [ -f 35-banner.jpg ]; then cp 35-banner.jpg _site/; fi
-          if [ -f sight/index.html ]; then
-            cp sight/index.html _site/sight/
-            cp sight/index.html _site/iris/
-          fi
-          if [ -f sight/app.js ]; then
-            cp sight/app.js _site/sight/
-            cp sight/app.js _site/iris/
-          fi
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
