@@ -211,6 +211,15 @@ function checkLedgerAndEarn(report, root = ROOT) {
     if (verified.ok && !payable) {
       report.fail("config/earn.json has no rule paying more than zero — the schedule is still a stub");
     }
+
+    // The example ships with default rates so the desk is not blocked on a blank
+    // file. This flag is what stops a default from quietly becoming the live rate:
+    // the owner sets the numbers they mean, then says so.
+    if (schedule.ownerConfirmed !== true) {
+      report.fail(
+        "config/earn.json ownerConfirmed is not true — the rates ship as defaults; set the ones you mean (see EARN.md), then set ownerConfirmed"
+      );
+    }
   }
 
   const ledgerRead = ledgerLib.load(path.join(root, "config/ledger.json"));
@@ -295,6 +304,15 @@ function checkPnl(pnl, report) {
   if (realized < threshold) {
     report.fail(
       `realized desk PnL ${realized} does not cover rent threshold ${threshold} — RULES.md holds mint closed`
+    );
+  }
+
+  // rentThresholdSol ships as a default too, and it gates mint. Same rule: the
+  // owner confirms the number, or the gate stays shut. RULES.md requires the
+  // owner to say mint; this is the part of that a machine can actually check.
+  if (pnl.ownerConfirmed !== true) {
+    report.fail(
+      "config/pnl.json ownerConfirmed is not true — rentThresholdSol ships as a default; set the figure you mean, then set ownerConfirmed"
     );
   }
 }
