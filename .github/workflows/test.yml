@@ -17,5 +17,7 @@ jobs:
       # Operator config is gitignored, so CI can only check the public record.
       # This catches a mint or pool address committed to protocol.json that was
       # never audited — see KILL_LIST 10.
+      - name: Site publishes everything it references
+        run: node scripts/check-site.js
       - name: Public record gate
         run: node scripts/gate.js --public-only --preflight
