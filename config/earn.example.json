@@ -1,14 +1,15 @@
 {
-  "publishedAt": "",
-  "notes": "Copy to config/earn.json and publish the same table in EARN.md. Credits are decimal strings, max 6 fractional digits. A reason that is not in this file cannot be issued.",
+  "publishedAt": "2026-09-15",
+  "ownerConfirmed": false,
+  "notes": "Copy to config/earn.json and publish the same table in EARN.md. The rates below are DEFAULTS, not a valuation — read EARN.md, set what you mean, then set ownerConfirmed to true. The gate refuses to pass while it is false, so a default can never quietly become the live rate.",
   "rules": {
     "desk.session": {
-      "credit": "0.000000",
-      "describes": "FILL ME IN: one completed desk session. Set the credit the owner actually intends to pay."
+      "credit": "1.000000",
+      "describes": "One completed desk session. The base unit: every other rate is a multiple of this."
     },
     "desk.report": {
-      "credit": "0.000000",
-      "describes": "FILL ME IN: one published desk report."
+      "credit": "2.000000",
+      "describes": "One published desk report. Two sessions' worth, because a report is a durable artifact rather than a single engagement. Flip this if that is backwards for your desk."
     }
   }
 }

@@ -12,14 +12,27 @@ The machine-readable copy is `config/earn.json` (gitignored; start from
 
 ## Rates
 
-**Not yet published.** The example schedule ships with `0.000000` in every row and
-`gate.js --preflight` fails while that is true, because a schedule that pays nothing
-is a stub, not a schedule.
+**Defaults, pending the owner's confirmation.**
 
 | Reason | Credit | What earns it |
 |---|---|---|
-| `desk.session` | _unset_ | FILL IN: one completed desk session |
-| `desk.report` | _unset_ | FILL IN: one published desk report |
+| `desk.session` | `1.000000` | One completed desk session. The base unit. |
+| `desk.report` | `2.000000` | One published desk report — two sessions' worth, because a report is a durable artifact rather than a single engagement. |
+
+These are a starting **ratio**, not a valuation. There is no price and no cap, so the
+absolute scale is arbitrary; what matters is the ratio between kinds of work and that
+it stays stable once credits are issued. If a report is not worth two sessions at this
+desk, change it — now, before the first credit.
+
+`config/earn.json` ships with `"ownerConfirmed": false` and
+`gate.js --preflight` fails while it stays false:
+
+    FAIL: config/earn.json ownerConfirmed is not true — the rates ship as
+    defaults; set the ones you mean, then set ownerConfirmed
+
+So a default can never quietly become the live rate. Set the numbers you mean, set
+the flag, and the gate moves on. The same flag guards `rentThresholdSol` in
+`config/pnl.json`, for the same reason.
 
 Add rows as the desk does more kinds of work. Do not remove a row that has already
 issued credits — the ledger references it by name.

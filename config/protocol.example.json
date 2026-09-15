@@ -2,9 +2,9 @@
   "rpcUrl": "https://api.mainnet-beta.solana.com",
   "memoProgram": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
   "dammV2Program": "cpamdpZCGKUy5JxQXB4dcpGPiikHawvSWAd6mEn1sGG",
-  "deskSigners": [],
+  "deskSigners": ["3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo"],
   "controlledWallets": [],
   "position": "",
   "positionNftMint": "",
-  "metadataUri": ""
+  "metadataUri": "https://35.elghaly.dev/metadata.json"
 }

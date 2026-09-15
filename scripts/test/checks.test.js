@@ -57,10 +57,12 @@ function fixture(overrides = {}) {
       week: "2026-W37",
       realizedDeskPnl: 10,
       rentThresholdSol: 5,
+      ownerConfirmed: true,
       ...overrides.pnl,
     },
     "config/earn.json": {
       publishedAt: "2026-09-14",
+      ownerConfirmed: true,
       rules: { "desk.session": { credit: "1.500000", describes: "one completed desk session" } },
       ...overrides.earn,
     },
@@ -323,4 +325,57 @@ test("both modes fail closed when every operator file is missing", async () => {
     const result = await run({ mode, root, offline: true });
     assert.equal(result.ok, false, `${mode} must fail closed`);
   }
+});
+
+test("preflight fails until the owner confirms the earn rates", async () => {
+  const root = fixture({ earn: { publishedAt: "2026-09-14", ownerConfirmed: false, rules: { "desk.session": { credit: "1.500000", describes: "one session" } } } });
+  const result = await run({ mode: "preflight", root });
+  assert.equal(result.ok, false);
+  assert.match(failureText(result), /config\/earn\.json ownerConfirmed is not true/);
+});
+
+test("preflight fails until the owner confirms the rent threshold", async () => {
+  const root = fixture({ pnl: { realizedDeskPnl: 10, rentThresholdSol: 5, ownerConfirmed: false } });
+  const result = await run({ mode: "preflight", root });
+  assert.equal(result.ok, false);
+  assert.match(failureText(result), /config\/pnl\.json ownerConfirmed is not true/);
+});
+
+test("a missing ownerConfirmed is treated as unconfirmed, not as consent", async () => {
+  const root = fixture();
+  // Write the file directly: the fixture merge would otherwise reinstate the key.
+  fs.writeFileSync(
+    path.join(root, "config/earn.json"),
+    JSON.stringify({ publishedAt: "2026-09-14", rules: { "desk.session": { credit: "1.500000", describes: "one session" } } })
+  );
+  const result = await run({ mode: "preflight", root });
+  assert.equal(result.ok, false);
+  assert.match(failureText(result), /ownerConfirmed is not true/);
+});
+
+test("the shipped example files are valid and would pass once confirmed", async () => {
+  const examples = path.resolve(__dirname, "../../config");
+  const earn = JSON.parse(fs.readFileSync(path.join(examples, "earn.example.json"), "utf8"));
+  const pnl = JSON.parse(fs.readFileSync(path.join(examples, "pnl.example.json"), "utf8"));
+  const protocolCfg = JSON.parse(fs.readFileSync(path.join(examples, "protocol.example.json"), "utf8"));
+
+  // Shipped unconfirmed on purpose — a default must never act as consent.
+  assert.equal(earn.ownerConfirmed, false);
+  assert.equal(pnl.ownerConfirmed, false);
+
+  // But otherwise complete, so confirming is the only step left.
+  assert.equal(protocolCfg.deskSigners.length, 1);
+  assert.match(protocolCfg.metadataUri, /^https:\/\//);
+  assert.ok(pnl.rentThresholdSol > 0);
+
+  const root = fixture({
+    protocol: { mint: "", pool: "" },
+    config: { ...protocolCfg, position: "", positionNftMint: "" },
+    earn: { ...earn, ownerConfirmed: true },
+    pnl: { ...pnl, realizedDeskPnl: 999, ownerConfirmed: true },
+    ledger: { version: 1, decimals: 6, entries: [{ wallet: WALLET, credit: earn.rules["desk.session"].credit, week: "2026-W38", sourceSig: "sig-a", issuedAt: "2026-09-15T00:00:00Z", reason: "desk.session" }] },
+  });
+  const result = await run({ mode: "preflight", root });
+  assert.equal(result.ok, true, failureText(result));
+  assert.equal(result.total.credit, earn.rules["desk.session"].credit);
 });

@@ -1,6 +1,7 @@
 {
   "week": "00",
   "realizedDeskPnl": 0,
-  "rentThresholdSol": 0,
-  "notes": "Realized desk PnL only. Copy to config/pnl.json. That file is gitignored. Never invent profit. rentThresholdSol is the rent number mint is gated on — set it once, in advance, so the gate can check it instead of you remembering it."
+  "rentThresholdSol": 10,
+  "ownerConfirmed": false,
+  "notes": "Realized desk PnL only. Copy to config/pnl.json. That file is gitignored. Never invent profit. rentThresholdSol is the realized-SOL figure mint is gated on and ships as a DEFAULT — set the number you actually mean, then set ownerConfirmed to true. Decide it now, while it is abstract: a threshold decided when PnL is near it is a threshold that moves to meet the number."
 }
