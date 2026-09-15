@@ -21,7 +21,7 @@ jobs:
       - name: Build public site artifact
         run: |
           mkdir -p _site/sight _site/iris
-          cp index.html protocol.json favicon.svg .nojekyll _site/
+          cp index.html protocol.json metadata.json favicon.svg .nojekyll _site/
           if [ -f CNAME ]; then cp CNAME _site/; fi
           if [ -f IMG_5183.jpeg ]; then cp IMG_5183.jpeg _site/; fi
           if [ -f 35-banner.jpg ]; then cp 35-banner.jpg _site/; fi

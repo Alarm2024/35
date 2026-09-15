@@ -46,6 +46,10 @@
     .ask .out { margin-top:14px; color:var(--ink); white-space:pre-wrap; }
     .ask .row { display:flex; flex-wrap:wrap; gap:8px; }
     .ask .note { font-size:12px; margin-top:8px; }
+    .terms { list-style:none; display:grid; gap:10px; }
+    .terms li { color:var(--dim); font-size:15px; border-left:2px solid var(--line); padding-left:14px; }
+    .terms li b { color:var(--ink); font-weight:600; }
+    .terms + .note { color:var(--dim); font-size:12px; margin-top:14px; }
     @media (max-width:720px){ .grid,dl{grid-template-columns:1fr;} .lang{max-width:100%;} }
   </style>
 </head>
@@ -82,6 +86,18 @@
     </section>
     <section><h2 data-i18n="locked"></h2><p class="rule" data-i18n="lockedp"></p></section>
     <section>
+      <h2 data-i18n="termst"></h2>
+      <ul class="terms">
+        <li data-i18n="t1"></li>
+        <li data-i18n="t2"></li>
+        <li data-i18n="t3"></li>
+        <li data-i18n="t4"></li>
+        <li data-i18n="t5"></li>
+        <li data-i18n="t6"></li>
+      </ul>
+      <p class="note" data-i18n="termsn"></p>
+    </section>
+    <section>
       <h2 data-i18n="addr"></h2>
       <dl>
         <dt data-i18n="mode"></dt><dd id="mode">earned</dd>
@@ -96,7 +112,7 @@
   </div>
   <script>
     var T = {
-      en: { kicker:"Closed desk · not a public app", lede:"35 is a private earned-credit ledger for this desk. There is no public bot to click, no coin to buy, no deposit to send. Follow the record. Mail if you must. Mint stays unpublished until the desk books realized profit.", record:"Public record", c1t:"Closed", c1p:"The sniper and flash are not a public product.", c2t:"Earned only", c2p:"Credit later comes from signed desk-usage memos. Nobody buys 35.", c3t:"Not a listing", c3p:"No pool today. Do not look for a contract to ape.", locked:"Locked", lockedp:"Path A. Closed desk. No purchase. No redeem. No public app.", addr:"Addresses", mode:"Mode", support:"Support", mint:"Mint", pool:"Pool", askt:"Ask 35", askp:"You get an instant answer here. The same question is also sent to 35@elghaly.dev so the desk can reply." }
+      en: { kicker:"Closed desk · not a public app", lede:"35 is a private earned-credit ledger for this desk. There is no public bot to click, no coin to buy, no deposit to send. Follow the record. Mail if you must. Mint stays unpublished until the desk books realized profit.", record:"Public record", c1t:"Closed", c1p:"The sniper and flash are not a public product.", c2t:"Earned only", c2p:"Credit later comes from signed desk-usage memos. Nobody buys 35.", c3t:"Not a listing", c3p:"No pool today. Do not look for a contract to ape.", locked:"Locked", lockedp:"Path A. Closed desk. No purchase. No redeem. No public app.", addr:"Addresses", mode:"Mode", support:"Support", mint:"Mint", pool:"Pool", askt:"Ask 35", askp:"You get an instant answer here. The same question is also sent to 35@elghaly.dev so the desk can reply.", termst:"Terms", t1:"Earned only. 35 is never sold. No presale, no public sale, no purchase of any kind.", t2:"No deposits. Nobody sends SOL or USDC to a 35 address in exchange for credit.", t3:"No redemption. Credit is not redeemable for cash, SOL, or USDC. There is no redemption desk.", t4:"Not equity. Not a SAFE, note, or claim on any company. Not a promise of profit or buyback. Not a deposit receipt.", t5:"A credit exists only when an allowlisted desk signer lands a signed memo for work published in the earn schedule.", t6:"Supply at mint is the credit ledger total. It is derived from signed memos, never an invented number.", termsn:"Full rules, kill list, and earn schedule are in the public record at github.com/Alarm2024/35." }
     };
     T.ar = Object.assign({}, T.en, { kicker:"مكتب مغلق", askt:"اسأل 35", support:"الدعم", record:"السجل", askp:"إجابة فورية هنا، ونفس السؤال يصل إلى 35@elghaly.dev." });
     T.ru = Object.assign({}, T.en, { kicker:"Закрытый деск", askt:"Спросить 35" });
