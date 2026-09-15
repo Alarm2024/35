@@ -70,10 +70,12 @@ const stages = [
     ok: confirmed,
     label: "Owner confirmed the rates and the rent threshold",
     next: [
-      "The rates and rentThresholdSol ship as DEFAULTS. Read EARN.md, set the",
-      "numbers you actually mean, then in BOTH config/earn.json and",
-      "config/pnl.json set:",
-      '  "ownerConfirmed": true',
+      "The rates and rentThresholdSol ship as DEFAULTS. Read EARN.md, then state",
+      "the numbers you mean — passing them is the confirmation:",
+      "",
+      "  node scripts/confirm.js --session 1.000000 --report 2.000000 --rent 10",
+      "",
+      "Change any of those three to what you actually intend. No editor needed.",
     ],
   },
   {

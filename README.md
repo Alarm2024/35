@@ -48,6 +48,8 @@ the ledger and issuer in place, and earned-only terms on the public page.
 
 ```bash
 node scripts/doctor.js                  # where am I, and what is the next step?
+node scripts/confirm.js --session 1.000000 --report 2.000000 --rent 10
+                                        # state the rates and the rent gate (no editor)
 node scripts/gate.js --preflight        # may we mint? run BEFORE minting
 node scripts/gate.js --postflight       # did we mint safely? (default; hits RPC)
 node scripts/gate.js --public-only      # public protocol.json only, for CI

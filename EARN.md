@@ -24,6 +24,15 @@ absolute scale is arbitrary; what matters is the ratio between kinds of work and
 it stays stable once credits are issued. If a report is not worth two sessions at this
 desk, change it — now, before the first credit.
 
+Set them with one command — no editor, which matters when the only terminal
+to hand is a phone:
+
+    node scripts/confirm.js --session 1.000000 --report 2.000000 --rent 10
+
+The numbers are required arguments on purpose: passing them **is** the
+confirmation. There is deliberately no flag that flips the switch on whatever
+defaults happen to be in the file.
+
 `config/earn.json` ships with `"ownerConfirmed": false` and
 `gate.js --preflight` fails while it stays false:
 
