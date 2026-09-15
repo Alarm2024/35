@@ -4,14 +4,18 @@
   "description": "Earned-only desk credit. 35 is never sold: no presale, no public sale, no deposits, no redemption. A credit exists only when an allowlisted desk signer lands a signed memo for work published in EARN.md. Supply at mint is the credit ledger total, never an invented number. The mint is unpublished and does not exist until scripts/gate.js --preflight passes and the owner authorizes it. Not equity, not a SAFE or note, not a claim on any company, not a promise of profit or buyback, not a deposit receipt.",
   "image": "https://35.elghaly.dev/IMG_5183.jpeg",
   "external_url": "https://35.elghaly.dev",
-  "attributes": [],
+  "attributes": [
+    { "trait_type": "deskSigner", "value": "3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo" },
+    { "trait_type": "squadsVault", "value": "GMyuRJbwPTF5pEHvMCNJqujoLk8tZCdFY6i9feMoczcQ" },
+    { "trait_type": "issuance", "value": "earned-only" },
+    { "trait_type": "mint", "value": "unpublished" }
+  ],
   "properties": {
     "files": [
-      {
-        "uri": "https://35.elghaly.dev/IMG_5183.jpeg",
-        "type": "image/jpeg"
-      }
+      { "uri": "https://35.elghaly.dev/IMG_5183.jpeg", "type": "image/jpeg" }
     ],
-    "category": "image"
+    "category": "image",
+    "deskSigner": "3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo",
+    "squadsVault": "GMyuRJbwPTF5pEHvMCNJqujoLk8tZCdFY6i9feMoczcQ"
   }
 }
