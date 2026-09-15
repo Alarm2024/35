@@ -40,7 +40,10 @@
     dl { display:grid; grid-template-columns:150px 1fr; gap:10px 16px; }
     dt { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--purple); }
     dd { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; word-break:break-all; }
-    footer { margin-top:48px; color:var(--dim); font-size:13px; }
+    footer { margin-top:48px; color:var(--dim); font-size:13px; text-align:center; line-height:1.8; }
+    footer .signs-up, footer .signs-down { letter-spacing:.08em; font-size:14px; }
+    footer .signs-up { margin-bottom:10px; }
+    footer .signs-down { margin-top:10px; }
     a { color:var(--cyan); }
     .ask textarea { width:100%; min-height:88px; margin:12px 0; padding:12px; border-radius:12px; border:1px solid var(--line); background:#11041f; color:var(--ink); font:inherit; }
     .ask .out { margin-top:14px; color:var(--ink); white-space:pre-wrap; }
@@ -101,7 +104,7 @@
       <dl>
         <dt data-i18n="mode"></dt><dd id="mode">earned</dd>
         <dt>Mail</dt><dd><a href="mailto:35@elghaly.dev">35@elghaly.dev</a></dd>
-        <dt data-i18n="support"></dt><dd><a href="mailto:support@elghaly.dev">support@elghaly.dev</a></dd>
+        <dt data-i18n="support"></dt><dd><span data-i18n="weAre24"></span> · <a href="mailto:support@elghaly.dev">support@elghaly.dev</a></dd>
         <dt>deskSigner</dt><dd id="deskSigner"><a href="https://solscan.io/account/3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo">3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo</a></dd>
         <dt>Squads</dt><dd id="squadsVault"><a href="https://solscan.io/account/GMyuRJbwPTF5pEHvMCNJqujoLk8tZCdFY6i9feMoczcQ">GMyuRJbwPTF5pEHvMCNJqujoLk8tZCdFY6i9feMoczcQ</a></dd>
         <dt data-i18n="record"></dt><dd><a href="https://github.com/Alarm2024/35">github.com/Alarm2024/35</a></dd>
@@ -110,17 +113,23 @@
       </dl>
       <p class="note">Memo only / treasury. Do not send deposits. KEEP · 350 · cheap_* stay off this page.</p>
     </section>
-    <footer>✝️ 🪬 🧿 · <a href="mailto:support@elghaly.dev">support@elghaly.dev</a></footer>
+    <footer>
+      <p class="signs-up">✝️🧿🪬</p>
+      <p data-i18n="footerDream"></p>
+      <p data-i18n="footerMade"></p>
+      <p><span data-i18n="weAre24"></span> · <a href="mailto:support@elghaly.dev">support@elghaly.dev</a></p>
+      <p class="signs-down">3️⃣🧿5️⃣</p>
+    </footer>
   </div>
   <script>
     var T = {
-      en: { kicker:"Closed desk · not a public app", lede:"35 is a private earned-credit ledger for this desk. There is no public bot to click, no coin to buy, no deposit to send. Follow the record. Mail if you must. Mint stays unpublished until the desk books realized profit.", record:"Public record", c1t:"Closed", c1p:"The sniper and flash are not a public product.", c2t:"Earned only", c2p:"Credit later comes from signed desk-usage memos. Nobody buys 35.", c3t:"Not a listing", c3p:"No pool today. Do not look for a contract to ape.", locked:"Locked", lockedp:"Path A. Closed desk. No purchase. No redeem. No public app.", addr:"Addresses", mode:"Mode", support:"Support", mint:"Mint", pool:"Pool", askt:"Ask 35", askp:"You get an instant answer here. The same question is also sent to 35@elghaly.dev so the desk can reply.", termst:"Terms", t1:"Earned only. 35 is never sold. No presale, no public sale, no purchase of any kind.", t2:"No deposits. Nobody sends SOL or USDC to a 35 address in exchange for credit.", t3:"No redemption. Credit is not redeemable for cash, SOL, or USDC. There is no redemption desk.", t4:"Not equity. Not a SAFE, note, or claim on any company. Not a promise of profit or buyback. Not a deposit receipt.", t5:"A credit exists only when an allowlisted desk signer lands a signed memo for work published in the earn schedule.", t6:"Supply at mint is the credit ledger total. It is derived from signed memos, never an invented number.", termsn:"Full rules, kill list, and earn schedule are in the public record at github.com/Alarm2024/35." }
+      en: { kicker:"Closed desk · not a public app", lede:"35 is a private earned-credit ledger for this desk. There is no public bot to click, no coin to buy, no deposit to send. Follow the record. Mail if you must. Mint stays unpublished until the desk books realized profit.", record:"Public record", c1t:"Closed", c1p:"The sniper and flash are not a public product.", c2t:"Earned only", c2p:"Credit later comes from signed desk-usage memos. Nobody buys 35.", c3t:"Not a listing", c3p:"No pool today. Do not look for a contract to ape.", locked:"Locked", lockedp:"Path A. Closed desk. No purchase. No redeem. No public app.", addr:"Addresses", mode:"Mode", support:"Support", mint:"Mint", pool:"Pool", askt:"Ask 35", askp:"You get an instant answer here. The same question is also sent to 35@elghaly.dev so the desk can reply.", termst:"Terms", t1:"Earned only. 35 is never sold. No presale, no public sale, no purchase of any kind.", t2:"No deposits. Nobody sends SOL or USDC to a 35 address in exchange for credit.", t3:"No redemption. Credit is not redeemable for cash, SOL, or USDC. There is no redemption desk.", t4:"Not equity. Not a SAFE, note, or claim on any company. Not a promise of profit or buyback. Not a deposit receipt.", t5:"A credit exists only when an allowlisted desk signer lands a signed memo for work published in the earn schedule.", t6:"Supply at mint is the credit ledger total. It is derived from signed memos, never an invented number.", termsn:"Full rules, kill list, and earn schedule are in the public record at github.com/Alarm2024/35.", footerDream:"💭 you dream we build 🧠💡", footerMade:"made by love ❤️", weAre24:"We are 24" }
     };
-    T.ar = Object.assign({}, T.en, { kicker:"مكتب مغلق", askt:"اسأل 35", support:"الدعم", record:"السجل", askp:"إجابة فورية هنا، ونفس السؤال يصل إلى 35@elghaly.dev." });
-    T.ru = Object.assign({}, T.en, { kicker:"Закрытый деск", askt:"Спросить 35" });
-    T.zh = Object.assign({}, T.en, { kicker:"闭门台子", askt:"问 35" });
-    T.de = Object.assign({}, T.en, { kicker:"Geschlossener Desk", askt:"35 fragen" });
-    T.es = Object.assign({}, T.en, { kicker:"Mesa cerrada", askt:"Preguntar a 35" });
+    T.ar = Object.assign({}, T.en, { kicker:"مكتب مغلق", askt:"اسأل 35", support:"الدعم", record:"السجل", askp:"إجابة فورية هنا، ونفس السؤال يصل إلى 35@elghaly.dev.", footerDream:"💭 أنت تحلم ونحن نبني 🧠💡", footerMade:"صنع بحب ❤️", weAre24:"نحن 24" });
+    T.ru = Object.assign({}, T.en, { kicker:"Закрытый деск", askt:"Спросить 35", footerDream:"💭 ты мечтаешь — мы строим 🧠💡", footerMade:"сделано с любовью ❤️", weAre24:"Мы 24" });
+    T.zh = Object.assign({}, T.en, { kicker:"闭门台子", askt:"问 35", footerDream:"💭 你做梦，我们建造 🧠💡", footerMade:"用爱制作 ❤️", weAre24:"我们是 24" });
+    T.de = Object.assign({}, T.en, { kicker:"Geschlossener Desk", askt:"35 fragen", footerDream:"💭 du träumst, wir bauen 🧠💡", footerMade:"mit Liebe gemacht ❤️", weAre24:"Wir sind 24" });
+    T.es = Object.assign({}, T.en, { kicker:"Mesa cerrada", askt:"Preguntar a 35", footerDream:"💭 tú sueñas, nosotros construimos 🧠💡", footerMade:"hecho con amor ❤️", weAre24:"Somos 24" });
     var LANGS = ["en","ar","ru","zh","de","es"];
     var LABELS = { en:"EN", ar:"AR", ru:"RU", zh:"中文", de:"DE", es:"ES" };
     function applyLang(lang) {
