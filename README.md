@@ -60,7 +60,11 @@ node scripts/scan-secrets.js            # no signing material in the repo
 node --test scripts/test/*.test.js
 
 # record one earned credit at the published rate, then land the memo
-node scripts/issue-credit.js --wallet <addr> --reason desk.session   --week 2026-W37 --source-sig <signature>
+# Land the memo FIRST: sourceSig is the signature of the transaction that
+# carried it, so it cannot be known before sending.
+node scripts/issue-credit.js --wallet <addr> --reason desk.session --week 2026-W37 --preview
+# ...land that memo with the desk signer, then record it:
+node scripts/issue-credit.js --wallet <addr> --reason desk.session --week 2026-W37 --source-sig <signature>
 ```
 
 Everything fails closed. `--preflight` is the gate that decides whether mint may happen;
