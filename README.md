@@ -47,6 +47,7 @@ the ledger and issuer in place, and earned-only terms on the public page.
 ## Scripts
 
 ```bash
+node scripts/doctor.js                  # where am I, and what is the next step?
 node scripts/gate.js --preflight        # may we mint? run BEFORE minting
 node scripts/gate.js --postflight       # did we mint safely? (default; hits RPC)
 node scripts/gate.js --public-only      # public protocol.json only, for CI

@@ -54,16 +54,40 @@ written needs a transaction carrying two `SetAuthority` instructions —
 `AuthorityType::MintTokens` → `None` and `AuthorityType::FreezeAccount` →
 `None` — built and signed as one unit.
 
-Two honest options, to settle **before** mint day, not during it:
+**The desk already owns the tool for this: Squads.** A Squads v4 vault
+transaction stores a message of instructions and executes them atomically by
+CPI — all of them, in one Solana transaction, when they fit. Two
+`SetAuthority` instructions fit with room to spare.
 
-- **Build the two-instruction transaction.** A small signing script, written
-  and rehearsed against a throwaway mint first. This is the option that
-  satisfies the rule.
-- **Amend the rule** to permit two back-to-back transactions, and state which
-  authority is revoked first and why that window is acceptable.
+So the rule is satisfiable with no custom signing code and no new dependency:
 
-Do not discover this at the keyboard with a live mint authority. Whichever you
-pick, `self-audit.js` verifies the end state on chain either way.
+1. At step 1, create the mint with **mint and freeze authority on the Squads
+   vault** (`GMyuRJbwPTF5pEHvMCNJqujoLk8tZCdFY6i9feMoczcQ`), not on a personal
+   or hot key. This is what KILL_LIST 11 wants anyway.
+2. Propose **one** vault transaction carrying both instructions:
+   - `SetAuthority(mint, AuthorityType::MintTokens, None)`
+   - `SetAuthority(mint, AuthorityType::FreezeAccount, None)`
+3. Approve and execute it. Both authorities go null together or neither does.
+
+This is better than a bespoke script: it is atomic by construction, it is
+reviewable before execution, and the revocation is recorded in the multisig
+rather than in one operator's shell history.
+
+### If you revoke outside Squads anyway
+
+Then two transactions is the reality, and the order matters. **Revoke
+`MintTokens` first, `FreezeAccount` second.**
+
+Both windows are bad, but they are not equally bad. A live mint authority in
+the gap means supply can be inflated, which permanently destroys the one
+guarantee 35 rests on — that supply equals the ledger. A live freeze authority
+in the gap is serious but does not break that arithmetic, and it stays
+revocable afterwards. Close the irreversible hole first.
+
+Either way, stopping halfway and announcing is the actual failure mode.
+`self-audit.js` verifies the end state on chain and refuses CLEAN while either
+authority is non-null, so the audit catches a half-finished revocation — but
+only if you run it before you speak.
 
 ### 4. Record and verify
 
