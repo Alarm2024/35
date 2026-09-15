@@ -13,7 +13,11 @@
 const fs = require("fs");
 const path = require("path");
 
-const { ROOT } = require("./lib/checks");
+const { ROOT: REPO_ROOT } = require("./lib/checks");
+
+// DESK_ROOT lets the tests point this at a fixture desk. Read-only either way:
+// nothing here writes, signs, or reaches the network.
+const ROOT = process.env.DESK_ROOT || REPO_ROOT;
 const ledgerLib = require("./lib/ledger");
 const earnLib = require("./lib/earn");
 
@@ -142,6 +146,12 @@ if (creditsIssued) {
   console.log("");
   const plural = ledgerCheck.entryCount === 1 ? "entry" : "entries";
   console.log(`  ledger: ${ledgerCheck.entryCount} ${plural}, supply would be ${ledgerCheck.total.credit}`);
+  console.log("");
+  console.log(`  ${WARN} RECORDED, NOT VERIFIED. Nothing above proves those memos are on`);
+    console.log("    chain. A ledger entry whose sourceSig is not a real transaction");
+    console.log("    signature is a supply cap built on nothing. Check it now:");
+  console.log("");
+  console.log("      node scripts/reconcile.js");
 }
 
 console.log("");
