@@ -16,6 +16,7 @@ const ledgerLib = require("./lib/ledger");
 const { parseMemo } = require("./lib/memo");
 const { rpcFactory } = require("./lib/rpc");
 const { ROOT, readJson, createReporter } = require("./lib/checks");
+const receiptLib = require("./lib/receipt");
 
 const LEDGER_PATH = path.join(ROOT, "config/ledger.json");
 
@@ -127,6 +128,16 @@ async function main() {
   console.log(`entries:  ${verified.entryCount}`);
   console.log(`total:    ${verified.total.credit}`);
   console.log(`weeks:    ${verified.byWeek.map((w) => `${w.week}=${w.credit}`).join(" ") || "(none)"}`);
+
+  // Note it locally so doctor stops warning about a ledger that was just
+  // checked. Convenience only: nothing that gates the mint reads this.
+  receiptLib.write(ROOT, read.ledger, verified.total.credit);
+
+  if (verified.entryCount === 0) {
+    console.log("");
+    console.log("Note: an empty ledger reconciles trivially. This says nothing yet.");
+  }
+
   console.log("RECONCILED: yes");
   process.exit(0);
 }

@@ -19,3 +19,4 @@ deskSigner.json
 # Operator files (start from the .example.json copies)
 config/ledger.json
 config/earn.json
+config/reconciled.json
