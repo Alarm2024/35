@@ -104,8 +104,12 @@ const stages = [
     ok: rentCovered,
     label: "Realized PnL covers the rent threshold",
     next: [
-      "Run the desk and record realized PnL in config/pnl.json.",
-      "Nothing to build here — this one is earned, not configured.",
+      "Run the desk. This one is earned, not configured — no command makes",
+      "PnL appear. When there is a real figure to book, record it with:",
+      "",
+      "  node scripts/record-pnl.js --realized <sol> --week <week>",
+      "",
+      "That writes the measurement only. It will not move rentThresholdSol.",
     ],
   },
   {
@@ -176,8 +180,14 @@ for (const line of firstBlocked.next) {
   console.log(line ? `  ${line}` : "");
 }
 console.log("");
-console.log("Things this cannot see: whether memos actually landed on chain");
-console.log("(node scripts/reconcile.js) and the mint's real authorities");
-console.log("(node scripts/self-audit.js). Both need the network.");
+const verifiedNow = ledger && receiptLib.readIfCurrent(ROOT, ledger);
+if (verifiedNow) {
+  console.log("Still unseen from here: the mint's real on-chain authorities");
+  console.log("(node scripts/self-audit.js). That one needs the network.");
+} else {
+  console.log("Things this cannot see: whether memos actually landed on chain");
+  console.log("(node scripts/reconcile.js) and the mint's real authorities");
+  console.log("(node scripts/self-audit.js). Both need the network.");
+}
 console.log("");
 process.exit(0);
