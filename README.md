@@ -57,6 +57,9 @@ node scripts/self-audit.js              # announcement gate: prints CLEAN: yes/n
 node scripts/reconcile.js               # ledger vs memos actually on chain
 node scripts/mint-plan.js               # the mint ceremony with real values, or why it is blocked
 node scripts/scan-secrets.js            # no signing material in the repo
+node scripts/check-site.js              # the site ships everything it references
+node scripts/ledger-remove.js --source-sig <sig>
+                                        # drop an entry that never landed on chain
 node --test scripts/test/*.test.js
 
 # record one earned credit at the published rate, then land the memo
