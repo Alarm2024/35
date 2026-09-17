@@ -85,6 +85,47 @@ try {
   fail(`protocol.json is not valid JSON: ${error.message}`);
 }
 
+// --------------------------------------------------------------------- earn
+// **The page must publish the rate, not merely refer to it.**
+//
+// EARN.md states the reason this repo exists in one line: "Earned-only
+// issuance without a published rate is discretionary issuance. The token is
+// then worth whatever the operator says on any given week, and no holder can
+// check the work."
+//
+// Checked 2026-09-17, index.html carried every earned-only term — no purchase,
+// no redeem, not equity — and told the reader that credit comes from "work
+// published in the earn schedule", without publishing that schedule or linking
+// it. The rates were in the repo; the desk page, which is what a holder
+// actually reads, pointed at a GitHub org and left them to go looking. That is
+// the exact gap EARN.md exists to close, reopened one level up.
+//
+// This asserts the page carries every row of the table and its exact credit,
+// and that the two files cannot drift: change a rate in EARN.md without
+// changing the page and CI fails here rather than silently publishing a stale
+// number.
+const earnMd = fs.readFileSync(path.join(ROOT, "EARN.md"), "utf8");
+
+// The `## Rates` table: | `reason` | `credit` | what earns it |
+const rateRows = [...earnMd.matchAll(/^\|\s*`([a-z]+\.[a-z]+)`\s*\|\s*`([0-9.]+)`\s*\|/gm)]
+  .map(([, reason, credit]) => ({ reason, credit }));
+
+if (rateRows.length === 0) {
+  fail("EARN.md has no rate rows this check can read — the ## Rates table shape changed, so update both together");
+}
+
+for (const { reason, credit } of rateRows) {
+  if (!html.includes(reason)) {
+    fail(`EARN.md publishes the rate ${reason}, but index.html never names it — a holder cannot check the work from the desk page`);
+  } else if (!html.includes(credit)) {
+    fail(`index.html names ${reason} but not its credit ${credit} from EARN.md — the page and the schedule disagree`);
+  }
+}
+
+if (!/EARN\.md/.test(html)) {
+  fail("index.html does not link EARN.md — 'in the public record' is not a link, and a reader should not have to search a repo for the terms");
+}
+
 if (failures.length > 0) {
   console.error("SITE: broken");
   process.exit(1);
