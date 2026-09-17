@@ -13,7 +13,7 @@
 const path = require("path");
 
 const ledgerLib = require("./lib/ledger");
-const { parseMemo } = require("./lib/memo");
+const { scanSignerMemos } = require("./lib/chain");
 const { rpcFactory } = require("./lib/rpc");
 const { ROOT, readJson, createReporter } = require("./lib/checks");
 const receiptLib = require("./lib/receipt");
@@ -29,20 +29,6 @@ function parseLimit(argv) {
     process.exit(1);
   }
   return value;
-}
-
-// spl-memo instructions come back from jsonParsed as { program: "spl-memo", parsed: "<text>" }.
-function memosFrom(transaction) {
-  const message = transaction && transaction.transaction && transaction.transaction.message;
-  const instructions = (message && message.instructions) || [];
-  const inner = ((transaction && transaction.meta && transaction.meta.innerInstructions) || []).flatMap(
-    (group) => group.instructions || []
-  );
-
-  return instructions
-    .concat(inner)
-    .filter((instruction) => instruction.program === "spl-memo" && typeof instruction.parsed === "string")
-    .map((instruction) => instruction.parsed);
 }
 
 async function main() {
@@ -74,24 +60,7 @@ async function main() {
   }
 
   const call = rpcFactory(config.rpcUrl);
-  const onChain = new Map();
-
-  for (const signer of signers) {
-    const signatures = await call("getSignaturesForAddress", [signer, { limit }]);
-    for (const { signature, err } of signatures) {
-      if (err) continue;
-      const transaction = await call("getTransaction", [
-        signature,
-        { encoding: "jsonParsed", maxSupportedTransactionVersion: 0, commitment: "finalized" },
-      ]);
-      for (const memo of memosFrom(transaction)) {
-        const parsed = parseMemo(memo);
-        if (parsed.ok) {
-          onChain.set(signature, { ...parsed, signature, signer });
-        }
-      }
-    }
-  }
+  const onChain = await scanSignerMemos(call, signers, limit);
 
   const byLedgerSig = new Map(read.ledger.entries.map((entry) => [entry.sourceSig, entry]));
   let mismatches = 0;
@@ -122,6 +91,21 @@ async function main() {
 
   if (mismatches > 0) {
     console.error(`RECONCILED: no (${mismatches} mismatch${mismatches === 1 ? "" : "es"})`);
+    // "on chain but not in ledger" on EVERY row is the signature of a wiped
+    // ledger, not of a bad issuance: config/ledger.json is gitignored, and the
+    // documented setup step used to be a plain `cp` of an empty example over
+    // it. Saying so here is the difference between an alarm and a way out.
+    if (onChain.size > 0 && read.ledger.entries.length === 0) {
+      console.error("");
+      console.error("Every memo on chain is missing locally and the ledger is empty.");
+      console.error("That is what an overwritten config/ledger.json looks like — the");
+      console.error("file is gitignored, so `cp config/ledger.example.json ...` a second");
+      console.error("time replaces it with `entries: []`. The credits are not lost; they");
+      console.error("are on chain. Read them back:");
+      console.error("");
+      console.error("  node scripts/ledger-rebuild.js");
+      console.error("");
+    }
     process.exit(1);
   }
 

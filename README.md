@@ -10,10 +10,14 @@ Earned-only. No purchase. No redeem. No outsider deposits. English only.
 Real `config/protocol.json` and `config/pnl.json` are gitignored. Do not commit them.
 
 ```bash
-cp config/protocol.example.json config/protocol.json
-cp config/pnl.example.json config/pnl.json
-cp config/earn.example.json  config/earn.json
-cp config/ledger.example.json config/ledger.json
+# Never copy over a file that exists. config/*.json are gitignored and live only
+# on the box, and ledger.example.json is `"entries": []` — so copying it over an
+# existing config/ledger.json erases every issued credit while the memos stay on
+# chain forever. If that happens the credits are recoverable, because the chain
+# is the record: node scripts/ledger-rebuild.js
+for f in protocol pnl earn ledger; do
+  [ -f config/$f.json ] || cp config/$f.example.json config/$f.json
+done
 ```
 
 Then fill in `config/earn.json` rates and publish the same table in `EARN.md`, and set
