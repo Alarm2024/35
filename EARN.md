@@ -12,7 +12,13 @@ The machine-readable copy is `config/earn.json` (gitignored; start from
 
 ## Rates
 
-**Defaults, pending the owner's confirmation.**
+**Live, confirmed by the owner on 2026-09-17.** These are no longer defaults.
+`config/earn.json` carries `"ownerConfirmed": true` and `"publishedAt":
+"2026-09-17"`, set by `scripts/confirm.js` rather than by editing the file.
+
+The rates below are the ones every ledger entry is checked against. Changing
+them from here is allowed; changing them *retroactively* is not — see the
+bottom of this file.
 
 | Reason | Credit | What earns it |
 |---|---|---|
@@ -33,7 +39,7 @@ The numbers are required arguments on purpose: passing them **is** the
 confirmation. There is deliberately no flag that flips the switch on whatever
 defaults happen to be in the file.
 
-`config/earn.json` ships with `"ownerConfirmed": false` and
+`config/earn.json` **ships** with `"ownerConfirmed": false`, and
 `gate.js --preflight` fails while it stays false:
 
     FAIL: config/earn.json ownerConfirmed is not true — the rates ship as
@@ -42,6 +48,10 @@ defaults happen to be in the file.
 So a default can never quietly become the live rate. Set the numbers you mean, set
 the flag, and the gate moves on. The same flag guards `rentThresholdSol` in
 `config/pnl.json`, for the same reason.
+
+That step is **done** for this desk: the rates above and `rentThresholdSol = 10`
+were confirmed on 2026-09-17. The paragraph is kept because it explains why the
+numbers in the table can be trusted — they were stated, not inherited.
 
 Add rows as the desk does more kinds of work. Do not remove a row that has already
 issued credits — the ledger references it by name.
