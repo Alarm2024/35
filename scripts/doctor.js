@@ -60,10 +60,14 @@ const stages = [
     label: "Operator files copied",
     next: [
       "Copy the four templates, then re-run this:",
-      "  cp config/protocol.example.json config/protocol.json",
-      "  cp config/pnl.example.json      config/pnl.json",
-      "  cp config/earn.example.json     config/earn.json",
-      "  cp config/ledger.example.json   config/ledger.json",
+      "  for f in protocol pnl earn ledger; do",
+      "    [ -f config/$f.json ] || cp config/$f.example.json config/$f.json",
+      "  done",
+      "",
+      "  The guard matters. ledger.example.json is \"entries\": [], so copying over",
+      "  an existing config/ledger.json erases every issued credit while the memos",
+      "  stay on chain forever. If that already happened, the credits are not lost:",
+      "  node scripts/ledger-rebuild.js",
     ],
   },
   {
