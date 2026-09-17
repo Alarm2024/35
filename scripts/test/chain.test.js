@@ -122,8 +122,12 @@ test("duplicateGroups reports nothing when every memo is distinct", () => {
 
 test("every documented copy of the ledger example is non-destructive", () => {
   const root = path.join(__dirname, "../..");
-  for (const file of ["README.md", "scripts/doctor.js"]) {
-    const text = fs.readFileSync(path.join(root, file), "utf8");
+  // docs/OPEN_PLAN.md is where the operator actually read the instruction from,
+  // so it is checked too — when it exists, since it arrives on its own branch.
+  for (const file of ["README.md", "scripts/doctor.js", "docs/OPEN_PLAN.md"]) {
+    const full = path.join(root, file);
+    if (!fs.existsSync(full)) continue;
+    const text = fs.readFileSync(full, "utf8");
     // An unguarded `cp` of an example onto a live config. `cp -n` is not the
     // fix either: coreutils 9.x prints "behavior of -n is non-portable and may
     // change in future" on every run, which teaches the operator to ignore
