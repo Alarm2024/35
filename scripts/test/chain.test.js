@@ -118,6 +118,80 @@ test("duplicateGroups reports nothing when every memo is distinct", () => {
   assert.deepEqual(chain.duplicateGroups(memos), []);
 });
 
+// ── telling "absent" apart from "not parsed" ──────────────────────────────
+
+test("inspectSignature reports a signature the cluster does not know", async () => {
+  const call = async () => null;
+  assert.deepEqual(await chain.inspectSignature(call, "nope"), { found: false });
+});
+
+test("inspectSignature names the programs of a transaction with no parsed memo", async () => {
+  // What an unrecognised memo program looks like in jsonParsed: a programId
+  // and base58 data, with no `parsed` field. The transaction EXISTS.
+  const call = async () => ({
+    transaction: {
+      message: {
+        instructions: [
+          { programId: "Memo4c2pN8afCj432Lb7RMVKi9PbQnnW7ewFFaV3oAH", data: "3Bxs4h24hBtQy9rw" },
+        ],
+      },
+    },
+  });
+  const seen = await chain.inspectSignature(call, "sig");
+  assert.equal(seen.found, true);
+  assert.deepEqual(seen.parsedMemos, []);
+  assert.deepEqual(seen.programIds, ["Memo4c2pN8afCj432Lb7RMVKi9PbQnnW7ewFFaV3oAH"]);
+});
+
+test("inspectSignature surfaces an on-chain error", async () => {
+  const call = async () => ({
+    meta: { err: { InstructionError: [0, "Custom"] } },
+    transaction: { message: { instructions: [] } },
+  });
+  assert.notEqual((await chain.inspectSignature(call, "sig")).err, null);
+});
+
+test("scanSignerMemos records which program carried each memo", async () => {
+  const memo = `35-credit:${WALLET}:1.000000:2026-W38`;
+  const call = fakeCall([
+    {
+      signature: "sigA",
+      tx: {
+        blockTime: 1,
+        transaction: {
+          message: {
+            instructions: [
+              { program: "spl-memo", programId: "Memo1UhkJRfHyvLMcVucJwxXeuD728EqVDDwQDxFMNo", parsed: memo },
+            ],
+          },
+        },
+      },
+    },
+  ]);
+  const found = await chain.scanSignerMemos(call, [SIGNER], 10);
+  assert.equal(found.get("sigA").programId, "Memo1UhkJRfHyvLMcVucJwxXeuD728EqVDDwQDxFMNo");
+});
+
+test("reconcile diagnoses the missing signature instead of calling it absent", () => {
+  const source = fs.readFileSync(path.join(__dirname, "../reconcile.js"), "utf8");
+  // The old single line read "in ledger but not found on chain", which is what
+  // a transaction that exists ALSO produced when its memo was not parsed.
+  assert.equal(source.includes("in ledger but not found on chain"), false);
+  assert.ok(source.includes("no such transaction, or not yet finalized"));
+  assert.ok(source.includes("transaction EXISTS but carries no memo"));
+  assert.ok(source.includes("FAILED on chain"));
+  assert.ok(source.includes("inspectSignature"));
+});
+
+test("an off-program memo is warned about, never dropped", () => {
+  const source = fs.readFileSync(path.join(__dirname, "../reconcile.js"), "utf8");
+  assert.ok(source.includes("They still count."));
+  // Dropping it would shrink the supply cap, which is the one thing reconcile
+  // exists to prevent — so the filter must feed a WARN, not the credit set.
+  assert.equal(/onChain\.delete\(/.test(source), false);
+  assert.ok(source.includes("WARN:"));
+});
+
 // ── the instruction that caused the loss ──────────────────────────────────
 
 test("every documented copy of the ledger example is non-destructive", () => {

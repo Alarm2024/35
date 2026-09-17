@@ -13,7 +13,7 @@
 const path = require("path");
 
 const ledgerLib = require("./lib/ledger");
-const { scanSignerMemos } = require("./lib/chain");
+const { scanSignerMemos, inspectSignature } = require("./lib/chain");
 const { rpcFactory } = require("./lib/rpc");
 const { ROOT, readJson, createReporter } = require("./lib/checks");
 const receiptLib = require("./lib/receipt");
@@ -62,6 +62,23 @@ async function main() {
   const call = rpcFactory(config.rpcUrl);
   const onChain = await scanSignerMemos(call, signers, limit);
 
+  // Report, never hide. A memo on an undeclared program still counted as a
+  // credit before this line existed and still counts after it — silently
+  // dropping it would shrink the supply cap, which is the one thing this file
+  // exists to prevent. It is named so the operator can stop producing them.
+  const offProgram = [...onChain.values()].filter(
+    (memo) => memo.programId && memo.programId !== config.memoProgram
+  );
+  if (offProgram.length > 0) {
+    console.error(
+      `WARN: ${offProgram.length} memo(s) landed on a program other than the declared ${config.memoProgram}:`
+    );
+    for (const memo of offProgram) {
+      console.error(`      ${memo.signature} -> ${memo.programId}`);
+    }
+    console.error("      They still count. Land with scripts/land-memo.js to stop adding more.");
+  }
+
   const byLedgerSig = new Map(read.ledger.entries.map((entry) => [entry.sourceSig, entry]));
   let mismatches = 0;
 
@@ -82,9 +99,42 @@ async function main() {
 
   for (const entry of read.ledger.entries) {
     if (!onChain.has(entry.sourceSig)) {
-      console.error(
-        `FAIL: in ledger but not found on chain within the last ${limit} signatures: ${entry.sourceSig}`
-      );
+      // Ask what that signature actually is before calling it absent. "Not
+      // found" and "found, but its memo was not parsed as spl-memo" are
+      // different failures with different fixes, and printing the first for
+      // the second sends the operator looking for a transaction that exists.
+      const seen = await inspectSignature(call, entry.sourceSig);
+      if (!seen.found) {
+        console.error(
+          `FAIL: no such transaction, or not yet finalized: ${entry.sourceSig}`
+        );
+      } else if (seen.err) {
+        console.error(
+          `FAIL: that transaction FAILED on chain, so nothing was landed: ${entry.sourceSig}`
+        );
+      } else if (seen.parsedMemos.length === 0) {
+        console.error(
+          `FAIL: transaction EXISTS but carries no memo the RPC parsed as spl-memo: ${entry.sourceSig}`
+        );
+        console.error(
+          `      programs in it: ${seen.programIds.join(", ") || "(none reported)"}`
+        );
+        console.error(
+          `      config/protocol.json declares memoProgram ${config.memoProgram}`
+        );
+        console.error(
+          "      A memo landed on a program the RPC does not recognise is invisible"
+        );
+        console.error(
+          "      to this check forever. Land with scripts/land-memo.js, which uses"
+        );
+        console.error("      the declared program.");
+      } else {
+        console.error(
+          `FAIL: transaction exists and carries a memo, but not a valid 35-credit one: ${entry.sourceSig}`
+        );
+        for (const memo of seen.parsedMemos) console.error(`      memo: ${memo}`);
+      }
       mismatches += 1;
     }
   }
