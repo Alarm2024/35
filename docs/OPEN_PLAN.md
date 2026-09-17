@@ -28,13 +28,14 @@ assumes it.** Nothing below asks you to spend anything to open.
 
 ## Where the desk actually stands
 
-`node scripts/doctor.js` on 2026-09-17:
+`node scripts/doctor.js` on the box, 2026-09-17, **after** the operator ran
+steps 1 and 2 below:
 
 ```
-! Operator files copied              <- the only blocker
-· Earn schedule is valid
-· Owner confirmed the rates and the rent threshold
-· At least one credit issued
+✓ Operator files copied
+✓ Earn schedule is valid
+✓ Owner confirmed the rates and the rent threshold
+! At least one credit issued        <- the only blocker
 · Realized PnL covers the rent threshold
 · Mint created
 · 35/USDC pool seeded and locked
@@ -46,17 +47,18 @@ Against the three things opening needs:
 |---|---|
 | Earned-only terms on the public page | **done** — all six terms are on `index.html` |
 | Earn schedule published | **done** — `EARN.md`, and now on the page itself |
-| Ledger and issuer in place | **code done**, 107 tests pass; **config files do not exist** |
+| Ledger and issuer in place | **done** — config written, rates confirmed `2026-09-17` |
 
-**One blocker: the four operator config files have never been created.** They are
-gitignored by design, so they exist only on your box. Everything else that
-opening requires is already built and tested.
+**One blocker, and it is not a configuration problem: no credit has been issued
+yet.** That is the desk's own work, not a missing file. Steps 1 and 2 are kept
+below because they are the record of how the desk got here and what those
+numbers mean — not because they are still to do. **Start at step 4.**
 
 ---
 
 ## Step by step
 
-### Step 1 — create the four config files · **$0** · 1 minute
+### Step 1 — create the four config files · **$0** · 1 minute · ✅ DONE
 
 They are gitignored, so this writes nothing to GitHub.
 
@@ -66,11 +68,15 @@ cd ~/35 && cp config/protocol.example.json config/protocol.json && cp config/pnl
 
 The doctor will now say the next blocker is owner confirmation.
 
-### Step 2 — set the rates you mean · **$0** · 1 minute
+### Step 2 — set the rates you mean · **$0** · 1 minute · ✅ DONE
 
 ```bash
 node scripts/confirm.js --session 1.000000 --report 2.000000 --rent 10
 ```
+
+Run on 2026-09-17. `config/earn.json` now carries `ownerConfirmed: true` and
+`publishedAt: 2026-09-17`, with `rentThresholdSol = 10`. `EARN.md` was updated
+in the same pass so the published record no longer calls the rates provisional.
 
 **Do not skip past what those numbers are.** They ship as *defaults*, and
 `gate.js` refuses to pass while `ownerConfirmed` is false, specifically so a
@@ -90,7 +96,7 @@ Two decisions, both cheap now and expensive later:
   puts the reason plainly: *"a threshold decided when PnL is near it is a
   threshold that moves to meet the number."* Decide it while it is abstract.
 
-### Step 3 — publish the page · **$0** · already hosted
+### Step 3 — publish the page · **$0** · already hosted · ✅ DONE
 
 The site is GitHub Pages on a domain you already own, so hosting is free and
 stays free. Confirm it ships what it references:
@@ -106,41 +112,69 @@ were in the repo and the page pointed at a GitHub org. `EARN.md` explains why
 that gap matters: *"Publishing the rate first is what makes 'earned' a claim
 rather than a mood."*
 
-### Step 4 — rehearse the credit ceremony on devnet · **$0** · 20 minutes
+### Step 4 — the first credit · ~**$0.0005** · ← **YOU ARE HERE**
 
-**This is the zero-cost idea that matters most.** The whole issuance flow can be
-run end to end without spending anything, because devnet SOL is free.
+This is the only thing standing between the repo and an open desk.
 
-`config/protocol.json` carries `rpcUrl`. Point it at devnet, fund the signer from
-the free faucet, and run a complete credit: preview → land → record → reconcile.
+**Placeholders in these commands are bare words on purpose.** A `<placeholder>`
+pasted into bash is read as a redirect and fails with a shell error that has
+nothing to do with this repo — that happened here, on this desk, with
+`<your-wallet>`. Every command below is complete and runnable as written.
+
+**1. Preview. Writes nothing, costs nothing, and prints the exact memo:**
 
 ```bash
-solana airdrop 1 <deskSigner> --url devnet
+cd ~/35 && node scripts/issue-credit.js --wallet 3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo --reason desk.session --week 2026-W38 --preview
 ```
 
-Then walk the real sequence:
+**2. Land that memo string with the desk signer.** It has to reach chain as an
+SPL Memo instruction signed by an allowlisted signer. Landing returns a
+signature — that signature is what step 3 needs, which is why the order is not
+the obvious one.
+
+**3. Record it**, substituting the signature the send returned for `SIGNATURE`:
 
 ```bash
-node scripts/issue-credit.js --wallet <addr> --reason desk.session --week 2026-W38 --preview
-# land that memo with the desk signer, then:
-node scripts/issue-credit.js --wallet <addr> --reason desk.session --week 2026-W38 --source-sig <sig>
+node scripts/issue-credit.js --wallet 3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo --reason desk.session --week 2026-W38 --source-sig SIGNATURE
+```
+
+**4. Verify the ledger and the chain agree:**
+
+```bash
 node scripts/reconcile.js
 ```
 
-**Note the order, because it is not the obvious one.** The memo is landed
-**first**; `sourceSig` is the signature of the transaction that carried it, so it
-cannot be known before sending. A ledger written before landing cannot
-reconcile. Rehearsing this on devnet is how you find that out for free instead of
-on mainnet with a real wallet watching.
+**Landing first is not a style preference.** `reconcile.js` matches an entry's
+`sourceSig` against the signature of the transaction that carried the memo, and
+a transaction has no signature until it is sent. A ledger written before landing
+**can never reconcile** — and that ledger is what becomes the supply cap at mint.
 
-When the rehearsal reconciles, reset `rpcUrl` to mainnet and empty the devnet
-ledger before the first real credit.
+#### On rehearsing this on devnet first
+
+The original version of this plan said to rehearse on devnet, where SOL is free.
+That is still the better ceremony if it works, but **the devnet faucet
+rate-limited this box on 2026-09-17**, so it is not reliably free in practice —
+and a step that intermittently fails is worse guidance than none.
+
+The mainnet alternative costs **$0.0005**. The wallet above holds about $1, which
+is roughly 1,840 credits after the rent-exempt floor. `--preview` is free and
+exact, so the thing devnet was protecting against — an unreadable or malformed
+memo — is already caught for nothing before anything is sent.
+
+If you do rehearse on devnet, point `rpcUrl` there, then reset it to mainnet and
+empty the devnet ledger before the first real credit — a devnet signature will
+not reconcile against mainnet.
 
 ### Step 5 — open · **$0**
 
 Nothing else is required. The desk is open when the terms, the schedule, and a
 working issuer are public, and all three now are. Mail is already live
 (`*@elghaly.dev` → inbox, send-as `wyndham35@elghaly.dev`).
+
+After the first credit reconciles, `node scripts/doctor.js` should show six of
+seven stages green, with `Realized PnL covers the rent threshold` as the next
+one — and that one is not opening, it is mint. **The desk is open before it is
+reached.**
 
 ---
 
@@ -179,8 +213,10 @@ solana balance 3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo
 1. **Open before issuing.** Opening and the first credit are separate events.
    The desk can be open, public and correct for weeks at literally $0, and the
    first half-a-tenth-of-a-cent is spent only when real work is done.
-2. **Rehearse on devnet** (step 4). Free SOL, identical code path, and the one
-   place the landing-order trap can bite you harmlessly.
+2. **Rehearse on devnet** when the faucet cooperates — identical code path, free
+   SOL, and the one place the landing-order trap can bite you harmlessly. It
+   rate-limited this box on 2026-09-17, so treat it as a bonus, not a gate: a
+   mainnet credit is $0.0005 and `--preview` catches the same mistakes for $0.
 3. **`--preview` is free.** It builds and prints the memo without writing to the
    ledger or the chain. Use it every time before landing.
 4. **GitHub Pages, not a host.** Already the case. No server, no bill, and
@@ -226,11 +262,11 @@ correctly the last one.
 Two things worth saying plainly, because a plan that only lists steps is not a
 plan.
 
-**The blocker is not technical.** Four `cp` commands and one `confirm.js` call
-stand between this repo and an open desk. The code is written, 107 tests pass,
-the site is live, the mail works, and the gates are correct. What is missing is
-the decision embedded in step 2 — what a session is worth relative to a report,
-and what realized PnL justifies a mint.
+**The blocker is not technical.** The code is written, 107 tests pass, the site
+is live, the mail works, the gates are correct, the config exists and the rates
+are confirmed. One memo stands between this repo and an open desk — and a memo
+is a record of work someone actually did. That is the real remaining input, and
+no script can supply it.
 
 **Opening at zero cost is real, but "zero cost" is not the same as "zero
 obligation."** The moment the desk is open, the earn schedule is a public
