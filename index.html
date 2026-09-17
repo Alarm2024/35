@@ -100,6 +100,18 @@
       <p class="note" data-i18n="termsn"></p>
     </section>
     <section>
+      <h2 data-i18n="earnt"></h2>
+      <table class="earn">
+        <thead><tr><th data-i18n="earnwhat"></th><th data-i18n="earncredit"></th></tr></thead>
+        <tbody>
+          <tr><td><code>desk.session</code></td><td><code>1.000000</code></td></tr>
+          <tr><td><code>desk.report</code></td><td><code>2.000000</code></td></tr>
+        </tbody>
+      </table>
+      <p class="note" data-i18n="earnp"></p>
+      <p class="note"><a href="https://github.com/Alarm2024/35/blob/main/EARN.md">EARN.md</a></p>
+    </section>
+    <section>
       <h2 data-i18n="addr"></h2>
       <dl>
         <dt data-i18n="mode"></dt><dd id="mode">earned</dd>
@@ -123,7 +135,7 @@
   </div>
   <script>
     var T = {
-      en: { kicker:"Closed desk · not a public app", lede:"35 is a private earned-credit ledger for this desk. There is no public bot to click, no coin to buy, no deposit to send. Follow the record. Mail if you must. Mint stays unpublished until the desk books realized profit.", record:"Public record", c1t:"Closed", c1p:"The sniper and flash are not a public product.", c2t:"Earned only", c2p:"Credit later comes from signed desk-usage memos. Nobody buys 35.", c3t:"Not a listing", c3p:"No pool today. Do not look for a contract to ape.", locked:"Locked", lockedp:"Path A. Closed desk. No purchase. No redeem. No public app.", addr:"Addresses", mode:"Mode", support:"Support", mint:"Mint", pool:"Pool", askt:"Ask 35", askp:"You get an instant answer here. The same question is also sent to 35@elghaly.dev so the desk can reply.", termst:"Terms", t1:"Earned only. 35 is never sold. No presale, no public sale, no purchase of any kind.", t2:"No deposits. Nobody sends SOL or USDC to a 35 address in exchange for credit.", t3:"No redemption. Credit is not redeemable for cash, SOL, or USDC. There is no redemption desk.", t4:"Not equity. Not a SAFE, note, or claim on any company. Not a promise of profit or buyback. Not a deposit receipt.", t5:"A credit exists only when an allowlisted desk signer lands a signed memo for work published in the earn schedule.", t6:"Supply at mint is the credit ledger total. It is derived from signed memos, never an invented number.", termsn:"Full rules, kill list, and earn schedule are in the public record at github.com/Alarm2024/35.", footerDream:"💭 you dream we build 🧠💡", footerMade:"made by love ❤️", weAre24:"We are 24" }
+      en: { kicker:"Closed desk · not a public app", lede:"35 is a private earned-credit ledger for this desk. There is no public bot to click, no coin to buy, no deposit to send. Follow the record. Mail if you must. Mint stays unpublished until the desk books realized profit.", record:"Public record", c1t:"Closed", c1p:"The sniper and flash are not a public product.", c2t:"Earned only", c2p:"Credit later comes from signed desk-usage memos. Nobody buys 35.", c3t:"Not a listing", c3p:"No pool today. Do not look for a contract to ape.", locked:"Locked", lockedp:"Path A. Closed desk. No purchase. No redeem. No public app.", addr:"Addresses", mode:"Mode", support:"Support", mint:"Mint", pool:"Pool", askt:"Ask 35", askp:"You get an instant answer here. The same question is also sent to 35@elghaly.dev so the desk can reply.", termst:"Terms", t1:"Earned only. 35 is never sold. No presale, no public sale, no purchase of any kind.", t2:"No deposits. Nobody sends SOL or USDC to a 35 address in exchange for credit.", t3:"No redemption. Credit is not redeemable for cash, SOL, or USDC. There is no redemption desk.", t4:"Not equity. Not a SAFE, note, or claim on any company. Not a promise of profit or buyback. Not a deposit receipt.", t5:"A credit exists only when an allowlisted desk signer lands a signed memo for work published in the earn schedule.", t6:"Supply at mint is the credit ledger total. It is derived from signed memos, never an invented number.", termsn:"Full rules, kill list, and earn schedule are in the public record at github.com/Alarm2024/35.", earnt:"Earn schedule", earnwhat:"What earns a credit", earncredit:"Credit", earnp:"A rate that is not on this table cannot be issued \u2014 the issuer refuses it and the mint gate fails the ledger. Rates may change; already-issued credits keep the rate they were issued at.", footerDream:"💭 you dream we build 🧠💡", footerMade:"made by love ❤️", weAre24:"We are 24" }
     };
     T.ar = Object.assign({}, T.en, { kicker:"مكتب مغلق", askt:"اسأل 35", support:"الدعم", record:"السجل", askp:"إجابة فورية هنا، ونفس السؤال يصل إلى 35@elghaly.dev.", footerDream:"💭 أنت تحلم ونحن نبني 🧠💡", footerMade:"صنع بحب ❤️", weAre24:"نحن 24" });
     T.ru = Object.assign({}, T.en, { kicker:"Закрытый деск", askt:"Спросить 35", footerDream:"💭 ты мечтаешь — мы строим 🧠💡", footerMade:"сделано с любовью ❤️", weAre24:"Мы 24" });
