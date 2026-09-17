@@ -10,7 +10,8 @@
 //
 //   1. node scripts/issue-credit.js --wallet <addr> --reason desk.session \
 //        --week 2026-W37 --preview          prints the memo, writes nothing
-//   2. land that memo with the desk signer   returns a signature
+//   2. node scripts/land-memo.js --memo '<that memo>' --send
+//                                            returns a signature
 //   3. node scripts/issue-credit.js --wallet <addr> --reason desk.session \
 //        --week 2026-W37 --source-sig <that signature>
 //
@@ -18,7 +19,8 @@
 // a rate you can pass on the command line is a discretionary rate.
 //
 // This deliberately does not sign or send. Landing the memo is a separate,
-// explicit act with the desk signer loaded from KEYPAIR_PATH (SECURITY.md).
+// explicit act, in scripts/land-memo.js, with the desk signer loaded from
+// KEYPAIR_PATH (SECURITY.md) — so the ledger writer never holds a key.
 
 const path = require("path");
 
@@ -113,12 +115,18 @@ if (args.preview) {
   console.log(`  memo to land:  ${memo}`);
   console.log(`  credit:        ${rule.credit} (${args.reason}, from the earn schedule)`);
   console.log("");
-  console.log("Land that exact string as an SPL Memo instruction in a transaction");
-  console.log("signed by an allowlisted desk signer. That transaction's signature is");
-  console.log("the sourceSig. Record it with:");
+  console.log("Land it. Builds and signs and transmits NOTHING without --send:");
+  console.log("");
+  console.log(`  node scripts/land-memo.js --memo '${memo}'`);
+  console.log(`  node scripts/land-memo.js --memo '${memo}' --send`);
+  console.log("");
+  console.log("--send prints the transaction signature. That signature is the sourceSig,");
+  console.log("which is why the memo is landed FIRST: it does not exist until it is sent.");
+  console.log("Record it, substituting that signature for SIGNATURE:");
   console.log("");
   console.log(`  node scripts/issue-credit.js --wallet ${args.wallet} --reason ${args.reason} \\`);
-  console.log(`    --week ${args.week} --source-sig <signature of that transaction>`);
+  console.log(`    --week ${args.week} --source-sig SIGNATURE`);
+  console.log("  node scripts/reconcile.js");
   console.log("");
   process.exit(0);
 }
