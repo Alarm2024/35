@@ -62,8 +62,17 @@ numbers mean — not because they are still to do. **Start at step 4.**
 
 They are gitignored, so this writes nothing to GitHub.
 
+**The `[ -f ... ] ||` guard is not decoration.** An earlier version of this line
+was a plain `cp`, and `config/ledger.example.json` is `"entries": []` — so
+running it a second time replaces the live ledger with an empty one while every
+issued memo stays on chain forever. That happened on this desk on 2026-09-17:
+three landed credits, zero ledger rows, `RECONCILED: no (3 mismatches)`. The
+credits were recoverable because the chain is the record —
+`node scripts/ledger-rebuild.js` reads them back — but nothing about the
+instruction warned that it could destroy anything.
+
 ```bash
-cd ~/35 && cp config/protocol.example.json config/protocol.json && cp config/pnl.example.json config/pnl.json && cp config/earn.example.json config/earn.json && cp config/ledger.example.json config/ledger.json && node scripts/doctor.js
+cd ~/35 && for f in protocol pnl earn ledger; do [ -f config/$f.json ] || cp config/$f.example.json config/$f.json; done && node scripts/doctor.js
 ```
 
 The doctor will now say the next blocker is owner confirmation.
@@ -127,10 +136,19 @@ nothing to do with this repo — that happened here, on this desk, with
 cd ~/35 && node scripts/issue-credit.js --wallet 3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo --reason desk.session --week 2026-W38 --preview
 ```
 
-**2. Land that memo string with the desk signer.** It has to reach chain as an
-SPL Memo instruction signed by an allowlisted signer. Landing returns a
-signature — that signature is what step 3 needs, which is why the order is not
-the obvious one.
+**2. Land it.** The first form builds and signs and transmits nothing; the
+second submits and prints the signature step 3 needs, which is why the order is
+not the obvious one.
+
+```bash
+node scripts/land-memo.js --memo '35-credit:3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo:1.000000:2026-W38'
+node scripts/land-memo.js --memo '35-credit:3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo:1.000000:2026-W38' --send
+```
+
+**Every `--send` is another credit.** A memo that lands is a credit by
+`RULES.md`, so re-running this because the output scrolled away issues a second
+one. Check what is already on chain before landing anything:
+`node scripts/reconcile.js`.
 
 **3. Record it**, substituting the signature the send returned for `SIGNATURE`:
 
