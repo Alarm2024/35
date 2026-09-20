@@ -5,24 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>35 — closed desk</title>
   <meta name="description" content="Closed desk. Mail 35@elghaly.dev" />
-  <meta name="theme-color" content="#0b0418" />
+  <meta name="theme-color" content="#0b1214" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <style>
-    :root { --bg:#07010f; --ink:#f5f7ff; --dim:#b9b6d3; --purple:#9945ff; --green:#14f195; --cyan:#19fbff; --line:rgba(153,69,255,.28); --card:rgba(20,6,39,.72); }
+    :root { --bg:#0b1214; --ink:#e8fbf6; --dim:#9ab3ad; --purple:#2ee6c7; --green:#2ee6c7; --cyan:#7cf0dc; --line:rgba(46,230,199,.22); --card:#121a19; }
     * { box-sizing:border-box; margin:0; padding:0; }
     html,body { background:var(--bg); color:var(--ink); }
-    body { font-family:ui-sans-serif,system-ui,sans-serif; line-height:1.5; min-height:100vh; background: radial-gradient(900px 480px at 10% -10%, rgba(153,69,255,.28), transparent 55%), radial-gradient(700px 400px at 100% 0%, rgba(20,241,149,.12), transparent 50%), var(--bg); }
+    body { font-family:ui-sans-serif,system-ui,sans-serif; line-height:1.5; min-height:100vh; background: radial-gradient(900px 480px at 8% -8%, rgba(46,230,199,.10), transparent 55%), var(--bg); }
     [dir="rtl"] body { font-family:"IBM Plex Sans Arabic","Noto Naskh Arabic",ui-sans-serif,sans-serif; }
     .wrap { max-width:920px; margin:0 auto; padding:28px 20px 80px; }
     header { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
     .brand { display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit; }
-    .mark { width:40px; height:40px; border-radius:12px; background:linear-gradient(135deg,var(--purple),var(--green)); display:grid; place-items:center; font-weight:800; }
+    .mark { width:40px; height:40px; border-radius:12px; background:#2ee6c7; color:#04110a; display:grid; place-items:center; font-weight:800; }
     .word { font-size:13px; letter-spacing:.32em; text-transform:uppercase; color:var(--dim); }
     .lang { display:flex; flex-wrap:wrap; gap:6px; justify-content:flex-end; max-width:320px; }
     .lang button { background:transparent; color:var(--dim); border:1px solid var(--line); border-radius:999px; padding:5px 9px; font-size:11px; cursor:pointer; }
-    .lang button.on { color:#07010f; background:var(--green); border-color:var(--green); }
+    .lang button.on { color:#04110a; background:var(--green); border-color:var(--green); }
     .hero { margin-top:28px; }
-    .banner { width:100%; border-radius:18px; overflow:hidden; border:1px solid var(--line); background:#07010f; margin-bottom:18px; }
+    .banner { width:100%; border-radius:18px; overflow:hidden; border:1px solid var(--line); background:#0b1214; margin-bottom:18px; }
     .banner img { display:block; width:100%; height:auto; }
     .kicker { color:var(--green); font-size:12px; letter-spacing:.18em; text-transform:uppercase; }
     .lede { font-size:20px; color:var(--dim); max-width:34em; }
@@ -36,7 +36,7 @@
     .card p, p { color:var(--dim); font-size:15px; }
     section { margin-top:40px; }
     h2 { font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:var(--purple); margin-bottom:12px; }
-    .rule { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:13px; color:var(--ink); background:#11041f; border:1px solid var(--line); border-radius:14px; padding:16px 18px; }
+    .rule { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:13px; color:var(--ink); background:#0f1918; border:1px solid var(--line); border-radius:14px; padding:16px 18px; }
     dl { display:grid; grid-template-columns:150px 1fr; gap:10px 16px; }
     dt { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--purple); }
     dd { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; word-break:break-all; }
@@ -45,13 +45,17 @@
     footer .signs-up { margin-bottom:10px; }
     footer .signs-down { margin-top:10px; }
     a { color:var(--cyan); }
-    .ask textarea { width:100%; min-height:88px; margin:12px 0; padding:12px; border-radius:12px; border:1px solid var(--line); background:#11041f; color:var(--ink); font:inherit; }
+    .ask textarea { width:100%; min-height:88px; margin:12px 0; padding:12px; border-radius:12px; border:1px solid var(--line); background:#0f1918; color:var(--ink); font:inherit; }
     .ask .out { margin-top:14px; color:var(--ink); white-space:pre-wrap; }
     .ask .row { display:flex; flex-wrap:wrap; gap:8px; }
     .ask .note { font-size:12px; margin-top:8px; }
     .terms { list-style:none; display:grid; gap:10px; }
     .terms li { color:var(--dim); font-size:15px; border-left:2px solid var(--line); padding-left:14px; }
     .terms + .note { color:var(--dim); font-size:12px; margin-top:14px; }
+    .earn{width:100%;border-collapse:collapse;margin-top:8px}
+    .earn th,.earn td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);color:var(--dim);font-size:14px}
+    .earn th{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
+    .earn code{color:var(--ink)}
     @media (max-width:720px){ .grid,dl{grid-template-columns:1fr;} .lang{max-width:100%;} }
   </style>
 </head>
@@ -62,7 +66,7 @@
       <div class="lang" id="langbar"></div>
     </header>
     <div class="hero">
-      <div class="banner"><img src="IMG_5183.jpeg" alt="35 ElGhaly" width="1500" height="1007" /></div>
+      <div class="banner"><img src="hero.svg" alt="35 ElGhaly" width="1200" height="420" /></div>
       <div class="kicker" data-i18n="kicker"></div>
       <h1 class="sr">35</h1>
       <p class="lede" data-i18n="lede"></p>
