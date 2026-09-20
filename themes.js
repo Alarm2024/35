@@ -42,6 +42,9 @@
     if(!document.getElementById('theme-css')){
       var css=document.createElement('style'); css.id='theme-css';
       css.textContent=[
+        'header{display:flex;align-items:center;gap:8px}',
+        '.lang,.langs{display:flex!important;flex-wrap:nowrap!important;gap:3px!important;max-width:none!important}',
+        '.lang button,.langs button{padding:5px 7px!important;font-size:10px!important}',
         '.theme-wrap{position:relative;flex:0 0 auto}',
         '.theme-btn{display:flex;align-items:center;gap:6px;background:var(--card,#121a19);color:var(--ink);border:1px solid var(--line,var(--l));border-radius:999px;padding:6px 10px;font:600 11px ui-sans-serif,system-ui;cursor:pointer}',
         '.theme-dot{width:10px;height:10px;border-radius:50%;background:#2ee6c7;flex:0 0 auto}',
