@@ -83,6 +83,8 @@
       wrap.classList.toggle('open');
     };
     document.addEventListener('click',function(){wrap.classList.remove('open');});
+    var hero=document.querySelector('.banner img');
+    if(hero){ hero.src='IMG_5183.jpeg'; hero.alt='35 ElGhaly'; }
   }
   var start='midnight';
   try{start=localStorage.getItem(KEY)||'midnight';}catch(e){}
