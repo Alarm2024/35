@@ -3,44 +3,52 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>35 — closed desk</title>
-  <meta name="description" content="Closed desk. Mail 35@elghaly.dev" />
+  <title>closed desk · mail 35@elghaly.dev</title>
+  <meta name="description" content="closed desk · mail 35@elghaly.dev" />
   <meta name="theme-color" content="#0b1214" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <style>
-    :root { --bg:#0b1214; --ink:#e8fbf6; --dim:#9ab3ad; --purple:#2ee6c7; --green:#2ee6c7; --cyan:#7cf0dc; --line:rgba(46,230,199,.22); --card:#121a19; }
+    :root { --bg:#0b1214; --ink:#e8fbf6; --dim:#9ab3ad; --purple:#2ee6c7; --green:#2ee6c7; --cyan:#7cf0dc; --line:rgba(46,230,199,.22); --card:#121a19; --section:44px; }
     * { box-sizing:border-box; margin:0; padding:0; }
     html,body { background:var(--bg); color:var(--ink); }
-    body { font-family:ui-sans-serif,system-ui,sans-serif; line-height:1.5; min-height:100vh; background: radial-gradient(900px 480px at 8% -8%, rgba(46,230,199,.10), transparent 55%), var(--bg); }
+    body { font-family:ui-sans-serif,system-ui,-apple-system,sans-serif; line-height:1.55; min-height:100vh; background: radial-gradient(900px 480px at 8% -8%, rgba(46,230,199,.10), transparent 55%), var(--bg); -webkit-font-smoothing:antialiased; }
     [dir="rtl"] body { font-family:"IBM Plex Sans Arabic","Noto Naskh Arabic",ui-sans-serif,sans-serif; }
-    .wrap { max-width:920px; margin:0 auto; padding:28px 20px 80px; }
-    header { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+    .sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+    .wrap { max-width:920px; margin:0 auto; padding:24px 18px 72px; }
+    header { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap; }
     .brand { display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit; }
     .mark { width:40px; height:40px; border-radius:12px; background:#2ee6c7; color:#04110a; display:grid; place-items:center; font-weight:800; }
     .word { font-size:13px; letter-spacing:.32em; text-transform:uppercase; color:var(--dim); }
     .lang { display:flex; flex-wrap:wrap; gap:6px; justify-content:flex-end; max-width:320px; }
     .lang button { background:transparent; color:var(--dim); border:1px solid var(--line); border-radius:999px; padding:5px 9px; font-size:11px; cursor:pointer; }
     .lang button.on { color:#04110a; background:var(--green); border-color:var(--green); }
-    .hero { margin-top:28px; }
-    .banner { width:100%; border-radius:18px; overflow:hidden; border:1px solid var(--line); background:#0b1214; margin-bottom:18px; }
+    .hero { margin-top:24px; }
+    .banner { width:100%; border-radius:16px; overflow:hidden; border:1px solid var(--line); background:#0b1214; margin-bottom:20px; }
     .banner img { display:block; width:100%; height:auto; }
-    .kicker { color:var(--green); font-size:12px; letter-spacing:.18em; text-transform:uppercase; }
-    .lede { font-size:20px; color:var(--dim); max-width:34em; }
-    .cta { margin-top:22px; }
+    .kicker { color:var(--green); font-size:11px; letter-spacing:.2em; text-transform:uppercase; margin-bottom:10px; }
+    .lede { font-size:clamp(17px,4.2vw,20px); color:var(--dim); max-width:34em; }
+    .cta { margin-top:20px; }
     .cta a, .ask button { text-decoration:none; border-radius:999px; padding:12px 16px; font-size:14px; font-weight:600; border:0; cursor:pointer; display:inline-block; }
     .cta .primary, .ask .go { background:var(--green); color:#04110a; }
     .ask .mail { border:1px solid var(--line); color:var(--ink); background:transparent; }
-    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:36px; }
-    .card, .ask { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:18px; }
-    .card h3 { font-size:14px; letter-spacing:.14em; text-transform:uppercase; color:var(--green); margin-bottom:8px; }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:32px; }
+    .card, .ask, .door { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px; }
+    .card h3 { font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--green); margin-bottom:8px; }
     .card p, p { color:var(--dim); font-size:15px; }
-    section { margin-top:40px; }
-    h2 { font-size:13px; letter-spacing:.2em; text-transform:uppercase; color:var(--purple); margin-bottom:12px; }
+    section { margin-top:var(--section); scroll-margin-top:16px; }
+    h2 { font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--purple); margin-bottom:14px; }
+    .doors { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-top:32px; }
+    .door { display:block; text-decoration:none; color:inherit; transition:border-color .15s, background .15s; }
+    .door:hover, .door:focus-visible { border-color:rgba(46,230,199,.45); background:#152220; outline:none; }
+    .door-label { font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--green); margin-bottom:6px; }
+    .door-line { color:var(--dim); font-size:14px; line-height:1.5; }
+    .door-url { display:block; margin-top:8px; font-size:12px; font-family:ui-monospace,Menlo,Consolas,monospace; color:var(--cyan); word-break:break-all; }
     .rule { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:13px; color:var(--ink); background:#0f1918; border:1px solid var(--line); border-radius:14px; padding:16px 18px; }
-    dl { display:grid; grid-template-columns:150px 1fr; gap:10px 16px; }
-    dt { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--purple); }
-    dd { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; word-break:break-all; }
-    footer { margin-top:48px; color:var(--dim); font-size:13px; text-align:center; line-height:1.8; }
+    dl { display:grid; grid-template-columns:150px 1fr; gap:14px 16px; }
+    dt { font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--purple); padding-top:2px; }
+    dd { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px; word-break:break-all; color:var(--ink); }
+    dd a { word-break:break-all; }
+    footer { margin-top:56px; padding-top:24px; border-top:1px solid var(--line); color:var(--dim); font-size:13px; text-align:center; line-height:1.85; }
     footer .signs-up, footer .signs-down { letter-spacing:.08em; font-size:14px; }
     footer .signs-up { margin-bottom:10px; }
     footer .signs-down { margin-top:10px; }
@@ -49,14 +57,24 @@
     .ask .out { margin-top:14px; color:var(--ink); white-space:pre-wrap; }
     .ask .row { display:flex; flex-wrap:wrap; gap:8px; }
     .ask .note { font-size:12px; margin-top:8px; }
-    .terms { list-style:none; display:grid; gap:10px; }
-    .terms li { color:var(--dim); font-size:15px; border-left:2px solid var(--line); padding-left:14px; }
-    .terms + .note { color:var(--dim); font-size:12px; margin-top:14px; }
-    .earn{width:100%;border-collapse:collapse;margin-top:8px}
-    .earn th,.earn td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);color:var(--dim);font-size:14px}
-    .earn th{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
-    .earn code{color:var(--ink)}
-    @media (max-width:720px){ .grid,dl{grid-template-columns:1fr;} .lang{max-width:100%;} }
+    .terms { list-style:none; display:grid; gap:12px; }
+    .terms li { color:var(--dim); font-size:15px; border-left:2px solid var(--green); padding:2px 0 2px 16px; line-height:1.55; }
+    .terms + .note { color:var(--dim); font-size:13px; margin-top:16px; line-height:1.55; }
+    .earn{width:100%;border-collapse:collapse;margin-top:10px}
+    .earn th,.earn td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line);color:var(--dim);font-size:14px;vertical-align:top}
+    .earn th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);padding-bottom:10px}
+    .earn tr:last-child td{border-bottom:0}
+    .earn code{color:var(--ink);font-size:13px}
+    .addr-note { margin-top:16px; font-size:12px; line-height:1.55; }
+    @media (max-width:720px){
+      .wrap { padding:20px 16px 64px; }
+      :root { --section:36px; }
+      .grid,.doors,dl { grid-template-columns:1fr; }
+      .lang { max-width:100%; justify-content:flex-start; }
+      header { gap:16px; }
+      .earn th,.earn td { padding:11px 8px; }
+      .door { padding:16px; }
+    }
   </style>
 </head>
 <body>
@@ -77,6 +95,22 @@
       <article class="card"><h3 data-i18n="c2t"></h3><p data-i18n="c2p"></p></article>
       <article class="card"><h3 data-i18n="c3t"></h3><p data-i18n="c3p"></p></article>
     </div>
+    <section>
+      <h2 data-i18n="doorst"></h2>
+      <div class="doors">
+        <a class="door" href="https://iris-35.elghaly.dev/" rel="noopener">
+          <div class="door-label">Iris</div>
+          <p class="door-line" data-i18n="doorIris"></p>
+          <span class="door-url">iris-35.elghaly.dev</span>
+        </a>
+        <a class="door" href="https://plumb.elghaly.dev/" rel="noopener">
+          <div class="door-label">Plumb</div>
+          <p class="door-line" data-i18n="doorPlumb"></p>
+          <span class="door-url">plumb.elghaly.dev</span>
+        </a>
+      </div>
+      <p class="note addr-note" data-i18n="doorsn"></p>
+    </section>
     <section>
       <h2 data-i18n="askt"></h2>
       <div class="ask">
@@ -127,7 +161,7 @@
         <dt data-i18n="mint"></dt><dd id="mint">unpublished</dd>
         <dt data-i18n="pool"></dt><dd id="pool">unpublished</dd>
       </dl>
-      <p class="note">Memo only / treasury. Do not send deposits. KEEP · 350 · cheap_* stay off this page.</p>
+      <p class="note addr-note">Memo only / treasury. Do not send deposits. KEEP · 350 · cheap_* stay off this page.</p>
     </section>
     <footer>
       <p class="signs-up">✝️🧿🪬</p>
@@ -139,13 +173,13 @@
   </div>
   <script>
     var T = {
-      en: { kicker:"Closed desk · not a public app", lede:"35 is a private earned-credit ledger for this desk. There is no public bot to click, no coin to buy, no deposit to send. Follow the record. Mail if you must. Mint stays unpublished until the desk books realized profit.", record:"Public record", c1t:"Closed", c1p:"The sniper and flash are not a public product.", c2t:"Earned only", c2p:"Credit later comes from signed desk-usage memos. Nobody buys 35.", c3t:"Not a listing", c3p:"No pool today. Do not look for a contract to ape.", locked:"Locked", lockedp:"Path A. Closed desk. No purchase. No redeem. No public app.", addr:"Addresses", mode:"Mode", support:"Support", mint:"Mint", pool:"Pool", askt:"Ask 35", askp:"You get an instant answer here. The same question is also sent to 35@elghaly.dev so the desk can reply.", termst:"Terms", t1:"Earned only. 35 is never sold. No presale, no public sale, no purchase of any kind.", t2:"No deposits. Nobody sends SOL or USDC to a 35 address in exchange for credit.", t3:"No redemption. Credit is not redeemable for cash, SOL, or USDC. There is no redemption desk.", t4:"Not equity. Not a SAFE, note, or claim on any company. Not a promise of profit or buyback. Not a deposit receipt.", t5:"A credit exists only when an allowlisted desk signer lands a signed memo for work published in the earn schedule.", t6:"Supply at mint is the credit ledger total. It is derived from signed memos, never an invented number.", termsn:"Full rules, kill list, and earn schedule are in the public record at github.com/Alarm2024/35.", earnt:"Earn schedule", earnwhat:"What earns a credit", earncredit:"Credit", earnp:"A rate that is not on this table cannot be issued \u2014 the issuer refuses it and the mint gate fails the ledger. Rates may change; already-issued credits keep the rate they were issued at.", footerDream:"\ud83d\udcad you dream we build \ud83e\udde0\ud83d\udca1", footerMade:"made by love \u2764\ufe0f", weAre24:"We are 24" }
+      en: { kicker:"Closed desk · not a public app", lede:"35 is a private earned-credit ledger for this desk. There is no public bot to click, no coin to buy, no deposit to send. Follow the record. Mail if you must. Mint stays unpublished until the desk books realized profit.", record:"Public record", c1t:"Closed", c1p:"The sniper and flash are not a public product.", c2t:"Earned only", c2p:"Credit later comes from signed desk-usage memos. Nobody buys 35.", c3t:"Not a listing", c3p:"No pool today. Do not look for a contract to ape.", doorst:"Doors", doorIris:"Free glass server to think and ship. Not a 35 purchase.", doorPlumb:"Ready desk software. Paid seats on Plumb — see live pricing there.", doorsn:"These are separate products. This page is the closed 35 desk — earned credits only, never sold.", locked:"Locked", lockedp:"Path A. Closed desk. No purchase. No redeem. No public app.", addr:"Addresses", mode:"Mode", support:"Support", mint:"Mint", pool:"Pool", askt:"Ask 35", askp:"You get an instant answer here. The same question is also sent to 35@elghaly.dev so the desk can reply.", termst:"Terms", t1:"Earned only. 35 is never sold. No presale, no public sale, no purchase of any kind.", t2:"No deposits. Nobody sends SOL or USDC to a 35 address in exchange for credit.", t3:"No redemption. Credit is not redeemable for cash, SOL, or USDC. There is no redemption desk.", t4:"Not equity. Not a SAFE, note, or claim on any company. Not a promise of profit or buyback. Not a deposit receipt.", t5:"A credit exists only when an allowlisted desk signer lands a signed memo for work published in the earn schedule.", t6:"Supply at mint is the credit ledger total. It is derived from signed memos, never an invented number.", termsn:"Full rules, kill list, and earn schedule are in the public record at github.com/Alarm2024/35.", earnt:"Earn schedule", earnwhat:"What earns a credit", earncredit:"Credit", earnp:"A rate that is not on this table cannot be issued \u2014 the issuer refuses it and the mint gate fails the ledger. Rates may change; already-issued credits keep the rate they were issued at.", footerDream:"\ud83d\udcad you dream we build \ud83e\udde0\ud83d\udca1", footerMade:"made by love \u2764\ufe0f", weAre24:"We are 24" }
     };
-    T.ar = Object.assign({}, T.en, { kicker:"\u0645\u0643\u062a\u0628 \u0645\u063a\u0644\u0642", askt:"\u0627\u0633\u0623\u0644 35", support:"\u0627\u0644\u062f\u0639\u0645", record:"\u0627\u0644\u0633\u062c\u0644", askp:"\u0625\u062c\u0627\u0628\u0629 \u0641\u0648\u0631\u064a\u0629 \u0647\u0646\u0627\u060c \u0648\u0646\u0641\u0633 \u0627\u0644\u0633\u0624\u0627\u0644 \u064a\u0635\u0644 \u0625\u0644\u0649 35@elghaly.dev.", footerDream:"\ud83d\udcad \u0623\u0646\u062a \u062a\u062d\u0644\u0645 \u0648\u0646\u062d\u0646 \u0646\u0628\u0646\u064a \ud83e\udde0\ud83d\udca1", footerMade:"\u0635\u0646\u0639 \u0628\u062d\u0628 \u2764\ufe0f", weAre24:"\u0646\u062d\u0646 24" });
-    T.ru = Object.assign({}, T.en, { kicker:"\u0417\u0430\u043a\u0440\u044b\u0442\u044b\u0439 \u0434\u0435\u0441\u043a", askt:"\u0421\u043f\u0440\u043e\u0441\u0438\u0442\u044c 35", footerDream:"\ud83d\udcad \u0442\u044b \u043c\u0435\u0447\u0442\u0430\u0435\u0448\u044c \u2014 \u043c\u044b \u0441\u0442\u0440\u043e\u0438\u043c \ud83e\udde0\ud83d\udca1", footerMade:"\u0441\u0434\u0435\u043b\u0430\u043d\u043e \u0441 \u043b\u044e\u0431\u043e\u0432\u044c\u044e \u2764\ufe0f", weAre24:"\u041c\u044b 24" });
-    T.zh = Object.assign({}, T.en, { kicker:"\u95ed\u95e8\u53f0\u5b50", askt:"\u95ee 35", footerDream:"\ud83d\udcad \u4f60\u505a\u68a6\uff0c\u6211\u4eec\u5efa\u9020 \ud83e\udde0\ud83d\udca1", footerMade:"\u7528\u7231\u5236\u4f5c \u2764\ufe0f", weAre24:"\u6211\u4eec\u662f 24" });
-    T.de = Object.assign({}, T.en, { kicker:"Geschlossener Desk", askt:"35 fragen", footerDream:"\ud83d\udcad du tr\u00e4umst, wir bauen \ud83e\udde0\ud83d\udca1", footerMade:"mit Liebe gemacht \u2764\ufe0f", weAre24:"Wir sind 24" });
-    T.es = Object.assign({}, T.en, { kicker:"Mesa cerrada", askt:"Preguntar a 35", footerDream:"\ud83d\udcad t\u00fa sue\u00f1as, nosotros construimos \ud83e\udde0\ud83d\udca1", footerMade:"hecho con amor \u2764\ufe0f", weAre24:"Somos 24" });
+    T.ar = Object.assign({}, T.en, { kicker:"\u0645\u0643\u062a\u0628 \u0645\u063a\u0644\u0642", askt:"\u0627\u0633\u0623\u0644 35", support:"\u0627\u0644\u062f\u0639\u0645", record:"\u0627\u0644\u0633\u062c\u0644", doorst:"\u0623\u0628\u0648\u0627\u0628", doorIris:"\u062e\u0627\u062f\u0645 \u0632\u062c\u0627\u062c\u064a \u0645\u062c\u0627\u0646\u064a \u0644\u0644\u062a\u0641\u0643\u064a\u0631 \u0648\u0627\u0644\u0628\u0646\u0627\u0621. \u0644\u064a\u0633 \u0634\u0631\u0627\u0621 35.", doorPlumb:"\u0628\u0631\u0645\u062c\u064a\u0627\u062a \u0645\u0643\u062a\u0628 \u062c\u0627\u0647\u0632\u0629. \u0645\u0642\u0627\u0639\u062f \u0645\u062f\u0641\u0648\u0639\u0629 \u0639\u0644\u0649 Plumb \u2014 \u0627\u0644\u0623\u0633\u0639\u0627\u0631 \u0647\u0646\u0627\u0643.", doorsn:"\u0645\u0646\u062a\u062c\u0627\u062a \u0645\u0646\u0641\u0635\u0644\u0629. \u0647\u0630\u0647 \u0627\u0644\u0635\u0641\u062d\u0629 \u0645\u0643\u062a\u0628 35 \u0645\u063a\u0644\u0642 \u2014 \u0627\u0639\u062a\u0645\u0627\u062f \u0641\u0642\u0637 \u0644\u0627 \u0628\u064a\u0639.", askp:"\u0625\u062c\u0627\u0628\u0629 \u0641\u0648\u0631\u064a\u0629 \u0647\u0646\u0627\u060c \u0648\u0646\u0641\u0633 \u0627\u0644\u0633\u0624\u0627\u0644 \u064a\u0635\u0644 \u0625\u0644\u0649 35@elghaly.dev.", footerDream:"\ud83d\udcad \u0623\u0646\u062a \u062a\u062d\u0644\u0645 \u0648\u0646\u062d\u0646 \u0646\u0628\u0646\u064a \ud83e\udde0\ud83d\udca1", footerMade:"\u0635\u0646\u0639 \u0628\u062d\u0628 \u2764\ufe0f", weAre24:"\u0646\u062d\u0646 24" });
+    T.ru = Object.assign({}, T.en, { kicker:"\u0417\u0430\u043a\u0440\u044b\u0442\u044b\u0439 \u0434\u0435\u0441\u043a", askt:"\u0421\u043f\u0440\u043e\u0441\u0438\u0442\u044c 35", doorst:"\u0414\u0432\u0435\u0440\u0438", doorIris:"\u0411\u0435\u0441\u043f\u043b\u0430\u0442\u043d\u044b\u0439 \u0441\u0435\u0440\u0432\u0435\u0440 \u0434\u043b\u044f \u043c\u044b\u0441\u043b\u0435\u0439 \u0438 \u0441\u0431\u043e\u0440\u043a\u0438. \u041d\u0435 \u043f\u043e\u043a\u0443\u043f\u043a\u0430 35.", doorPlumb:"\u0413\u043e\u0442\u043e\u0432\u043e\u0435 \u041f\u041e \u0434\u0435\u0441\u043a\u0430. \u041f\u043b\u0430\u0442\u043d\u044b\u0435 \u043c\u0435\u0441\u0442\u0430 \u043d\u0430 Plumb \u2014 \u0446\u0435\u043d\u044b \u0442\u0430\u043c.", doorsn:"\u042d\u0442\u043e \u043e\u0442\u0434\u0435\u043b\u044c\u043d\u044b\u0435 \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u044b. \u042d\u0442\u0430 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0430 \u2014 \u0437\u0430\u043a\u0440\u044b\u0442\u044b\u0439 \u0434\u0435\u0441\u043a 35, \u0442\u043e\u043b\u044c\u043a\u043e \u0437\u0430\u0440\u0430\u0431\u043e\u0442\u043e\u043a.", footerDream:"\ud83d\udcad \u0442\u044b \u043c\u0435\u0447\u0442\u0430\u0435\u0448\u044c \u2014 \u043c\u044b \u0441\u0442\u0440\u043e\u0438\u043c \ud83e\udde0\ud83d\udca1", footerMade:"\u0441\u0434\u0435\u043b\u0430\u043d\u043e \u0441 \u043b\u044e\u0431\u043e\u0432\u044c\u044e \u2764\ufe0f", weAre24:"\u041c\u044b 24" });
+    T.zh = Object.assign({}, T.en, { kicker:"\u95ed\u95e8\u53f0\u5b50", askt:"\u95ee 35", doorst:"\u95e8", doorIris:"\u514d\u8d39\u73bb\u7483\u670d\u52a1\u5668\uff0c\u601d\u8003\u4e0e\u53d1\u5e03\u3002\u975e 35 \u8d2d\u4e70\u3002", doorPlumb:"\u5373\u7528\u684c\u9762\u8f6f\u4ef6\u3002Plumb \u4ed8\u8d39\u5ea7\u4f4d \u2014 \u4ef7\u683c\u89c1\u73b0\u573a\u3002", doorsn:"\u72ec\u7acb\u4ea7\u54c1\u3002\u672c\u9875\u662f\u5173\u95ed\u7684 35 \u684c\u9762 \u2014 \u4ec5\u8d5a\u53d6\u4fe1\u7528\uff0c\u4ece\u4e0d\u552e\u5356\u3002", footerDream:"\ud83d\udcad \u4f60\u505a\u68a6\uff0c\u6211\u4eec\u5efa\u9020 \ud83e\udde0\ud83d\udca1", footerMade:"\u7528\u7231\u5236\u4f5c \u2764\ufe0f", weAre24:"\u6211\u4eec\u662f 24" });
+    T.de = Object.assign({}, T.en, { kicker:"Geschlossener Desk", askt:"35 fragen", doorst:"T\u00fcren", doorIris:"Kostenloser Glass-Server zum Denken und Shippen. Kein 35-Kauf.", doorPlumb:"Fertige Desk-Software. Bezahlte Pl\u00e4tze auf Plumb \u2014 Preise dort.", doorsn:"Getrennte Produkte. Diese Seite ist der geschlossene 35-Desk \u2014 nur verdient, nie verkauft.", footerDream:"\ud83d\udcad du tr\u00e4umst, wir bauen \ud83e\udde0\ud83d\udca1", footerMade:"mit Liebe gemacht \u2764\ufe0f", weAre24:"Wir sind 24" });
+    T.es = Object.assign({}, T.en, { kicker:"Mesa cerrada", askt:"Preguntar a 35", doorst:"Puertas", doorIris:"Servidor de cristal gratis para pensar y publicar. No es compra de 35.", doorPlumb:"Software de desk listo. Asientos de pago en Plumb \u2014 precios all\u00ed.", doorsn:"Productos separados. Esta p\u00e1gina es el desk 35 cerrado \u2014 solo ganado, nunca vendido.", footerDream:"\ud83d\udcad t\u00fa sue\u00f1as, nosotros construimos \ud83e\udde0\ud83d\udca1", footerMade:"hecho con amor \u2764\ufe0f", weAre24:"Somos 24" });
     var LANGS = ["en","ar","ru","zh","de","es"];
     var LABELS = { en:"EN", ar:"AR", ru:"RU", zh:"\u4e2d\u6587", de:"DE", es:"ES" };
     function applyLang(lang) {
