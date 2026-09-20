@@ -1,1 +1,7 @@
-(function(){var s=document.createElement('script');s.src='themes.js?v=menu9';document.head.appendChild(s);})();
+(function(){
+  var img=document.querySelector('.banner img');
+  if(img){
+    img.src='IMG_5183.jpeg';
+    img.alt='35 ElGhaly';
+  }
+})();
