@@ -1,8 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" role="img" aria-label="35 ElGhaly">
+  <defs>
+    <radialGradient id="glow" cx="18%" cy="48%" r="38%">
+      <stop offset="0" stop-color="#2ee6c7" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#0b1214" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
   <rect width="1200" height="420" rx="24" fill="#0b1214"/>
-  <circle cx="980" cy="80" r="160" fill="#2ee6c7" opacity=".08"/>
-  <circle cx="160" cy="340" r="140" fill="#2ee6c7" opacity=".06"/>
-  <text x="80" y="200" fill="#e8fbf6" font-family="ui-sans-serif,system-ui,sans-serif" font-size="92" font-weight="800">35</text>
-  <text x="80" y="260" fill="#2ee6c7" font-family="ui-sans-serif,system-ui,sans-serif" font-size="28" letter-spacing="12">ELGHALY</text>
-  <text x="80" y="330" fill="#9ab3ad" font-family="ui-sans-serif,system-ui,sans-serif" font-size="28">✝️ 🧿 🪬</text>
+  <rect width="1200" height="420" fill="url(#glow)"/>
+  <circle cx="1020" cy="70" r="170" fill="#2ee6c7" opacity=".06"/>
+  <g transform="translate(168 210)">
+    <circle r="78" fill="none" stroke="#2ee6c7" stroke-width="7"/>
+    <circle r="30" fill="#2ee6c7"/>
+    <circle cx="8" cy="-8" r="6" fill="#e8fbf6" opacity=".85"/>
+  </g>
+  <text x="290" y="168" fill="#e8fbf6" font-family="ui-sans-serif,system-ui,sans-serif" font-size="78" font-weight="800" letter-spacing="8">35</text>
+  <text x="290" y="236" fill="#2ee6c7" font-family="ui-sans-serif,system-ui,sans-serif" font-size="28" font-weight="700" letter-spacing="14">ELGHALY</text>
+  <text x="290" y="286" fill="#9ab3ad" font-family="ui-sans-serif,system-ui,sans-serif" font-size="22" letter-spacing="8">CLOSED DESK</text>
+  <text x="290" y="348" fill="#c8ccd4" font-family="ui-sans-serif,system-ui,sans-serif" font-size="28">✝️ 🧿 🪬</text>
 </svg>
