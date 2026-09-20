@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" role="img" aria-label="35 ElGhaly">
+  <rect width="1200" height="420" rx="24" fill="#0b1214"/>
+  <circle cx="980" cy="80" r="160" fill="#2ee6c7" opacity=".08"/>
+  <circle cx="160" cy="340" r="140" fill="#2ee6c7" opacity=".06"/>
+  <text x="80" y="200" fill="#e8fbf6" font-family="ui-sans-serif,system-ui,sans-serif" font-size="92" font-weight="800">35</text>
+  <text x="80" y="260" fill="#2ee6c7" font-family="ui-sans-serif,system-ui,sans-serif" font-size="28" letter-spacing="12">ELGHALY</text>
+  <text x="80" y="330" fill="#9ab3ad" font-family="ui-sans-serif,system-ui,sans-serif" font-size="28">✝️ 🧿 🪬</text>
+</svg>
