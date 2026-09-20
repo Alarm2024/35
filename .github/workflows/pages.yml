@@ -21,7 +21,7 @@ jobs:
       - name: Build public site artifact
         run: |
           mkdir -p _site
-          cp index.html protocol.json metadata.json favicon.svg .nojekyll _site/
+          cp index.html protocol.json metadata.json favicon.svg themes.js .nojekyll _site/
           if [ -f CNAME ]; then cp CNAME _site/; fi
           if [ -f hero.svg ]; then cp hero.svg _site/; fi
           if [ -f IMG_5183.jpeg ]; then cp IMG_5183.jpeg _site/; fi
