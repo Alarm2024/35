@@ -29,6 +29,10 @@
       termsn:"Full rules, kill list, and earn schedule are in the public record at github.com/Alarm2024/35.",
       earnt:"Earn schedule", earnwhat:"What earns a credit", earncredit:"Credit",
       earnp:"A rate that is not on this table cannot be issued \u2014 the issuer refuses it and the mint gate fails the ledger. Rates may change; already-issued credits keep the rate they were issued at.",
+      credt:"What a credit is for",
+      cred1:"Today \u2014 nothing spendable. A credit is a signed ledger row proving the desk recorded work at the published rate. It does not entitle anyone to tokens, cash, SOL, or USDC right now. Mint unpublished. No pool.",
+      cred2:"Later \u2014 only if the desk books realized profit against rent, the ledger reconciles, gate.js prints PASS, and the owner explicitly says mint: each credit may convert 1:1 to one unit of 35 at six decimals in a single mint event. Supply equals the ledger total from signed memos \u2014 never invented. Until then, credits stay credits.",
+      cred3:"Never \u2014 35 is not sold. Nobody buys credit with SOL or USDC. Not redeemable for cash or crypto. Not equity, not a deposit receipt, not a promise of profit or buyback. If the gate never passes, credits remain credits.",
       ledt:"Ledger",
       footerDream:"\ud83d\udcad you dream we build \ud83e\udde0\ud83d\udca1",
       footerMade:"made by love \u2764\ufe0f",
@@ -73,7 +77,7 @@
     if (/mint|contract|\bca\b|token address/.test(q)) return "Mint is unpublished. There is no contract to ape.";
     if (/pool|jupiter|swap|raydium|meteora/.test(q)) return "No 35/USDC pool yet.";
     if (/airdrop|member|points/.test(q)) return "Visiting this site does not earn 35.";
-    if (/iris|plumb|door/.test(q)) return "Doors: Iris (free glass) at iris-35.elghaly.dev. Plumb (ready desk seats) at plumb.elghaly.dev. Neither sells 35 credits.";
+    if (/iris|plumb|door/.test(q)) return "Doors: Iris (free glass) at iris-35.elghaly.dev. Plumb (ready desk seats) at plumb-35.elghaly.dev. Neither sells 35 credits.";
     if (/reconcil|ledger|w38|week/.test(q)) return "Ledger 2026-W38: on chain 5, in ledger 5, missing 0, total 5.000000, RECONCILED. Mint unpublished.";
     return "Logged to the desk. A human reads 35@elghaly.dev.";
   }
