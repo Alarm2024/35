@@ -73,7 +73,7 @@
     if (/mint|contract|\bca\b|token address/.test(q)) return "Mint is unpublished. There is no contract to ape.";
     if (/pool|jupiter|swap|raydium|meteora/.test(q)) return "No 35/USDC pool yet.";
     if (/airdrop|member|points/.test(q)) return "Visiting this site does not earn 35.";
-    if (/iris|plumb|door/.test(q)) return "Doors: Iris (free glass) at iris-35.elghaly.dev. Plumb (ready desk seats) at plumb.elghaly.dev. Neither sells 35 credits.";
+    if (/iris|plumb|door/.test(q)) return "Doors: Iris (free glass) at iris-35.elghaly.dev. Plumb (ready desk seats) at plumb-35.elghaly.dev. Neither sells 35 credits.";
     if (/reconcil|ledger|w38|week/.test(q)) return "Ledger 2026-W38: on chain 5, in ledger 5, missing 0, total 5.000000, RECONCILED. Mint unpublished.";
     return "Logged to the desk. A human reads 35@elghaly.dev.";
   }
