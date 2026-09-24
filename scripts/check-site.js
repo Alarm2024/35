@@ -22,7 +22,11 @@ function fail(reason) {
 }
 
 const html = fs.readFileSync(path.join(ROOT, "index.html"), "utf8");
-const workflow = fs.readFileSync(path.join(ROOT, ".github/workflows/pages.yml"), "utf8");
+// A test can point this at its own copy of the workflow instead of editing the
+// real file in place. Two tests editing the one shared file raced on Node 24:
+// one test's restore landed before the other's check read the file.
+const workflowPath = process.env.CHECK_SITE_WORKFLOW || path.join(ROOT, ".github/workflows/pages.yml");
+const workflow = fs.readFileSync(workflowPath, "utf8");
 
 // Local assets the page depends on: not external, not mail, not in-page.
 const references = [...html.matchAll(/(?:href|src)="([^"]+)"/g)]
