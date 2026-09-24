@@ -34,7 +34,7 @@ Key roles: `docs/WALLET_MAP.md`. Do not put bot hot keys on mint, freeze, LP, po
 | Field | Value |
 |---|---|
 | Site | https://35.elghaly.dev |
-| Jurisdiction | California — 548 Market St, San Francisco, CA 94104 |
+| Jurisdiction | California |
 | 35 deskSigner | `3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo` |
 | Squads vault | `GMyuRJbwPTF5pEHvMCNJqujoLk8tZCdFY6i9feMoczcQ` |
 | Squads treasury UI | https://app.squads.so/squads/GMyuRJbwPTF5pEHvMCNJqujoLk8tZCdFY6i9feMoczcQ/treasury |
