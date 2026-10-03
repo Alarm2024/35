@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://35.elghaly.dev/sitemap.xml
