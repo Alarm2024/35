@@ -25,6 +25,7 @@ const fs = require("fs");
 const path = require("path");
 
 const { parseMemo } = require("./lib/memo");
+const { checkMemoFields } = require("./lib/ledger");
 const { rpcFactory } = require("./lib/rpc");
 const { ROOT, readJson, createReporter } = require("./lib/checks");
 const txLib = require("./lib/tx");
@@ -43,15 +44,23 @@ With --send:    submits the transaction and prints its signature.
 
 The signer is read from KEYPAIR_PATH (a solana-cli keypair JSON file).`;
 
+// Every flag this script knows. Anything else stops it: a typo such as
+// `--dry-run` must not fall through to the path that signs (and, with --send,
+// transmits).
+const VALUE_FLAGS = new Set(["--memo"]);
+const BOOL_FLAGS = new Set(["--send"]);
+
 function parseArgs(argv) {
   const args = { send: false };
   for (let i = 0; i < argv.length; i += 1) {
     const key = argv[i];
-    if (key === "--send") {
+    if (BOOL_FLAGS.has(key)) {
       args.send = true;
       continue;
     }
     if (!key.startsWith("--")) return { error: `unexpected argument: ${key}` };
+    if (!VALUE_FLAGS.has(key)) return { error: `unknown flag: ${key}` };
+    if (Object.hasOwn(args, key.slice(2))) return { error: `${key} given twice` };
     const value = argv[i + 1];
     if (value === undefined || value.startsWith("--")) return { error: `${key} needs a value` };
     args[key.slice(2)] = value;
@@ -79,6 +88,11 @@ async function main() {
   // never match the ledger.
   const memo = parseMemo(args.memo);
   if (!memo.ok) fail(`--memo is not a valid credit memo: ${memo.error}`);
+  // The same checks the ledger applies to an entry, so nothing lands that
+  // ledger verification would later reject.
+  const ledgerCheck = checkMemoFields(memo);
+  if (ledgerCheck.fatal) fail(`--memo ${ledgerCheck.fatal}`);
+  if (ledgerCheck.errors.length > 0) fail(`--memo would be rejected by the ledger: ${ledgerCheck.errors.join("; ")}`);
 
   const report = createReporter();
   const config = readJson("config/protocol.json", report);
@@ -169,7 +183,11 @@ async function main() {
   console.log("");
 }
 
-main().catch((error) => {
-  console.error(`FAIL: ${error.message}`);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch((error) => {
+    console.error(`FAIL: ${error.message}`);
+    process.exit(1);
+  });
+}
+
+module.exports = { parseArgs };
