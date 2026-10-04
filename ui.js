@@ -78,7 +78,7 @@
     if (/pool|jupiter|swap|raydium|meteora/.test(q)) return "No 35/USDC pool yet.";
     if (/airdrop|member|points/.test(q)) return "Visiting this site does not earn 35.";
     if (/iris|plumb|door/.test(q)) return "Doors: Iris (free glass) at iris-35.elghaly.dev. Plumb (ready desk seats) at plumb-35.elghaly.dev. Neither sells 35 credits.";
-    if (/reconcil|ledger|w38|week/.test(q)) return "Ledger 2026-W38: on chain 5, in ledger 5, missing 0, total 5.000000, RECONCILED. Mint unpublished.";
+    if (/reconcil|ledger|w38|week/.test(q)) return "Ledger snapshot from the desk box, 2026-W38: on chain 5, in ledger 5, missing 0, total 5.000000, reconciled then. This page does not recompute it. Mint unpublished.";
     return "Logged to the desk. A human reads 35@elghaly.dev.";
   }
   function notifyDesk(q) {
@@ -86,7 +86,14 @@
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify({ _subject: "ASK 35 \u2014 35.elghaly.dev", message: q, source: "https://35.elghaly.dev" })
-    }).then(function (r) { return r.json().catch(function () { return {}; }); });
+    }).then(function (r) {
+      // A 4xx/5xx from the form service is a failed send, not a sent copy.
+      if (!r.ok) throw new Error("form service HTTP " + r.status);
+      return r.json().catch(function () { return {}; }).then(function (j) {
+        if (j && (j.success === false || j.success === "false")) throw new Error("form service refused");
+        return j;
+      });
+    });
   }
   var askBtn = document.getElementById("askBtn");
   if (askBtn) askBtn.onclick = function () {
