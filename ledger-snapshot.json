@@ -1,0 +1,19 @@
+{
+  "format": "35-ledger-snapshot/1",
+  "at": "2026-09-17T18:21:41Z",
+  "week": "2026-W38",
+  "onChain": 5,
+  "inLedger": 5,
+  "missing": 0,
+  "entries": 5,
+  "total": "5.000000",
+  "byWeek": [
+    {
+      "week": "2026-W38",
+      "credit": "5.000000"
+    }
+  ],
+  "status": "reconciled",
+  "fingerprint": "e806b083196e845da18028e8f5991755868b5782f3d13b7e195a5f56368a3786",
+  "source": "scripts/reconcile.js on the desk box (receipt config/reconciled.json, 2026-09-17). This page shows that run; it does not recompute the ledger."
+}
