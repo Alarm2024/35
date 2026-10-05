@@ -4,10 +4,10 @@
   var T = {
     en: {
       kicker:"Closed desk \u00b7 not a public app",
-      lede:"35 is a private earned-credit ledger for this desk. There is no public bot to click, no coin to buy, no deposit to send. Follow the record. Mail if you must. Mint stays unpublished until the desk books realized profit.",
+      lede:"35 is a private earned-credit ledger for this desk. There is no public bot to click, no coin to buy, no deposit to send. Follow the record. Mail if you must. Mint stays unpublished until the desk\u2019s realized earnings cover its rent.",
       record:"Public record",
       c1t:"Closed", c1p:"The sniper and flash are not a public product.",
-      c2t:"Earned only", c2p:"Credit later comes from signed desk-usage memos. Nobody buys 35.",
+      c2t:"Earned, not bought", c2p:"Credit later comes from signed desk-usage memos. Nobody buys 35.",
       c3t:"Not a listing", c3p:"No pool today. Do not look for a contract to ape.",
       doorst:"Doors",
       door1n:"Iris \u00b7 free glass",
@@ -20,19 +20,19 @@
       askt:"Ask 35",
       askp:"You get an instant answer here. The same question is also sent to 35@elghaly.dev so the desk can reply.",
       termst:"Terms",
-      t1:"Earned only. 35 is never sold. No presale, no public sale, no purchase of any kind.",
+      t1:"Earned, not bought. 35 is never sold. No presale, no public sale, no purchase of any kind.",
       t2:"No deposits. Nobody sends SOL or USDC to a 35 address in exchange for credit.",
       t3:"No redemption. Credit is not redeemable for cash, SOL, or USDC. There is no redemption desk.",
-      t4:"Not equity. Not a SAFE, note, or claim on any company. Not a promise of profit or buyback. Not a deposit receipt.",
-      t5:"A credit exists only when an allowlisted desk signer lands a signed memo for work published in the earn schedule.",
+      t4:"Not equity. Not a SAFE, note, or claim on any company. Not a promise of returns or buyback. Not a deposit receipt.",
+      t5:"A credit comes into being when an allowlisted desk signer lands a signed memo for work published in the earn schedule, and in no other way.",
       t6:"Supply at mint is the credit ledger total. It is derived from signed memos, never an invented number.",
       termsn:"Full rules, kill list, and earn schedule are in the public record at github.com/Alarm2024/35.",
       earnt:"Earn schedule", earnwhat:"What earns a credit", earncredit:"Credit",
       earnp:"A rate that is not on this table cannot be issued \u2014 the issuer refuses it and the mint gate fails the ledger. Rates may change; already-issued credits keep the rate they were issued at.",
       credt:"What a credit is for",
       cred1:"Today \u2014 nothing spendable. A credit is a signed ledger row proving the desk recorded work at the published rate. It does not entitle anyone to tokens, cash, SOL, or USDC right now. Mint unpublished. No pool.",
-      cred2:"Later \u2014 only if the desk books realized profit against rent, the ledger reconciles, gate.js prints PASS, and the owner explicitly says mint: each credit may convert 1:1 to one unit of 35 at six decimals in a single mint event. Supply equals the ledger total from signed memos \u2014 never invented. Until then, credits stay credits.",
-      cred3:"Never \u2014 35 is not sold. Nobody buys credit with SOL or USDC. Not redeemable for cash or crypto. Not equity, not a deposit receipt, not a promise of profit or buyback. If the gate never passes, credits remain credits.",
+      cred2:"Later \u2014 when all of these hold: the desk\u2019s realized earnings cover rent, the ledger reconciles, gate.js prints PASS, and the owner explicitly says mint: each credit may convert 1:1 to one unit of 35 at six decimals in a single mint event. Supply equals the ledger total from signed memos \u2014 never invented. Until then, credits stay credits.",
+      cred3:"Never \u2014 35 is not sold. Nobody buys credit with SOL or USDC. Not redeemable for cash or crypto. Not equity, not a deposit receipt, not a promise of returns or buyback. If the gate never passes, credits remain credits.",
       ledt:"Ledger",
       footerDream:"\ud83d\udcad you dream we build \ud83e\udde0\ud83d\udca1",
       footerMade:"made by love \u2764\ufe0f",
@@ -110,6 +110,40 @@
   if (mailBtn) mailBtn.onclick = function () {
     location.href = "mailto:35@elghaly.dev?subject=ASK%2035&body=" + encodeURIComponent((document.getElementById("q")||{}).value || "");
   };
+  // The ledger block is filled from /ledger-snapshot.json, the last reconcile
+  // run on the desk box. If that file cannot be read, the block says so rather
+  // than keep showing a state nobody checked.
+  fetch("/ledger-snapshot.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (s) {
+    var box = document.getElementById("ledger");
+    if (!box) return;
+    function put(key, v) { var el = box.querySelector('[data-snap="' + key + '"]'); if (el) el.textContent = String(v); }
+    function blank() {
+      var cells = box.querySelectorAll("[data-snap]");
+      for (var i = 0; i < cells.length; i++) cells[i].textContent = "\u2014";
+      put("status", "snapshot unavailable");
+    }
+    if (!s || s.format !== "35-ledger-snapshot/1") {
+      blank();
+      var n = document.getElementById("ledgerNote");
+      if (n) n.textContent = "The ledger snapshot could not be read, so no ledger state is shown. Mint stays unpublished.";
+      return;
+    }
+    var day = String(s.at || "").slice(0, 10);
+    put("onChain", s.onChain); put("inLedger", s.inLedger); put("missing", s.missing);
+    put("entries", s.entries); put("total", s.total);
+    var w = (s.byWeek && s.byWeek[s.byWeek.length - 1]) || null;
+    if (w) { put("week", w.week); put("weekCredit", w.credit); }
+    put("status", (s.status === "reconciled" ? "reconciled" : "not reconciled") + " on " + day);
+  }).catch(function () {
+    var box = document.getElementById("ledger");
+    if (!box) return;
+    var cells = box.querySelectorAll("[data-snap]");
+    for (var i = 0; i < cells.length; i++) cells[i].textContent = "\u2014";
+    var el = box.querySelector('[data-snap="status"]');
+    if (el) el.textContent = "snapshot unavailable";
+    var n = document.getElementById("ledgerNote");
+    if (n) n.textContent = "The ledger snapshot could not be read, so no ledger state is shown. Mint stays unpublished.";
+  });
   fetch("/protocol.json").then(function (r) { return r.ok ? r.json() : null; }).then(function (p) {
     if (!p) return;
     function set(id, v) { var el = document.getElementById(id); if (el && v) el.textContent = v; }

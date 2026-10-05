@@ -81,3 +81,41 @@ test("metadata.json names no mint, because none exists", () => {
     assert.equal(forbidden in metadata, false, `metadata.json must not carry ${forbidden}`);
   }
 });
+
+// Issue #40: the ledger block must not show a state the page cannot back up.
+test("the ledger block's static fallback equals ledger-snapshot.json", () => {
+  const root = path.resolve(__dirname, "../..");
+  const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
+  const snap = JSON.parse(fs.readFileSync(path.join(root, "ledger-snapshot.json"), "utf8"));
+  assert.equal(snap.format, "35-ledger-snapshot/1");
+  assert.match(snap.at, /^\d{4}-\d{2}-\d{2}T/);
+  const cell = (key) => {
+    const m = html.match(new RegExp(`data-snap="${key}">([^<]*)<`));
+    assert.ok(m, `index.html has a data-snap="${key}" cell`);
+    return m[1];
+  };
+  assert.equal(cell("onChain"), String(snap.onChain));
+  assert.equal(cell("inLedger"), String(snap.inLedger));
+  assert.equal(cell("missing"), String(snap.missing));
+  assert.equal(cell("entries"), String(snap.entries));
+  assert.equal(cell("total"), snap.total);
+  const last = snap.byWeek[snap.byWeek.length - 1];
+  assert.equal(cell("week"), last.week);
+  assert.equal(cell("weekCredit"), last.credit);
+  assert.equal(cell("status"), `${snap.status} on ${snap.at.slice(0, 10)}`);
+  assert.ok(!/>RECONCILED</.test(html), "no undated, unconditional RECONCILED");
+});
+
+test("ui.js fills the ledger from the snapshot and says so when it cannot", () => {
+  const ui = fs.readFileSync(path.resolve(__dirname, "../../ui.js"), "utf8");
+  assert.match(ui, /fetch\("\/ledger-snapshot\.json"\)/);
+  assert.match(ui, /snapshot unavailable/);
+});
+
+test("English page copy avoids the words the desk does not use", () => {
+  const root = path.resolve(__dirname, "../..");
+  const text = fs.readFileSync(path.join(root, "index.html"), "utf8").replace(/<[^>]+>/g, " ");
+  for (const word of ["profit", "guaranteed", "audit", "launched", "trading"]) {
+    assert.ok(!new RegExp(`\\b${word}\\b`, "i").test(text), `index.html says "${word}"`);
+  }
+});
