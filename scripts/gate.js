@@ -64,11 +64,23 @@ async function main() {
     console.log(`supply cap at mint would be ${result.total.credit} (ledger total, not invented)`);
   }
 
-  console.log("PASS");
+  console.log(verdict(result));
   process.exit(0);
 }
 
-main().catch((error) => {
-  console.error(`FAIL: gate crashed: ${error.message}`);
-  process.exit(1);
-});
+// A bare PASS only when every check of the mode ran. If a check was skipped
+// (postflight --offline skips the chain), the line says so instead.
+function verdict(result) {
+  const skipped = (result && result.skipped) || [];
+  if (skipped.length === 0) return "PASS";
+  return ["PASS (local checks only)", ...skipped.map((s) => `SKIPPED: ${s}`)].join("\n");
+}
+
+if (require.main === module) {
+  main().catch((error) => {
+    console.error(`FAIL: gate crashed: ${error.message}`);
+    process.exit(1);
+  });
+}
+
+module.exports = { parseArgs, verdict };

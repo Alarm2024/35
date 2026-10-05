@@ -389,13 +389,16 @@ async function run({ mode, offline = false, publicOnly = false, rpcFactory: inje
   const { total } = checkLedgerAndEarn(report, root);
   checkPnl(pnl, report);
 
+  const skipped = [];
   if (requireMintArtifacts && !offline && report.failures.length === 0) {
     await checkChain(protocol, configProtocol, total, report, { rpcFactory: injectedRpc });
   } else if (requireMintArtifacts && !offline) {
     report.fail("skipping on-chain verification because local checks already failed");
+  } else if (requireMintArtifacts && offline) {
+    skipped.push("on-chain postflight (--offline): mint and freeze authority, supply, position NFT holder, pool owner");
   }
 
-  return { ok: report.failures.length === 0, failures: report.failures, total };
+  return { ok: report.failures.length === 0, failures: report.failures, total, skipped };
 }
 
 module.exports = { ROOT, PUBLIC_FIELDS, CONFIG_FIELDS, run, readJson, createReporter };

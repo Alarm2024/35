@@ -23,6 +23,26 @@ function memoFor(entry) {
   return `${PREFIX}${entry.wallet}:${entry.credit}:${entry.week}`;
 }
 
+/**
+ * The per-entry memo checks the ledger applies: the memo round-trips through
+ * the memo format, the credit is already normalized, and the wallet is a real
+ * base58 Solana address. Returns { fatal } when the memo cannot be read at all.
+ */
+function checkMemoFields(fields) {
+  const parsed = parseMemo(memoFor(fields));
+  if (!parsed.ok) {
+    return { fatal: `does not round-trip through the memo format: ${parsed.error}`, errors: [] };
+  }
+  const errors = [];
+  if (parsed.credit !== fields.credit) {
+    errors.push(`credit is not normalized: ${fields.credit}`);
+  }
+  if (!isAddress(fields.wallet)) {
+    errors.push(`wallet is not a base58 Solana address: ${fields.wallet}`);
+  }
+  return { fatal: null, errors };
+}
+
 function load(ledgerPath) {
   if (!fs.existsSync(ledgerPath)) {
     return { ok: false, error: `missing ${ledgerPath}`, ledger: null };
@@ -75,20 +95,14 @@ function verify(ledger) {
     }
 
     // The memo is the on-chain artifact; rebuild and re-parse it so the ledger
-    // can never drift from what a desk signer actually landed.
-    const parsed = parseMemo(memoFor(entry));
-    if (!parsed.ok) {
-      errors.push(`${at} does not round-trip through the memo format: ${parsed.error}`);
+    // can never drift from what a desk signer actually landed. land-memo.js runs
+    // the same check before it signs, so nothing lands that this would reject.
+    const memoErrors = checkMemoFields(entry);
+    if (memoErrors.fatal) {
+      errors.push(`${at} ${memoErrors.fatal}`);
       return;
     }
-
-    if (parsed.credit !== entry.credit) {
-      errors.push(`${at}.credit is not normalized: ${entry.credit}`);
-    }
-
-    if (!isAddress(entry.wallet)) {
-      errors.push(`${at}.wallet is not a base58 Solana address: ${entry.wallet}`);
-    }
+    for (const e of memoErrors.errors) errors.push(`${at}.${e}`);
 
     // RULES.md: the same sourceSig cannot appear in two weeks. Global uniqueness
     // is the stricter form and implies it.
@@ -131,4 +145,6 @@ function save(ledgerPath, ledger) {
   fs.writeFileSync(ledgerPath, `${JSON.stringify(ledger, null, 2)}\n`);
 }
 
-module.exports = { LEDGER_VERSION, emptyLedger, memoFor, load, verify, append, save };
+module.exports = { LEDGER_VERSION, emptyLedger, memoFor, load, verify, append, save,
+  checkMemoFields,
+};

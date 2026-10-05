@@ -62,8 +62,11 @@ function verify(schedule) {
 }
 
 function creditFor(schedule, reason) {
-  const rule = schedule && schedule.rules ? schedule.rules[reason] : undefined;
-  if (!rule) {
+  // Own keys only: a plain object also answers "constructor", "toString" and
+  // "__proto__" with something truthy, and none of those is a published rule.
+  const rules = schedule && schedule.rules;
+  const rule = rules && typeof reason === "string" && Object.hasOwn(rules, reason) ? rules[reason] : undefined;
+  if (!rule || typeof rule !== "object") {
     return { ok: false, error: `reason ${JSON.stringify(reason)} is not in the earn schedule` };
   }
   return { ok: true, credit: rule.credit, describes: rule.describes };

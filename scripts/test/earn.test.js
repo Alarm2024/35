@@ -43,3 +43,16 @@ test("refuses a reason that is not published", () => {
   assert.equal(result.ok, false);
   assert.match(result.error, /not in the earn schedule/);
 });
+
+test("refuses inherited object keys as reasons (issue #36)", () => {
+  for (const reason of ["constructor", "toString", "__proto__", "hasOwnProperty", "valueOf"]) {
+    const result = creditFor(schedule, reason);
+    assert.equal(result.ok, false, `${reason} must not pass as a rule`);
+    assert.match(result.error, /not in the earn schedule/);
+  }
+});
+
+test("refuses a non-string reason", () => {
+  assert.equal(creditFor(schedule, undefined).ok, false);
+  assert.equal(creditFor(schedule, 0).ok, false);
+});
