@@ -80,8 +80,8 @@ No bot hot key (KEEP, 350, cheap_*) ever holds mint, freeze, LP, position NFT, o
 
 ## Jurisdiction
 
-- Locked: California.
+- Locked: Dubai, UAE.
 - Public `protocol.json` field `jurisdiction` currently reads
-  `California`. It must be non-empty at both gates.
+  `Dubai, UAE`. It must be non-empty at both gates.
 - Mint, pool, and supply cap remain closed regardless of jurisdiction naming.
 - If that field is empty, no public announcement and `scripts/gate.js` stays BLOCK.
