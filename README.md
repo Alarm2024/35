@@ -34,12 +34,11 @@ Key roles: `docs/WALLET_MAP.md`. Do not put bot hot keys on mint, freeze, LP, po
 | Field | Value |
 |---|---|
 | Site | https://35.elghaly.dev |
-| Jurisdiction | California — 548 Market St, San Francisco, CA 94104 |
+| Jurisdiction | Dubai, UAE |
 | 35 deskSigner | `3BZGNtr7AQ5c6Rf7nUhunfvqooQAtb5Eaek9Hw1npbLo` |
 | Squads vault | `GMyuRJbwPTF5pEHvMCNJqujoLk8tZCdFY6i9feMoczcQ` |
 | Squads treasury UI | https://app.squads.so/squads/GMyuRJbwPTF5pEHvMCNJqujoLk8tZCdFY6i9feMoczcQ/treasury |
-| Mail inbound | `*@elghaly.dev` → `wyndhamdesert@gmail.com` (live) |
-| Mail outbound | Gmail send-as `wyndham35@elghaly.dev` (live) |
+| Mail outbound | Gmail send-as `wyndham35@elghaly.dev` |
 
 Still closed: no mint, no pool, no outsider deposits into Squads treasury. Next work is
 desk, not token; mint only when `gate.js --preflight` passes, realized PnL covers the
@@ -90,7 +89,7 @@ because a rate you can pass on the command line is a discretionary rate.
 - `SECURITY.md` — keys outside repo; `KEYPAIR_PATH` from env only
 - `RULES.md` `KILL_LIST.md` `CONVERSION.md`
 - `docs/WALLET_MAP.md` — roles, locked deskSigner and Squads vault
-- `docs/MAIL_35.md` — live catch-all to `wyndhamdesert@gmail.com`, send as `wyndham35@elghaly.dev`
+- `docs/MAIL_35.md` — how elghaly.dev mail is received (Cloudflare Email Routing) and sent (as `wyndham35@elghaly.dev`)
 - `docs/GITHUB_DOMAIN.md` — apex domain verify taps
 
 Supply cap is derived, never invented: it is the credit ledger total at the snapshot

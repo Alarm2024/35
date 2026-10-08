@@ -35,7 +35,7 @@ function fixture(overrides = {}) {
       symbol: "35",
       decimals: 6,
       issuanceMode: "earned",
-      jurisdiction: "California",
+      jurisdiction: "Dubai, UAE",
       mint: MINT,
       squadsVault: VAULT,
       pool: POOL,
